@@ -1,0 +1,11 @@
+/* css for index */
+
+form{
+	display:table;
+	margin: 0 auto;
+	align-items: center;
+}
+
+.aaa{
+	display:table-cell;
+}
