@@ -1,0 +1,49 @@
+/*
+ *	This is the style shee for create account page
+ */
+
+	 /* css the imgcontainer */
+	 .imgcontainer {
+	     text-align: center;
+	     margin: 24px 0 12px 0;
+	 }
+
+	 /* css the logo */
+	 img.PKitchen {
+	     width: 40%;
+	     border-radius: 50%;
+	 }
+
+	 /* css the body if desired */
+	body{
+		margin: 0;
+		padding: 0;
+	}
+
+	/* center the title */
+	#title{
+		text-align: center;
+	}
+
+	/* css the form */
+	form {
+	    border: 3px solid #f1f1f1;
+		 margin: 0 auto;
+		 width: 400px;
+	}
+
+	/* css the text and password forms */
+	input[type=text], input[type=password] {
+	    width: 100%;
+	    padding: 12px 20px;
+	    margin: 8px 0;
+	    display: inline-block;
+	    border: 1px solid #ccc;
+	    box-sizing: border-box;
+	}
+
+	/* container padding */
+	.container {
+	    padding: 15px;
+	}
+}

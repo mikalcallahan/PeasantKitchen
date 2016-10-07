@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- This is the create account page of peasant kitchen -->
+
+<html>
+	<head>
+		<meta charset="utf-8"> <!-- requirements -->
+		<title> createaccount </title> <!-- create account title -->
+		<link rel="stylesheet" href="createaccount.css"> <!-- link css sheet -->
+		<script src="createaccount.js"></script> <!-- link js script if necessary -->
+	</head>
+
+	<body>
+		<div class="imgcontainer"> <!-- div class for imgcontainer -->
+		  <img src="img_avatar2.png" alt="PKitchen" class="pkitchen"> <!-- source to image -->
+		</div>
+
+		<h3 id="title">Create Account </h3> <!--title -->
+
+		<form action ="userprofile.html"> <!-- create form and link to userprofile.html -->
+			<div class = "container"> <!-- create container class for container -->
+				<label><b> First Name </b></label> <!-- label first name and create input -->
+				<input type="text" placeholder="First Name" name="firstname" required>
+
+				<label><b> Last Name </b></label> <!-- label last and create input -->
+				<input type = "text" placeholder="Last Name" name ="lastname" required>
+
+				<label><b> Username </b></label> <!-- label username and create input -->
+				<input type = "text" placeholder="Username" name = "username" required>
+
+				<label><b> Password </b><label> <!-- label password and create input -->
+				<input type = "password" placeholder="Password" name = "password" required>
+			</div>
+
+			<div id="submitbutton" class="container"> <!--create class for submitbutton and link to container -->
+				<button type="submit"> Comfirm </button> <!-- submit button -->
+			</div>
+		</form>
+</html>
