@@ -4,7 +4,7 @@
 
 |#|Name|Primary Task|
 |---|---|---|
-1|[Mikal Callahan](https://github.com/mikalcallahan)| front-end // project manager
+1|[Mikal Callahan](https://github.com/mikalcallahan)| front-end
 2|Zachary Go| front-end
 3|Josh Rodgers| front-end
 4|Kyle Gullicksen| back-end
