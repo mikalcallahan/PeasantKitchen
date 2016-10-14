@@ -39,7 +39,7 @@ public class SignInUser
     		handleSignInRequest(jsonMessage, session);
     	}catch(Exception e)
     	{
-    		Utilities.sendErrorMessageToUser(session, e);
+    		Utilities.sendErrorMessageToClient(session, e);
     	}
     }
     
@@ -53,7 +53,6 @@ public class SignInUser
     	User user = WebSocketGlobalEnvironment.instance().backendController.signUserIn(request.username);
     	sendResponse(session, user);
     }
-  
 
     
     private boolean verify(Request request) throws Exception

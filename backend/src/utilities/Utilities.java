@@ -6,7 +6,7 @@ import javax.websocket.Session;
 
 public class Utilities 
 {
-	public static void sendErrorMessageToUser(Session session, Exception e)
+	public static void sendErrorMessageToClient(Session session, Exception e)
 	{
 		try {
 			session.getBasicRemote().sendText(formatWebSocketException(e));
