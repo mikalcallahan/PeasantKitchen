@@ -10,19 +10,21 @@ import framework.User;
 
 public class BackendController 
 {
-	private static BackendController controller = null;
+	protected DatabaseController databaseController;
+	protected RecomendationController recomendationController;
 	
-	private BackendController()
+	public BackendController()
 	{
-		
+		this.initalize();
 	}
 	
-	public static BackendController instance()
+	private void initalize()
 	{
-		if(controller == null)
-			controller = new BackendController();
+		this.databaseController = new DatabaseController();
+		this.recomendationController = new RecomendationController();
 		
-		return controller;
+		//Set the recommendation controller as an observer of the database controller
+		this.databaseController.addObserver(this.recomendationController);
 	}
 	
 	
@@ -32,7 +34,8 @@ public class BackendController
 	
 	public User getUser(String username)
 	{
-		return null;
+		User user = this.databaseController.getUser(username);
+		return user;
 	}
 	
 	public User signUserIn(String username)
@@ -40,7 +43,6 @@ public class BackendController
 		//Does this user exist?
 		
 		User user = this.getUser(username); //if the user doesn't exist, this call will except
-		user.signedIn = true;
 		return user;
 	}
 
@@ -105,4 +107,6 @@ public class BackendController
 	 * I dunno if filtering is a backend or a frontend feature [My SRS spec doesn't have enough info
 	 * to answer this question, although I suspect it'll end up being a frontend feature]
 	 */
+	
+
 }

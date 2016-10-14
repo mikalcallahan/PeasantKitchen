@@ -6,19 +6,20 @@ import framework.User;
 
 public class DatabaseController extends ObserverSubject 
 {
-	private static DatabaseController instance = null;
-	
-	private DatabaseController()
+	public DatabaseController()
 	{
 		
 	}
 	
-	public static DatabaseController instance() 
+	public User getUser(String username)
 	{
-		if(instance == null)
-			instance = new DatabaseController();
+		//Do whatever is nessessary to query the database....
+		//then: construct a User object, and set the signin flag as appropiate.
 		
-		return instance;
+		User user = new User();
+		user.signedIn = true;
+		
+		return user;
 	}
 	
 	public User addUser(User tempUserObject)
