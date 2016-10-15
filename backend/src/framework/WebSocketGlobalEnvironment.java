@@ -9,13 +9,14 @@ public class WebSocketGlobalEnvironment
 {
 	private static WebSocketGlobalEnvironment environment;
 	
-	public Gson jsonConverter = new GsonBuilder().create();
-	public BackendController backendController;
+	private Gson jsonConverter;
+	private BackendController backendController;
 	//ResouceHandler class [maybe using jetty's. This handler manages files on the local file system]
 	
 	private WebSocketGlobalEnvironment()
 	{
-		
+		this.backendController = new BackendController();
+		this.jsonConverter = new GsonBuilder().create();
 	}
 	
 	public static WebSocketGlobalEnvironment instance()
@@ -24,5 +25,15 @@ public class WebSocketGlobalEnvironment
 			WebSocketGlobalEnvironment.environment = new WebSocketGlobalEnvironment();
 		
 		return WebSocketGlobalEnvironment.environment;
+	}
+	
+	public BackendController getBackendController()
+	{
+		return this.backendController;
+	}
+	
+	public Gson getJsonConverter()
+	{
+		return this.jsonConverter;
 	}
 }

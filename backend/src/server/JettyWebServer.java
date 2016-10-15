@@ -30,7 +30,7 @@ public class JettyWebServer
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         server.setHandler(context);
         
-        initalizeBackendComponents();
+        
 
         try
         {
@@ -48,10 +48,5 @@ public class JettyWebServer
         {
             t.printStackTrace(System.err);
         }
-	}
-	
-	private static void initalizeBackendComponents()
-	{
-		WebSocketGlobalEnvironment.instance().backendController = new BackendController();
 	}
 }

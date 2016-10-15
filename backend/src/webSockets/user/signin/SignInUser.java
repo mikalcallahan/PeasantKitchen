@@ -7,11 +7,16 @@ import javax.websocket.OnError;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
+import javax.websocket.server.ServerEndpoint;
 
+import com.google.gson.JsonObject;
 
+import constants.Constants;
 import controllers.BackendController;
+import framework.PostWebSocket;
 import framework.User;
 import framework.WebSocketGlobalEnvironment;
+import framework.WebSocketMessageHandler;
 import utilities.Utilities;
 
 
@@ -22,76 +27,51 @@ import utilities.Utilities;
  * moving foward.
  */
 
-public class SignInUser
+@ServerEndpoint("/user/signin")
+public class SignInUser extends PostWebSocket
 {
-	@OnOpen
-    public void openConnection(Session session)
-    {
-        
-    }
-    
-	
-    @OnMessage
-    public void handleMessage(String jsonMessage, Session session)
-    {
-    	try 
-    	{
-    		handleSignInRequest(jsonMessage, session);
-    	}catch(Exception e)
-    	{
-    		Utilities.sendErrorMessageToClient(session, e);
-    	}
-    }
-    
-    private void handleSignInRequest(String jsonMessage, Session session) throws Exception
-    {
-    	Request request = WebSocketGlobalEnvironment.instance().jsonConverter.fromJson(jsonMessage, Request.class);
-    	
-    	if(!verify(request))
-    		return;
-    	
-    	User user = WebSocketGlobalEnvironment.instance().backendController.signUserIn(request.username);
-    	sendResponse(session, user);
-    }
-
-    
-    private boolean verify(Request request) throws Exception
-    {
-    	return true;
-    }
-    
-    private void sendResponse(Session session, User user)
-    {
-    	Response response = new Response();
-    	response.success = user.isSignedIn();
-    	
-    	String jsonResponse = WebSocketGlobalEnvironment.instance().jsonConverter.toJson(response);
-    	
-    	Utilities.sendJsonMessageToClient(session, jsonResponse);
-    } 
-    
-    @OnClose
-    public void closeConnection(CloseReason reason)
-    {
-        
-    }
-    
-    @OnError
-    public void error(Throwable cause)
-    {
-        cause.printStackTrace(System.err);
-    }
-	
-	private class Request 
+	@Override
+	public boolean initialize() 
 	{
-		public String firstname;
-		public String lastname;
-		public String username;
-		public String password;
+		this.messageHandlers.put(Constants.MessageHandlerIDs.signIn, new HandleSignInMessage());
+		
+		return true;
 	}
-	
-	private class Response
-	{
-		public Boolean success = false;
-	}
+    
+    private class HandleSignInMessage extends WebSocketMessageHandler
+    {
+		@Override
+		public void handleMessage(JsonObject messageJson, Session session) throws Exception 
+		{
+			Request request = WebSocketGlobalEnvironment.instance().getJsonConverter().fromJson(messageJson, Request.class);
+	    	
+	    	User user = WebSocketGlobalEnvironment.instance().getBackendController().signUserIn(request.username);
+	    	
+	    	sendResponseToClient(session, user);
+		}
+		
+		private void sendResponseToClient(Session session, User user)
+	    {
+	    	Response response = new Response();
+	    	response.success = user.isSignedIn();
+	    	
+	    	String jsonResponse = WebSocketGlobalEnvironment.instance().getJsonConverter().toJson(response);
+	    	
+	    	Utilities.sendJsonMessageToClient(session, jsonResponse);
+	    }
+		
+		
+		private class Request 
+		{
+			public String firstname;
+			public String lastname;
+			public String username;
+			public String password;
+		}
+		
+		private class Response
+		{
+			public Boolean success = false;
+		}
+    }
 }

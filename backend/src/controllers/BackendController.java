@@ -4,9 +4,6 @@ import framework.Recipes;
 import framework.SearchQuery;
 import framework.User;
 
-/*
- * For now, this guy is a singleton [I shall write the singelton code laterish though]
- */
 
 public class BackendController 
 {
@@ -86,7 +83,7 @@ public class BackendController
 	 * SEARCHING METHODS
 	 */
 	
-	public Recipes searchForReciepes(SearchQuery query)
+	public Recipes searchForReciepes()
 	{
 		return null;
 	}
