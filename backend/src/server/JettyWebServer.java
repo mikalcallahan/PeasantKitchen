@@ -37,21 +37,17 @@ public class JettyWebServer
         
         server.addConnector(connector);
         
-//        // Create the ResourceHandler. It is the object that will actually handle the request for a given file. It is
-//        // a Jetty Handler object so it is suitable for chaining with other handlers we well.
-//        ResourceHandler resource_handler = new ResourceHandler();
-//        
-//        // Configure the ResourceHandler. Setting the resource base indicates where the files should be served out of.
-//        // In this example it is the current directory but it can be configured to anything that the jvm has access to.
-//        resource_handler.setDirectoriesListed(true);
-//        
-//        //serve our index.html page
-//        resource_handler.setWelcomeFiles(new String[]{ "index.html" });
-//        resource_handler.setResourceBase(".");
-//        
-//        HandlerList handlers = new HandlerList();
-//        handlers.setHandlers(new Handler[] { resource_handler, new DefaultHandler() });
-//        server.setHandler(handlers);
+        // Create the ResourceHandler. It is the object that will actually handle the request for a given file. It is
+        // a Jetty Handler object so it is suitable for chaining with other handlers we well.
+        ResourceHandler resource_handler = new ResourceHandler();
+        
+        // Configure the ResourceHandler. Setting the resource base indicates where the files should be served out of.
+        // In this example it is the current directory but it can be configured to anything that the jvm has access to.
+        resource_handler.setDirectoriesListed(true);
+        
+        //serve our index.html page
+        resource_handler.setWelcomeFiles(new String[]{ "index.html" });
+        resource_handler.setResourceBase(".");
         
         /*
          * Servlets are the standard way to provide application logic that handles HTTP requests. 
@@ -60,19 +56,24 @@ public class JettyWebServer
          * sets the requests servletPath and pathInfo; passes the request to the servlet, possibly via Filters to produce a response.
          */
         
-        ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
-        context.setContextPath("/");
+        ServletContextHandler webSocketContextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
+        webSocketContextHandler.setContextPath("/");
         
-        server.setHandler(context);
+        HandlerList handlers = new HandlerList();
+        handlers.setHandlers(new Handler[] { webSocketContextHandler, resource_handler }); //order matters here. 
+        server.setHandler(handlers);													  //	The resource handler will respond to everything on its own, and will therefore cause the servlet context handler to be ignored!
 
         //Create the web socket layer
-        ServerContainer webSocketContainer = WebSocketServerContainerInitializer.configureContext(context);
+        ServerContainer webSocketContainer = WebSocketServerContainerInitializer.configureContext(webSocketContextHandler);
         
         //SignInUser.class
         
         webSocketContainer.addEndpoint(SignInUser.class);
         webSocketContainer.addEndpoint(CreateNewUser.class);
         
+        
+        
+       
         
         
         server.start();
