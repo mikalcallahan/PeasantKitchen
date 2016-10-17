@@ -9,7 +9,6 @@ import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -23,6 +22,17 @@ import utilities.Utilities;
 public abstract class PostWebSocket
 {
 	protected HashMap<String, WebSocketMessageHandler> messageHandlers = new HashMap<String, WebSocketMessageHandler>();
+	
+	public PostWebSocket()
+	{
+		this.initialize(); //I REALLY don't want to do this...but I can't think of an alternative right now
+		//short of human programming. 
+		//I always want my message handlers added to internal message handlers command map at object creation time.
+		//The trouble is that only the subclasses define these message handers to be added
+		
+		//Plus jetty internally creates these web scokets, so I can't define custom constructors to help me out
+		//of this pickle.
+	}
 	
 	//Adds all of the message handler for this web socket
 	public abstract boolean initialize();
@@ -58,7 +68,7 @@ public abstract class PostWebSocket
     		handleCurrentMessage(messageJson, session);
     	}catch(Exception e)
     	{
-    		Utilities.sendErrorMessageToClient(session, e);
+    		Utilities.sendExceptionDetailsToClient(session, e);
     	}
     }
     
@@ -84,16 +94,16 @@ public abstract class PostWebSocket
     	JsonObject rootObject = jsonParser.parse(messageJson).getAsJsonObject();
     	
     	//let's make sure that the expected fields are present
-    	if(rootObject.get(Constants.RequestKeys.id) == null || rootObject.get(Constants.RequestKeys.payload) == null)
+    	if(rootObject.get(Constants.PostWebSocketRequestKeys.id) == null || rootObject.get(Constants.PostWebSocketRequestKeys.payload) == null)
     		throw new NullPointerException("ERROR: Requests to backend web sockets require a JSON object with id and payload fields mumble...mumble...");
     	
-    	String id = rootObject.get(Constants.RequestKeys.id).getAsString();
-    	JsonObject payload = rootObject.get(Constants.RequestKeys.payload).getAsJsonObject();
+    	String id = rootObject.get(Constants.PostWebSocketRequestKeys.id).getAsString();
+    	JsonObject payload = rootObject.get(Constants.PostWebSocketRequestKeys.payload).getAsJsonObject();
     	
     	return new Request(id, payload);
     }
     
-    private static class Request
+    private class Request
     {
     	public String id;
     	public JsonObject payload;

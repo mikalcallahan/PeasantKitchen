@@ -1,18 +1,12 @@
 package webSockets.user.signin;
 
 
-import javax.websocket.CloseReason;
-import javax.websocket.OnClose;
-import javax.websocket.OnError;
-import javax.websocket.OnMessage;
-import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
 import com.google.gson.JsonObject;
 
 import constants.Constants;
-import controllers.BackendController;
 import framework.PostWebSocket;
 import framework.User;
 import framework.WebSocketGlobalEnvironment;
@@ -30,6 +24,11 @@ import utilities.Utilities;
 @ServerEndpoint("/user/signin")
 public class SignInUser extends PostWebSocket
 {
+	public SignInUser()
+	{
+		
+	}
+	
 	@Override
 	public boolean initialize() 
 	{
@@ -47,19 +46,13 @@ public class SignInUser extends PostWebSocket
 	    	
 	    	User user = WebSocketGlobalEnvironment.instance().getBackendController().signUserIn(request.username);
 	    	
-	    	sendResponseToClient(session, user);
-		}
-		
-		private void sendResponseToClient(Session session, User user)
-	    {
+	    	//Create our response to the client
 	    	Response response = new Response();
 	    	response.success = user.isSignedIn();
 	    	
-	    	String jsonResponse = WebSocketGlobalEnvironment.instance().getJsonConverter().toJson(response);
-	    	
-	    	Utilities.sendJsonMessageToClient(session, jsonResponse);
-	    }
-		
+	    	//send our response to the client
+	    	Utilities.sendStandardWebSocketResponse(session, response);
+		}
 		
 		private class Request 
 		{

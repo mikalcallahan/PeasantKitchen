@@ -1,7 +1,6 @@
 package controllers;
 
 import framework.Recipes;
-import framework.SearchQuery;
 import framework.User;
 
 
@@ -29,6 +28,16 @@ public class BackendController
 	 * USER METHODS
 	 */
 	
+	
+	public boolean isUsernameTaken(String username)
+	{
+		User user = this.databaseController.getUser(username);
+		
+		return
+				user != null;
+	}
+	
+	
 	public User getUser(String username)
 	{
 		User user = this.databaseController.getUser(username);
@@ -37,9 +46,21 @@ public class BackendController
 	
 	public User signUserIn(String username)
 	{
-		//Does this user exist?
+		User user = this.getUser(username);
 		
-		User user = this.getUser(username); //if the user doesn't exist, this call will except
+		//does the user exist?
+		if(user == null)
+			throw new NullPointerException("The user [" + username + "] does not exist!");
+		
+		//is the user already signed in?
+		if(user.isSignedIn())
+			return user; //if they are, ignore this signin request.
+		
+		//For now, we'll record which users are logged in by setting a flag in
+		//the database entry for that user.
+		//I has my concerns about that approach, but we'll see how it goes for now
+		this.databaseController.signInUser(username);
+		
 		return user;
 	}
 
@@ -47,7 +68,13 @@ public class BackendController
 	//that the route was given
 	public User createUser(User tempUserObject)
 	{
-		return null;
+		if(this.isUsernameTaken(tempUserObject.username))
+			//We should agree with the frontend on some sort of error handling procedure
+			//this is a stop gap solution [maybe error codes, or maybe conditional handling of certain exception messages]
+			throw new RuntimeException("The requested username [" + tempUserObject.username + "] is already taken. Please select another");
+		
+		
+		return this.databaseController.createUser(tempUserObject);
 	}
 	
 	public User removeUser(User user)
