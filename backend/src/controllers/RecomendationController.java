@@ -6,6 +6,10 @@ import framework.User;
 
 public class RecomendationController implements Observer
 {
+	public RecomendationController()
+	{
+		
+	}
 	
 	public Recipes recommend(User user)
 	{

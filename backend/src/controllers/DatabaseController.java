@@ -6,36 +6,51 @@ import framework.User;
 
 public class DatabaseController extends ObserverSubject 
 {
-	private static DatabaseController instance = null;
-	
-	private DatabaseController()
+	public DatabaseController()
 	{
 		
 	}
+
 	
-	public static DatabaseController instance() 
+	public User getUser(String username)
 	{
-		if(instance == null)
-			instance = new DatabaseController();
+		//Do whatever is nessessary to query the database....
+		//then: construct a User object, and set the signin flag as appropriate.
 		
-		return instance;
+		//Please return null if a user with the requested username cannot be found
+		
+		User user = new User();
+		user.signedIn = true;
+		
+		return user;
 	}
 	
-	public User addUser(User tempUserObject)
+	public User createUser(User tempUserObject)
 	{
 		//do stuff
+		return null;
+	}
+	
+	//I dunno how happy the database will happy about receiving requests to sign in users
+	//Simultaneously from multiple threads. To avoid funny race condition bugs, I've just bluntly
+	//synchronized this method (and for now, I'd imagine any method that involves writing data to the
+	//database should be synchronized)
+	public synchronized User signInUser(String username)
+	{
+		//do the nessessary stuff to sign a user in
+		
 		return null;
 	}
 
 	@Override
 	public void addObserver(Observer observer) 
 	{
-		// TODO Auto-generated method stub
+		this.observers.add(observer);
 	}
 
 	@Override
 	public void removeObserver(Observer observer) 
 	{
-		// TODO Auto-generated method stub
+		this.observers.remove(observer);
 	}
 }

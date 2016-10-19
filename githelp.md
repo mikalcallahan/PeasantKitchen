@@ -129,4 +129,4 @@ Even simpler than on a windows
 ###Keep the *Master* branch clean! Only merge with full group consensus and assistance!
 All work should be done on your personal branch until further notice. If you need additional help, create a personal repo and mess around with it before 'playing' with ours!
 
-adapted from https://github.com/CSUSM-Web-Dev-F2016/f2016-Sem_Project/blob/master/Git_Help.md
+pretty much copy/pasted from https://github.com/CSUSM-Web-Dev-F2016/f2016-Sem_Project/blob/master/Git_Help.md
