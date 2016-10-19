@@ -14,7 +14,7 @@
 	     border-radius: 50%;
 	 }
 
-	 /* css the body if desired */
+	 /* css the body if desired // centers form */
 	body{
 		margin: 0;
 		padding: 0;
@@ -46,4 +46,3 @@
 	.container {
 	    padding: 15px;
 	}
-}

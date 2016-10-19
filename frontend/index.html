@@ -1,22 +1,26 @@
 <!DOCTYPE html>
-<html lang="en-US">
-
-<!-- html for index (add ingredients, etc) -->
+<html>
 <head>
-  <meta charset="utf-8"> <!-- requirements -->
-  <title>Peasant Kitchen</title> <!-- peasant kitchen title -->
-  <link rel="stylesheet" type="text/css" media="all" href="index.css"> <!-- link to index.css -->
-  	<script src="index.js"></script> <!-- link to script -->
+  <title>Peasant Kitchen</title>
+  <link rel="stylehseet" href="index.css">
+<script type="text/javascript"  src="index.js"></script>
 </head>
 
 <body>
-<div id="content"> <!-- just in case we want to theme it -->
-  <h2 align="center">Welcome to the Peasant Kitchen</h2> <!-- centered header -->
-	<form id="ingredientslist"> <!-- create form for ingredients list -->
-		<div class="list"> <!-- class to bring in ingredients -->
-		<input name="foods" list="ingredients"/> <!-- input name is -->
-		<datalist id="ingredients"></datalist> <!-- datalist -->
-		<button type="submit">add</button> <!-- button to add ingredients -->
-	</div>
-	</form>
+  <h1 align="center">Welcome to the Peasant Kitchen</h1>
+
+  <table align= right id="myTable">
+  <tr>
+    <td id = 'item'></td>
+  </tr>
+
+</table>
+<form>
+  <input id="foods" list="ingredients" />
+ <!-- <datalist id="ingredients"></datalist>-->
+  <input name="generate" type="button" value="Add Ingredient!" onclick='createTable();'/>
+</form>
+
 </body>
+
+</html>
