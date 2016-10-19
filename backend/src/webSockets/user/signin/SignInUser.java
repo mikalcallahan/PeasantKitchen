@@ -43,6 +43,7 @@ public class SignInUser extends PostWebSocket
 		public void handleMessage(JsonObject messageJson, Session session) throws Exception 
 		{
 			Request request = WebSocketGlobalEnvironment.instance().getJsonConverter().fromJson(messageJson, Request.class);
+			
 	    	
 	    	User user = WebSocketGlobalEnvironment.instance().getBackendController().signUserIn(request.username);
 	    	

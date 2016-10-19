@@ -63,6 +63,23 @@ public class BackendController
 		
 		return user;
 	}
+	
+	public User signUserOut(String username)
+	{
+		User user = this.getUser(username);
+		
+		//does the user exist?
+		if(user == null)
+			throw new NullPointerException("The user [" + username + "] does not exist!");
+		
+		//is the user already signed in?
+		if(!user.isSignedIn())
+			return user; //if they aren't signed in, ignore this signin request.
+		
+		user = this.databaseController.signOutUser(username);
+		
+		return user;
+	}
 
 	//The temp user object is created by the route calling this method, and populated with the information
 	//that the route was given
