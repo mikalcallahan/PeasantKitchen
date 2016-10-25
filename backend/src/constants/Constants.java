@@ -40,6 +40,7 @@ public class Constants
 	public static class MessageHandlerIDs
 	{
 		public static final String signIn = "/user/signin";
+		public static final String signOut = "/user/signout";
 	}
 	
 	public static class StandardResponseObjectKeys
