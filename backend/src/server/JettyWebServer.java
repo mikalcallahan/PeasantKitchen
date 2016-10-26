@@ -1,6 +1,9 @@
 package server;
 
 import java.lang.management.ManagementFactory;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map.Entry;
 
 import javax.websocket.server.ServerContainer;
 
@@ -8,6 +11,7 @@ import org.eclipse.jetty.jmx.MBeanContainer;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
+import org.eclipse.jetty.server.handler.ContextHandler;
 import org.eclipse.jetty.server.handler.ContextHandlerCollection;
 import org.eclipse.jetty.server.handler.DefaultHandler;
 import org.eclipse.jetty.server.handler.HandlerList;
@@ -23,6 +27,7 @@ import controllers.BackendController;
 import framework.WebSocketGlobalEnvironment;
 import webSockets.user.create.CreateNewUser;
 import webSockets.user.signin.SignInUser;
+import webSockets.user.signout.SignUserOut;
 
 public class JettyWebServer 
 {
@@ -63,17 +68,24 @@ public class JettyWebServer
         handlers.setHandlers(new Handler[] { webSocketContextHandler, resource_handler }); //order matters here. 
         server.setHandler(handlers);													  //	The resource handler will respond to everything on its own, and will therefore cause the servlet context handler to be ignored!
 
-        //Create the web socket layer
-        ServerContainer webSocketContainer = WebSocketServerContainerInitializer.configureContext(webSocketContextHandler);
+////        //Create the web socket layer
+////        ServerContainer webSocketContainer = WebSocketServerContainerInitializer.configureContext(webSocketContextHandler);
+//        
+//        
+//        
+//        
+//        //SignInUser.class
+//        
+//        
+//        webSocketContainer.addEndpoint(SignInUser.class);
+//        webSocketContainer.addEndpoint(CreateNewUser.class);
         
-        //SignInUser.class
+        LinkedHashMap<String, Class<?>> endPoints = new LinkedHashMap<String, Class<?>>();
+        endPoints.put(Constants.ContextPaths.User.create, CreateNewUser.class);
+        endPoints.put(Constants.ContextPaths.User.signIn, SignInUser.class);
+        endPoints.put(Constants.ContextPaths.User.signOut, SignUserOut.class);
         
-        webSocketContainer.addEndpoint(SignInUser.class);
-        webSocketContainer.addEndpoint(CreateNewUser.class);
-        
-        
-        
-       
+        addEndpoints(webSocketContextHandler, endPoints);
         
         
         server.start();
@@ -81,9 +93,32 @@ public class JettyWebServer
         server.join();
 	}
 	
-	private static ServerContainer addEndpoint(ServerContainer webSocketContainer, Class cl) throws Exception
+	
+	private static ServletContextHandler addEndpoints(ServletContextHandler rootContextHandler, LinkedHashMap<String, Class<?>> contextToEndpoint) throws Exception
 	{
-		webSocketContainer.addEndpoint(cl);
-		return webSocketContainer;
+		Handler[] handlers = new Handler[contextToEndpoint.size()];
+		int handlerIndex = 0;
+		
+		for(Entry<String, Class<?>> endpointContext : contextToEndpoint.entrySet())
+			handlers[handlerIndex++] = buildServletHandler(endpointContext.getKey(), endpointContext.getValue());
+
+		HandlerList subContextHandlers = new HandlerList();
+		subContextHandlers.setHandlers(handlers);
+		
+		rootContextHandler.setHandler(subContextHandlers);
+		
+		return rootContextHandler;
+	}
+	
+	private static ServletContextHandler buildServletHandler(String context, Class<?> endpoint) throws Exception
+	{
+		ServletContextHandler handler = new ServletContextHandler(ServletContextHandler.SESSIONS);
+		handler.setContextPath(context);
+		
+		
+		ServerContainer webSocketContainer = WebSocketServerContainerInitializer.configureContext(handler);
+		webSocketContainer.addEndpoint(endpoint);
+		
+		return handler;
 	}
 }

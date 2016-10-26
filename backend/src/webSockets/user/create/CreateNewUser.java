@@ -41,6 +41,7 @@ public class CreateNewUser extends PostWebSocket
 			
 			Response response = createResponse(createdUser);
 			Utilities.sendStandardWebSocketResponse(session, response);
+			session.close();
 		}
 		
 		private void verify(RequestParameters requestParameters) throws Exception

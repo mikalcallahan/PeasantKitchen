@@ -4,52 +4,32 @@ import java.io.PrintStream;
 
 public class Logger 
 {
-	private PrintStream stream;
-	
 	private enum MessageCatagory {ERROR, WARNING, DEBUG}
 	
-	public Logger()
-	{
-		this.stream = System.err;
-	}
 	
-	public Logger(PrintStream stream)
+	public void requiredParameterMissing(String message)
 	{
-		this.stream = stream;
+		this.error(message);
 	}
-	
-	public void logAsException(String message)
-	{
-		//get the calling class [via reflections]
-		String callingClass = "";
 		
-		
-	}
-	
-	public void logAsException(Exception e)
-	{
-		
-	}
-	
-	
 	public void error(String errorMessage)
 	{
-		
+		//this.log(MessageCatagory.ERROR, errorMessage);
+		throw new RuntimeException(MessageCatagory.ERROR.toString() + ": " + errorMessage);
 	}
 	
 	public void warning(String warningMessage)
 	{
-		
+		this.log(MessageCatagory.WARNING, warningMessage);
 	}
 	
 	public void debug(String debugMessage)
 	{
-		
+		this.log(MessageCatagory.DEBUG, debugMessage);
 	}
 	
-	
-	protected void logMessage(MessageCatagory catagory, String message)
+	protected void log(MessageCatagory catagory, String message)
 	{
-		
+		System.err.println(catagory.toString() + ": " + message);
 	}
 }

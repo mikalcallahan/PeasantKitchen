@@ -9,10 +9,13 @@ import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import constants.Constants;
+import logging.Logger;
+import utilities.StringUtils;
 import utilities.Utilities;
 
 /*
@@ -22,6 +25,7 @@ import utilities.Utilities;
 public abstract class PostWebSocket
 {
 	protected HashMap<String, WebSocketMessageHandler> messageHandlers = new HashMap<String, WebSocketMessageHandler>();
+	protected Logger logger;
 	
 	public PostWebSocket()
 	{
@@ -32,6 +36,8 @@ public abstract class PostWebSocket
 		
 		//Plus jetty internally creates these web scokets, so I can't define custom constructors to help me out
 		//of this pickle.
+		
+		this.logger = new Logger();
 	}
 	
 	//Adds all of the message handler for this web socket
@@ -95,12 +101,29 @@ public abstract class PostWebSocket
     	
     	//let's make sure that the expected fields are present
     	if(rootObject.get(Constants.PostWebSocketRequestKeys.id) == null || rootObject.get(Constants.PostWebSocketRequestKeys.payload) == null)
-    		throw new NullPointerException("ERROR: Requests to backend web sockets require a JSON object with id and payload fields mumble...mumble...");
+    		throw new NullPointerException("ERROR: Requests to backend web sockets require a JSON object with id and payload fields...mumble...mumble...");
     	
     	String id = rootObject.get(Constants.PostWebSocketRequestKeys.id).getAsString();
     	JsonObject payload = rootObject.get(Constants.PostWebSocketRequestKeys.payload).getAsJsonObject();
     	
     	return new Request(id, payload);
+    }
+    
+    protected void payloadContainsRequiredFields(JsonObject payload, String ...fields)
+    {
+    	JsonElement fieldElement = null;
+    	
+    	for(String field : fields)
+    	{
+    		fieldElement = payload.get(field);
+    		
+    		if(fieldElement == null) {
+    			throw new NullPointerException("ERROR: The required parameter [" + field + "] was not recieved by the backend!");
+    		}
+    		
+    		if(StringUtils.isVoidString(fieldElement.getAsString()))
+    			throw new NullPointerException("ERROR: Please supply a value for the parameter [" + field + "]");
+    	}
     }
     
     private class Request

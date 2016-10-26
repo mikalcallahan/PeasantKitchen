@@ -8,7 +8,7 @@ public class Constants
 {
 	public static class ContextPaths
 	{
-		public static final AddnSet<String> all = new AddnSet<String>();
+		public static AddnSet<String> all = new AddnSet<String>();
 		
 		public static class User
 		{
@@ -40,11 +40,12 @@ public class Constants
 	public static class MessageHandlerIDs
 	{
 		public static final String signIn = "/user/signin";
+		public static final String signOut = "/user/signout";
 	}
 	
 	public static class StandardResponseObjectKeys
 	{
-		public static final AddnSet<String> keys = new AddnSet<String>();
+		public static AddnSet<String> keys = new AddnSet<String>();
 		
 		public static final String response = keys.put("response");
 		public static final String error = keys.put("error");
@@ -52,7 +53,7 @@ public class Constants
 	
 	public static class ExceptionMessageKeys
 	{
-		public static final AddnSet<String> keys = new AddnSet<String>();
+		public static AddnSet<String> keys = new AddnSet<String>();
 		
 		public static final String type = keys.put("type");
 		public static final String message = keys.put("message");

@@ -6,9 +6,10 @@ public class CollectionUtils
 {
 	public static <T> ArrayList<T> arrayList(T ... items)
 	{
-		ArrayList<T> arrList = new ArrayList<>();
+		ArrayList<T> arrList = new ArrayList<T>();
 		
-		for(T item : items) arrList.add(item);
+		for(T item : items)
+			arrList.add(item);
 		
 		return arrList;
 	}

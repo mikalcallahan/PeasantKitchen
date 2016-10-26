@@ -12,7 +12,7 @@ public class User
 {
 	public String username;
 	public String emailAddress; //super secure
-	public String profilePictureName;
+	//public String profilePictureName;
 	public Boolean signedIn = false;
 	public String password; //also super secure
 
@@ -38,7 +38,7 @@ public class User
 	
 	public boolean isSignedIn()
 	{
-		if(this.signedIn == null || !this.signedIn)
+		if(this.signedIn == null || this.signedIn.booleanValue() == false)
 			return false;
 		
 		return true;
