@@ -63,10 +63,9 @@ public class JettyWebServer
 
         ArrayList<ContextHandler> contextHandlers = buildWebSocketHandlers(endPoints);
 
-
         HandlerList handlers = new HandlerList();
         //handlers.setHandlers(new Handler[] { webSocketContextHandler, resource_handler }); //order matters here.
-        handlers.setHandlers(new Handler[] { makeHandlerList(contextHandlers, resource_handler) });
+        handlers.setHandlers(makeHandlerList(contextHandlers, resource_handler));
         server.setHandler(handlers);													  //	The resource handler will respond to everything on its own, and will therefore cause the servlet context handler to be ignored!
 
 
@@ -102,7 +101,7 @@ public class JettyWebServer
         return context;
 	}
 
-	private static Handler[] makeHandlerList(ArrayList<Handler> handlers, Handler handler)
+	private static Handler[] makeHandlerList(ArrayList<ContextHandler> handlers, Handler handler)
     {
         Handler[] handlerArr = new Handler[handlers.size() + 1];
 

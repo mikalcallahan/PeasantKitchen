@@ -4,6 +4,9 @@ import designPatterns.Observer;
 import designPatterns.ObserverSubject;
 import framework.User;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 public class DatabaseController extends ObserverSubject 
 {
 	public DatabaseController()
@@ -25,10 +28,82 @@ public class DatabaseController extends ObserverSubject
 		return user;
 	}
 	
-	public User createUser(User tempUserObject)
+	public synchronized User createUser(User tempUserObject)
 	{
-		//do stuff
-		return null;
+		//DIS WORKS: "INSERT INTO userInfo"+"(username,firstName,lastName,email,password,signedIn,profilePictureName,diets)" + "VALUES" +"('Mitch082','bRyan','Mitchell','@gmail.com','fuckthis',1,'null','null')";
+
+
+	}
+
+	private String insertInto(String tableName, LinkedHashMap<String, String> keyValuePairs)
+	{
+		StringBuilder insertStatement = new StringBuilder("INSERT INTO " + tableName);
+
+		insertStatement.append(addKeys(orderedKeySet(keyValuePairs)));
+		insertStatement.append(addValues(keyValuePairs));
+
+		return insertStatement.toString();
+	}
+
+	private ArrayList<String> orderedKeySet(LinkedHashMap<String, String> keyValuePairs)
+	{
+		ArrayList<String> orderedKeys = new ArrayList<String>();
+
+		for(Entry<String, String> entry : keyValuePairs.entrySet())
+			orderedKeys.add(entry.getKey());
+
+		return orderedKeys;
+	}
+
+	//DIS WORKS: "INSERT INTO userInfo"+"(username,firstName,lastName,email,password,signedIn,profilePictureName,diets)" + "VALUES" +"('Mitch082','bRyan','Mitchell','@gmail.com','fuckthis',1,'null','null')";
+
+	private String addKeys(ArrayList<String> keys)
+	{
+		StringBuilder insertStatement = new StringBuilder();
+
+		insertStatement.append("(");
+
+		boolean isFirst = true;
+
+		for(String key : keys) {
+
+			if(isFirst) {
+				insertStatement.append(key);
+				isFirst = false;
+			}
+			else
+				insertStatement.append("," + key);
+
+		}
+
+		insertStatement.append(")");
+
+		return insertStatement.toString();
+	}
+
+	//DIS WORKS: "INSERT INTO userInfo"+"(username,firstName,lastName,email,password,signedIn,profilePictureName,diets)" + "VALUES" +"('Mitch082','bRyan','Mitchell','@gmail.com','fuckthis',1,'null','null')";
+
+
+	private String addValues(LinkedHashMap<String, String> keyValuePairs)
+	{
+		StringBuilder values = new StringBuilder("VALUES");
+		boolean isFirst = true;
+
+		values.append("(");
+
+		for(Map.Entry<String, String> entry : keyValuePairs.entrySet())
+		{
+			if(isFirst) {
+				values.append("'" + entry.getValue() + "'");
+				isFirst = false;
+			}
+			else
+				values.append(",'" + entry.getValue() + "'");
+		}
+
+		values.append(")");
+
+		return values.toString();
 	}
 	
 	//I dunno how happy the database will happy about receiving requests to sign in users
