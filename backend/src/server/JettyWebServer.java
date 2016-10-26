@@ -100,7 +100,7 @@ public class JettyWebServer
 		int handlerIndex = 0;
 		
 		for(Entry<String, Class<?>> endpointContext : contextToEndpoint.entrySet())
-			handlers[handlerIndex++] = buildServletHandler(endpointContext.getKey(), endpointContext.getValue());
+			handlers[handlerIndex++] = buildContextHandler(endpointContext.getKey(), endpointContext.getValue());
 
 		HandlerList subContextHandlers = new HandlerList();
 		subContextHandlers.setHandlers(handlers);
@@ -110,15 +110,14 @@ public class JettyWebServer
 		return rootContextHandler;
 	}
 	
-	private static ServletContextHandler buildServletHandler(String context, Class<?> endpoint) throws Exception
+	private static ContextHandler buildContextHandler(String context, Class<?> endpoint) throws Exception
 	{
-		ServletContextHandler handler = new ServletContextHandler(ServletContextHandler.SESSIONS);
-		handler.setContextPath(context);
+        //Its websockethandeler
+        //register your websocket handler
+        //wrap in context handler
+
+
 		
-		
-		ServerContainer webSocketContainer = WebSocketServerContainerInitializer.configureContext(handler);
-		webSocketContainer.addEndpoint(endpoint);
-		
-		return handler;
+		return null;
 	}
 }
