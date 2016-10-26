@@ -38,7 +38,7 @@ public class User
 	
 	public boolean isSignedIn()
 	{
-		if(this.signedIn == null || this.signedIn.booleanValue() == false)
+		if(this.signedIn == null || !this.signedIn)
 			return false;
 		
 		return true;

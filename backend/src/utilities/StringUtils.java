@@ -32,11 +32,9 @@ public class StringUtils
 	
 	public static boolean isVoidString(String str)
 	{
-		if(str == null ||
-		   str.isEmpty() || 
-		   StringUtils.isOnlyWhitespace(str))
-				return true;
-		
-		return false;
+		return str == null ||
+				str.isEmpty() ||
+				StringUtils.isOnlyWhitespace(str);
+
 	}
 }

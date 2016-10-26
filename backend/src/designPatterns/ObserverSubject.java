@@ -12,8 +12,7 @@ public abstract class ObserverSubject
 	
 	public void updateObservers()
 	{
-		for(Observer observer : this.observers)
-			observer.update();
+		this.observers.forEach(Observer::update);
 	}
 	
 }
