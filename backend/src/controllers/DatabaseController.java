@@ -37,7 +37,7 @@ public class DatabaseController extends ObserverSubject
 	//database should be synchronized)
 	public synchronized User signInUser(String username)
 	{
-		//do the nessessary stuff to sign a user in
+		//do the necessary stuff to sign a user in
 		
 		return null;
 	}
