@@ -25,6 +25,8 @@ import org.eclipse.jetty.websocket.jsr356.server.deploy.WebSocketServerContainer
 import constants.Constants;
 import controllers.BackendController;
 import framework.WebSocketGlobalEnvironment;
+import org.eclipse.jetty.websocket.server.WebSocketHandler;
+import org.eclipse.jetty.websocket.servlet.WebSocketServletFactory;
 import webSockets.user.create.CreateNewUser;
 import webSockets.user.signin.SignInUser;
 import webSockets.user.signout.SignUserOut;
@@ -54,70 +56,61 @@ public class JettyWebServer
         resource_handler.setWelcomeFiles(new String[]{ "index.html" });
         resource_handler.setResourceBase(".");
         
-        /*
-         * Servlets are the standard way to provide application logic that handles HTTP requests. 
-         * Servlets are similar to a Jetty Handler except that the request object is not mutable 
-         * and thus cannot be modified. Servlets are handled in Jetty by a ServletHandler. It uses standard path mappings to match a Servlet to a request; 
-         * sets the requests servletPath and pathInfo; passes the request to the servlet, possibly via Filters to produce a response.
-         */
-        
-        ServletContextHandler webSocketContextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
-        webSocketContextHandler.setContextPath("/");
-        
-        HandlerList handlers = new HandlerList();
-        handlers.setHandlers(new Handler[] { webSocketContextHandler, resource_handler }); //order matters here. 
-        server.setHandler(handlers);													  //	The resource handler will respond to everything on its own, and will therefore cause the servlet context handler to be ignored!
-
-////        //Create the web socket layer
-////        ServerContainer webSocketContainer = WebSocketServerContainerInitializer.configureContext(webSocketContextHandler);
-//        
-//        
-//        
-//        
-//        //SignInUser.class
-//        
-//        
-//        webSocketContainer.addEndpoint(SignInUser.class);
-//        webSocketContainer.addEndpoint(CreateNewUser.class);
-        
         LinkedHashMap<String, Class<?>> endPoints = new LinkedHashMap<String, Class<?>>();
         endPoints.put(Constants.ContextPaths.User.create, CreateNewUser.class);
         endPoints.put(Constants.ContextPaths.User.signIn, SignInUser.class);
         endPoints.put(Constants.ContextPaths.User.signOut, SignUserOut.class);
-        
-        addEndpoints(webSocketContextHandler, endPoints);
-        
-        
+
+        ArrayList<ContextHandler> contextHandlers = buildWebSocketHandlers(endPoints);
+
+
+        HandlerList handlers = new HandlerList();
+        //handlers.setHandlers(new Handler[] { webSocketContextHandler, resource_handler }); //order matters here.
+        handlers.setHandlers(new Handler[] { makeHandlerList(contextHandlers, resource_handler) });
+        server.setHandler(handlers);													  //	The resource handler will respond to everything on its own, and will therefore cause the servlet context handler to be ignored!
+
+
         server.start();
         server.dump(System.err);
         server.join();
 	}
 	
 	
-	private static ServletContextHandler addEndpoints(ServletContextHandler rootContextHandler, LinkedHashMap<String, Class<?>> contextToEndpoint) throws Exception
+	private static ArrayList<ContextHandler> buildWebSocketHandlers(LinkedHashMap<String, Class<?>> contextToEndpoint) throws Exception
 	{
-		Handler[] handlers = new Handler[contextToEndpoint.size()];
-		int handlerIndex = 0;
+		ArrayList<ContextHandler> contextHandlers = new ArrayList<ContextHandler>();
 		
 		for(Entry<String, Class<?>> endpointContext : contextToEndpoint.entrySet())
-			handlers[handlerIndex++] = buildContextHandler(endpointContext.getKey(), endpointContext.getValue());
-
-		HandlerList subContextHandlers = new HandlerList();
-		subContextHandlers.setHandlers(handlers);
+            contextHandlers.add(buildContextHandler(endpointContext.getKey(), endpointContext.getValue()));
 		
-		rootContextHandler.setHandler(subContextHandlers);
-		
-		return rootContextHandler;
+		return contextHandlers;
 	}
 	
-	private static ContextHandler buildContextHandler(String context, Class<?> endpoint) throws Exception
+	private static ContextHandler buildContextHandler(String contextPath, Class<?> endpoint) throws Exception
 	{
-        //Its websockethandeler
-        //register your websocket handler
-        //wrap in context handler
+        WebSocketHandler webSocketHandler = new WebSocketHandler() {
+            @Override
+            public void configure(WebSocketServletFactory webSocketServletFactory) {
+                webSocketServletFactory.register(endpoint);
+            }
+        };
 
+        ContextHandler context = new ContextHandler();
+        context.setContextPath(contextPath);
+        context.setHandler(webSocketHandler);
 
-		
-		return null;
+        return context;
 	}
+
+	private static Handler[] makeHandlerList(ArrayList<Handler> handlers, Handler handler)
+    {
+        Handler[] handlerArr = new Handler[handlers.size() + 1];
+
+        for (int handlerIndex = 0; handlerIndex < handlers.size(); handlerIndex++) {
+            handlerArr[handlerIndex] = handlers.get(handlerIndex);
+        }
+
+        handlerArr[handlers.size()] = handler;
+        return handlerArr;
+    }
 }
