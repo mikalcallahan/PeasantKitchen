@@ -32,41 +32,47 @@ public class DatabaseController extends ObserverSubject
 	{
 		//DIS WORKS: "INSERT INTO userInfo"+"(username,firstName,lastName,email,password,signedIn,profilePictureName,diets)" + "VALUES" +"('Mitch082','bRyan','Mitchell','@gmail.com','fuckthis',1,'null','null')";
 
+		LinkedHashMap<String, Object> keyValuePairs = new LinkedHashMap<String, Object>();
+		keyValuePairs.put("username", tempUserObject.username);
+		keyValuePairs.put("firstName", tempUserObject.firstname);
+		keyValuePairs.put("lastName", tempUserObject.lastname);
+		keyValuePairs.put("email", tempUserObject.emailAddress);
+		keyValuePairs.put("password", tempUserObject.password);
+		keyValuePairs.put("signedIn", false);
+		keyValuePairs.put("profilePictureName", ""); //this field isn't populated as yet
+		keyValuePairs.put("diets", ""); //nor is this one
 
+		String sqlCommand = insertInto("userInfo", keyValuePairs);
+
+		//do stuff with the command.
 	}
 
-	private String insertInto(String tableName, LinkedHashMap<String, String> keyValuePairs)
+	//yeah...I overthought this one in retrospect. Oh well, it should kinda work.
+	//we could have just added each value from the User object one at a time into a StringBuilder object
+	private String insertInto(String tableName, LinkedHashMap<String, Object> keyValuePairs)
 	{
 		StringBuilder insertStatement = new StringBuilder("INSERT INTO " + tableName);
 
-		insertStatement.append(addKeys(orderedKeySet(keyValuePairs)));
+		insertStatement.append(addKeys(keyValuePairs));
 		insertStatement.append(addValues(keyValuePairs));
 
 		return insertStatement.toString();
 	}
 
-	private ArrayList<String> orderedKeySet(LinkedHashMap<String, String> keyValuePairs)
-	{
-		ArrayList<String> orderedKeys = new ArrayList<String>();
-
-		for(Entry<String, String> entry : keyValuePairs.entrySet())
-			orderedKeys.add(entry.getKey());
-
-		return orderedKeys;
-	}
-
 	//DIS WORKS: "INSERT INTO userInfo"+"(username,firstName,lastName,email,password,signedIn,profilePictureName,diets)" + "VALUES" +"('Mitch082','bRyan','Mitchell','@gmail.com','fuckthis',1,'null','null')";
 
-	private String addKeys(ArrayList<String> keys)
+	private String addKeys(LinkedHashMap<String, Object> keyValuePairs)
 	{
 		StringBuilder insertStatement = new StringBuilder();
 
 		insertStatement.append("(");
 
 		boolean isFirst = true;
+		String key;
 
-		for(String key : keys) {
+		for(Map.Entry<String, String> entry : keyValuePairs.entrySet()) {
 
+			key = entry.getKey();
 			if(isFirst) {
 				insertStatement.append(key);
 				isFirst = false;
@@ -84,7 +90,7 @@ public class DatabaseController extends ObserverSubject
 	//DIS WORKS: "INSERT INTO userInfo"+"(username,firstName,lastName,email,password,signedIn,profilePictureName,diets)" + "VALUES" +"('Mitch082','bRyan','Mitchell','@gmail.com','fuckthis',1,'null','null')";
 
 
-	private String addValues(LinkedHashMap<String, String> keyValuePairs)
+	private String addValues(LinkedHashMap<String, Object> keyValuePairs)
 	{
 		StringBuilder values = new StringBuilder("VALUES");
 		boolean isFirst = true;
@@ -106,7 +112,7 @@ public class DatabaseController extends ObserverSubject
 		return values.toString();
 	}
 	
-	//I dunno how happy the database will happy about receiving requests to sign in users
+	//I dunno how happy the database will be about receiving requests to sign in users
 	//Simultaneously from multiple threads. To avoid funny race condition bugs, I've just bluntly
 	//synchronized this method (and for now, I'd imagine any method that involves writing data to the
 	//database should be synchronized)
