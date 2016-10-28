@@ -12,15 +12,12 @@ import framework.WebSocketMessageHandler;
 import utilities.StringUtils;
 import utilities.Utilities;
 
-public class SignUserOut extends PostWebSocket {
-
-	//yar commit me
-	//yes there be changes git! You got this..you can detect these here comments git...
-
+public class SignOutUser extends PostWebSocket
+{
 	@Override
 	public boolean initialize() 
 	{
-		this.messageHandlers.put(Constants.MessageHandlerIDs.signOut, new HandleSignOutMessage());
+		this.messageHandlers.put(Constants.MessageIDs.signOutUser, new HandleSignOutMessage());
 		
 		return true;
 	}

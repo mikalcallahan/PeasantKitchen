@@ -20,7 +20,7 @@ public class CreateNewUser extends PostWebSocket
 	@Override
 	public boolean initialize() 
 	{
-		this.messageHandlers.put(Constants.ContextPaths.User.create, new CreateUserMessageHandler());
+		this.messageHandlers.put(Constants.MessageIDs.createNewUser, new CreateUserMessageHandler());
 		
 		return true;
 	}

@@ -45,6 +45,8 @@ public class DatabaseController extends ObserverSubject
 		String sqlCommand = insertInto("userInfo", keyValuePairs);
 
 		//do stuff with the command.
+
+		return new User();
 	}
 
 	//yeah...I overthought this one in retrospect. Oh well, it should kinda work.
@@ -70,7 +72,7 @@ public class DatabaseController extends ObserverSubject
 		boolean isFirst = true;
 		String key;
 
-		for(Map.Entry<String, String> entry : keyValuePairs.entrySet()) {
+		for(Map.Entry<String, Object> entry : keyValuePairs.entrySet()) {
 
 			key = entry.getKey();
 			if(isFirst) {
@@ -97,7 +99,7 @@ public class DatabaseController extends ObserverSubject
 
 		values.append("(");
 
-		for(Map.Entry<String, String> entry : keyValuePairs.entrySet())
+		for(Map.Entry<String, Object> entry : keyValuePairs.entrySet())
 		{
 			if(isFirst) {
 				values.append("'" + entry.getValue() + "'");

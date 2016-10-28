@@ -1,35 +1,22 @@
 package server;
 
-import java.lang.management.ManagementFactory;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 
-import javax.websocket.server.ServerContainer;
-
-import org.eclipse.jetty.jmx.MBeanContainer;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.server.handler.ContextHandler;
-import org.eclipse.jetty.server.handler.ContextHandlerCollection;
-import org.eclipse.jetty.server.handler.DefaultHandler;
 import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.server.handler.ResourceHandler;
-import org.eclipse.jetty.servlet.ServletContextHandler;
-import org.eclipse.jetty.servlet.ServletHandler;
-import org.eclipse.jetty.servlets.EventSourceServlet;
-import org.eclipse.jetty.webapp.WebAppContext;
-import org.eclipse.jetty.websocket.jsr356.server.deploy.WebSocketServerContainerInitializer;
 
 import constants.Constants;
-import controllers.BackendController;
-import framework.WebSocketGlobalEnvironment;
 import org.eclipse.jetty.websocket.server.WebSocketHandler;
 import org.eclipse.jetty.websocket.servlet.WebSocketServletFactory;
 import webSockets.user.create.CreateNewUser;
 import webSockets.user.signin.SignInUser;
-import webSockets.user.signout.SignUserOut;
+import webSockets.user.signout.SignOutUser;
 
 public class JettyWebServer 
 {
@@ -53,13 +40,13 @@ public class JettyWebServer
         resource_handler.setDirectoriesListed(true);
         
         //serve our index.html page
-        resource_handler.setWelcomeFiles(new String[]{ "index.html" });
+        resource_handler.setWelcomeFiles(new String[]{ Constants.webSocketTestingDir + "index.html" });
         resource_handler.setResourceBase(".");
         
         LinkedHashMap<String, Class<?>> endPoints = new LinkedHashMap<String, Class<?>>();
         endPoints.put(Constants.ContextPaths.User.create, CreateNewUser.class);
         endPoints.put(Constants.ContextPaths.User.signIn, SignInUser.class);
-        endPoints.put(Constants.ContextPaths.User.signOut, SignUserOut.class);
+        endPoints.put(Constants.ContextPaths.User.signOut, SignOutUser.class);
 
         ArrayList<ContextHandler> contextHandlers = buildWebSocketHandlers(endPoints);
 

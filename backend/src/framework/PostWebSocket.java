@@ -18,9 +18,6 @@ import logging.Logger;
 import utilities.StringUtils;
 import utilities.Utilities;
 
-/*
- * Can handle 1 to N messages
- */
 
 public abstract class PostWebSocket
 {
@@ -29,15 +26,8 @@ public abstract class PostWebSocket
 	
 	public PostWebSocket()
 	{
-		this.initialize(); //I REALLY don't want to do this...but I can't think of an alternative right now
-		//short of human programming. 
-		//I always want my message handlers added to internal message handlers command map at object creation time.
-		//The trouble is that only the subclasses define these message handers to be added
-		
-		//Plus jetty internally creates these web scokets, so I can't define custom constructors to help me out
-		//of this pickle.
-		
 		this.logger = new Logger();
+		this.initialize();
 	}
 	
 	//Adds all of the message handler for this web socket
@@ -49,8 +39,8 @@ public abstract class PostWebSocket
 	
 	@OnOpen
     public void openConnection(Session session)
-    {
-        
+	{
+
     }
 	
 	@OnClose
