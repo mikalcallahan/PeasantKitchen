@@ -9,7 +9,7 @@ public class Constants
 {
 	public static final File webSocketTestingDir = new File("/home/stoffel/Documents/School/Software Engineering/SemesterProject/PeasantKitchen/backend/testing/web sockets/");
 
-	public static class ContextPaths
+	public static class Contexts
 	{
 		public static AddnSet<String> all = new AddnSet<String>();
 		

@@ -44,14 +44,13 @@ public class JettyWebServer
         resource_handler.setResourceBase(".");
         
         LinkedHashMap<String, Class<?>> endPoints = new LinkedHashMap<String, Class<?>>();
-        endPoints.put(Constants.ContextPaths.User.create, CreateNewUser.class);
-        endPoints.put(Constants.ContextPaths.User.signIn, SignInUser.class);
-        endPoints.put(Constants.ContextPaths.User.signOut, SignOutUser.class);
+        endPoints.put(Constants.Contexts.User.create, CreateNewUser.class);
+        endPoints.put(Constants.Contexts.User.signIn, SignInUser.class);
+        endPoints.put(Constants.Contexts.User.signOut, SignOutUser.class);
 
         ArrayList<ContextHandler> contextHandlers = buildWebSocketHandlers(endPoints);
 
         HandlerList handlers = new HandlerList();
-        //handlers.setHandlers(new Handler[] { webSocketContextHandler, resource_handler }); //order matters here.
         handlers.setHandlers(makeHandlerList(contextHandlers, resource_handler));
         server.setHandler(handlers);													  //	The resource handler will respond to everything on its own, and will therefore cause the servlet context handler to be ignored!
 
