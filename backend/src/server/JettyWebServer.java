@@ -40,7 +40,7 @@ public class JettyWebServer
         resource_handler.setDirectoriesListed(true);
         
         //serve our index.html page
-        resource_handler.setWelcomeFiles(new String[]{ Constants.webSocketTestingDir + "index.html" });
+        resource_handler.setWelcomeFiles(new String[]{ "index.htm" });
         resource_handler.setResourceBase(".");
         
         LinkedHashMap<String, Class<?>> endPoints = new LinkedHashMap<String, Class<?>>();
