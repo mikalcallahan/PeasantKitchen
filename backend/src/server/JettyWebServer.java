@@ -42,6 +42,8 @@ public class JettyWebServer
         //serve our index.html page
         resource_handler.setWelcomeFiles(new String[]{ "index.htm" });
         resource_handler.setResourceBase(".");
+
+        resource_handler.addBean(new Object());
         
         LinkedHashMap<String, Class<?>> endPoints = new LinkedHashMap<String, Class<?>>();
         endPoints.put(Constants.Contexts.User.create, CreateNewUser.class);
