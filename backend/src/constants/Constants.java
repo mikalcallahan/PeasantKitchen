@@ -1,12 +1,15 @@
 package constants;
 
 import java.util.ArrayList;
+import java.io.File;
 
 import framework.AddnSet;
 
 public class Constants 
 {
-	public static class ContextPaths
+	public static final File webSocketTestingDir = new File("/home/stoffel/Documents/School/Software Engineering/SemesterProject/PeasantKitchen/backend/testing/web sockets/");
+
+	public static class Contexts
 	{
 		public static AddnSet<String> all = new AddnSet<String>();
 		
@@ -37,10 +40,16 @@ public class Constants
 		public static final String payload = "payload";
 	}
 	
-	public static class MessageHandlerIDs
+	public static class MessageIDs
 	{
+<<<<<<< HEAD
 		public static final String signIn = "/user/signin";
 		public static final String signOut = "/user/signout";
+=======
+		public static final String signInUser = "user.signin";
+		public static final String signOutUser = "user.signout";
+		public static final String createNewUser = "user.create";
+>>>>>>> 17f715cef582faa06fefed12bd1a797eb04f4b02
 	}
 	
 	public static class StandardResponseObjectKeys

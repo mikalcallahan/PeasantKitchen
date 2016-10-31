@@ -15,6 +15,8 @@ public class User
 	public String profilePictureName;
 	public Boolean signedIn = false;
 	public String password; //also super secure
+	public String firstname = "";
+	public String lastname = "";
 
 	public HashSet<String> diets = new HashSet<String>(); //All of the diets' that the user is following. 
 	//(This would include the user being vegan, for example)
@@ -38,9 +40,7 @@ public class User
 	
 	public boolean isSignedIn()
 	{
-		if(this.signedIn == null || this.signedIn.booleanValue() == false)
-			return false;
-		
-		return true;
+		return !(this.signedIn == null || !this.signedIn);
+
 	}
 }

@@ -16,7 +16,9 @@ public class StringUtils
 			if(!Character.isWhitespace(currentChar))
 				return false;
 		}
-		
+
+
+
 		return true;
 	}
 	

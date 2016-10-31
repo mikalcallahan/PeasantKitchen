@@ -32,7 +32,7 @@ public class SignInUser extends PostWebSocket
 	@Override
 	public boolean initialize() 
 	{
-		this.messageHandlers.put(Constants.MessageHandlerIDs.signIn, new HandleSignInMessage());
+		this.messageHandlers.put(Constants.MessageIDs.signInUser, new HandleSignInMessage());
 		
 		return true;
 	}
@@ -53,6 +53,7 @@ public class SignInUser extends PostWebSocket
 	    	
 	    	//send our response to the client
 	    	Utilities.sendStandardWebSocketResponse(session, response);
+	    	session.close();
 		}
 		
 		private class Request 

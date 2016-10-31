@@ -40,8 +40,7 @@ public class BackendController
 	
 	public User getUser(String username)
 	{
-		User user = this.databaseController.getUser(username);
-		return user;
+		return this.databaseController.getUser(username);
 	}
 	
 	public User signUserIn(String username)

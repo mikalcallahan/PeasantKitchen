@@ -20,7 +20,7 @@ public class CreateNewUser extends PostWebSocket
 	@Override
 	public boolean initialize() 
 	{
-		this.messageHandlers.put(Constants.ContextPaths.User.create, new CreateUserMessageHandler());
+		this.messageHandlers.put(Constants.MessageIDs.createNewUser, new CreateUserMessageHandler());
 		
 		return true;
 	}
@@ -41,6 +41,7 @@ public class CreateNewUser extends PostWebSocket
 			
 			Response response = createResponse(createdUser);
 			Utilities.sendStandardWebSocketResponse(session, response);
+			session.close();
 		}
 		
 		private void verify(RequestParameters requestParameters) throws Exception

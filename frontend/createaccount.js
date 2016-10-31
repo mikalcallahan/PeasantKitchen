@@ -17,46 +17,42 @@ function tojson(){
 	};
 	$(function() {
 	    $('#createaccount').submit(function() { // when submit is pressed
-	        $('#results').text(JSON.stringify($('form').serializeObject())); // results are json-fied
-	        return false;
+			 var jsono = ($('#createaccount').serializeObject()); //json-ify form data into jsonobject *put JSON.stringify right before ($)
+			 var jsonobject = JSON.stringify({id: "user.create" + jsono});
+			 websockets(jsonobject); // call websockets() passing jsonobject
+/* OLD $('#results').text(JSON.stringify($('form').serializeObject())); // results are json-fied to results */
 	    });
 	});
+} /* end funciton */
 
-	/* potential websocket send #1
-	var info = document.getElementsById("results"); // submit gets results
-	socket.send(info); */
+/* web socket stuff */
+function websockets(jsonobject){
+	/* if websocket is supported */
+	if ("WebSocket" in window){
+		alert("WebSocket is supported by your Browser!"); // hurray its supported!
+		alert(jsonobject); // test to make sure jsonobject is passed
 
-/* potential websocket send #2
-var info = document.getElementsById("results");
-ws.send(JSON.stringify(info));*/
+		var ws = new WebSocket("ws://localhost:8080/echo", "a"); // open websocket
+		alert("creating connection"); // creating connection
+
+		/* on websocket open */
+		ws.onopen = function(){
+			ws.send(jsonobject); // send jsonobject
+			alert("Message is sent..."); // json object sent
+		};
+
+		/* when backend receives data */
+		ws.onmessage = function (evt){
+			var received_msg = evt.data; // received message is this
+			alert("Message is received..."); // we got the info
+		};
+
+		/* when websocket closes */
+		ws.onclose = function(){
+			alert("Connection is closed...");
+		 };
+	}
+	else{ // browser doesn't support websockets
+		alert("WebSocket NOT supported by your Browser!");
+	}
 }
-
-/* WORKS TO PRINT TO SCREEN */
-/*function tojson(){
-	window.alert("test");
-	var fields = $( "#createaccount" ).serializeArray(); /* fields gets form data *
-	var test = JSON.stringify(fields); /* test to see what happends *
-	alert(test); /* test to see what happens *
-   $( "#results" ).empty();
-	$("#results").append("{<br>id: <br>")
-	$("#results").append("payload: { <br>")
-   jQuery.each( fields, function( i, field ) {
- 	 $( "#results" ).append("\"" + field.name + "\"" + ": " + "\"" + field.value + "\"" + "<br>" );
-   });
-	$("#results").append("} <br> }")
-} */
-
-/* POSSIBLE FOR SENDING JSON via websocket:
-		ws.send(JSON.stringify(fields))
-
-		/* possible to send out to web socket
-		var formData = JSON.stringify($("#createaccount").serializeArray());
-		alert(formData);
-		$.ajax({
-	  type: "POST",
-	  url: "serverUrl",
-	  data: formData,
-	  success: function(){},
-	  dataType: "json",
-	  contentType : "application/json"
-	});*/
