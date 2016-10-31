@@ -1,5 +1,4 @@
 function tojson(){
-	alert("test");
 	$.fn.serializeObject = function()
 	{
 	    var user = {}; // set up json brackets for user
@@ -16,13 +15,20 @@ function tojson(){
 	    });
 	    return user; // return user
 	};
-
 	$(function() {
 	    $('#createaccount').submit(function() { // when submit is pressed
 	        $('#results').text(JSON.stringify($('form').serializeObject())); // results are json-fied
 	        return false;
 	    });
 	});
+
+	/* potential websocket send #1
+	var info = document.getElementsById("results"); // submit gets results
+	socket.send(info); */
+
+/* potential websocket send #2
+var info = document.getElementsById("results");
+ws.send(JSON.stringify(info));*/
 }
 
 /* WORKS TO PRINT TO SCREEN */
