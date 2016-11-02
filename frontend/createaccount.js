@@ -1,24 +1,25 @@
 function tojson(){
 	$.fn.serializeObject = function()
 	{
-	    var user = {}; // set up json brackets for user
+	    var userarray = {}; // set up json brackets for user
 	    var a = this.serializeArray(); // serialize form to a
 	    $.each(a, function() { // for each field
-	        if (user[this.name] !== undefined) { // if it's not blank
-	            if (!user[this.name].push) { // if it's not the same
-	                user[this.name] = [user[this.name]]; // new field overwrites
+	        if (userarray[this.name] !== undefined) { // if it's not blank
+	            if (!userarray[this.name].push) { // if it's not the same
+	                userarray[this.name] = [userarray[this.name]]; // new field overwrites
 	            }
-	            user[this.name].push(this.value || ''); // push this value
+	            userarray[this.name].push(this.value || ''); // push this value
 	        } else {
-	            user[this.name] = this.value || ''; // do something else
+	            userarray[this.name] = this.value || ''; // do something else
 	        }
 	    });
-	    return user; // return user
+	    return userarray; // return user
 	};
 	$(function() {
 	    $('#createaccount').submit(function() { // when submit is pressed
-			 var jsono = ($('#createaccount').serializeObject()); //json-ify form data into jsonobject *put JSON.stringify right before ($)
-			 var jsonobject = JSON.stringify({id: "user.create" + jsono});
+			 var user = ($('#createaccount').serializeObject()); //json-ify form data into jsonobject *put JSON.stringify right before ($)
+			 var jsonobject = JSON.stringify({id: "user.create", user});
+			// var jsonobject = JSON.stringify({id: "user.create" + ($('#createaccount').serializeObject())});
 			 websockets(jsonobject); // call websockets() passing jsonobject
 /* OLD $('#results').text(JSON.stringify($('form').serializeObject())); // results are json-fied to results */
 	    });
@@ -33,6 +34,8 @@ function websockets(jsonobject){
 		alert(jsonobject); // test to make sure jsonobject is passed
 
 		var ws = new WebSocket("ws://localhost:8080/echo", "a"); // open websocket
+		var wsUri = "ws://echo.websocket.org/";
+		websocket = new WebSocket(wsUri);
 		alert("creating connection"); // creating connection
 
 		/* on websocket open */
