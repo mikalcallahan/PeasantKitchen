@@ -6,7 +6,7 @@
 |---|---|---|
 1|[Mikal Callahan](https://github.com/mikalcallahan)| front-end // project manager
 2|[Zachary Go](https://github.com/gozack1)| front-end // scrum
-3|[Josh Rodgers](https://github.com/JoshRodgers)| front-end
+3|[Josh Rodgers](https://github.com/JoshRodgers)| back-end
 4|[Kyle Gullicksen](https://github.com/noobtastic101)| back-end
 5|[Sam Doroudi](https://github.com/samdorou)| back-end
 6|[Ray Liang](https://github.com/liang008)| back-end
