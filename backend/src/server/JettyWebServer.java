@@ -43,8 +43,7 @@ public class JettyWebServer
         resource_handler.setWelcomeFiles(new String[]{ "index.htm" });
         resource_handler.setResourceBase(".");
 
-        resource_handler.addBean(new Object());
-        
+
         LinkedHashMap<String, Class<?>> endPoints = new LinkedHashMap<String, Class<?>>();
         endPoints.put(Constants.Contexts.User.create, CreateNewUser.class);
         endPoints.put(Constants.Contexts.User.signIn, SignInUser.class);
@@ -75,6 +74,7 @@ public class JettyWebServer
 	
 	private static ContextHandler buildContextHandler(String contextPath, Class<?> endpoint) throws Exception
 	{
+
         WebSocketHandler webSocketHandler = new WebSocketHandler() {
             @Override
             public void configure(WebSocketServletFactory webSocketServletFactory) {
