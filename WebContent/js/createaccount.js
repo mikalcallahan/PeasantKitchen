@@ -33,6 +33,10 @@ function websockets(jsonobject){
 		alert("WebSocket is supported by your Browser!"); // hurray its supported!
 		alert(jsonobject); // test to make sure jsonobject is passed
 		var ws = new WebSocket("ws://localhost:8080/Peasant_Kitchen/createaccount.html", "a"); // open websocket
+<<<<<<< HEAD:WebContent/js/createaccount.js
+=======
+		//websocket = new WebSocket(ws);
+>>>>>>> 76e74dec9f535b2d283c07149beb698ce6fe795e:WebContent/js/createaccount.js
 		alert("creating connection"); // creating connection
 
 		/* on websocket open */

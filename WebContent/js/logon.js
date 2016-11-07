@@ -20,7 +20,11 @@ function tojson(){
 
 	    $('#logon').submit(function() { // when submit is pressed
 			 var request = ($('#logon').serializeObject()); //json-ify form data into jsonobject *put JSON.stringify right before ($)
+<<<<<<< HEAD:WebContent/js/logon.js
 			 var jsonobject = JSON.stringify({id: "user.signin", payload:request});
+=======
+			 var jsonobject = JSON.stringify({id: "user.signin", payload: request});
+>>>>>>> 76e74dec9f535b2d283c07149beb698ce6fe795e:WebContent/js/logon.js
 			// var jsonobject = JSON.stringify({id: "user.create" + ($('#createaccount').serializeObject())});
 			 websockets(jsonobject); // call websockets() passing jsonobject
 /* OLD $('#results').text(JSON.stringify($('form').serializeObject())); // results are json-fied to results */
