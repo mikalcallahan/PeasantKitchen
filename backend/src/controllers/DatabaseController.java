@@ -23,7 +23,7 @@ public class DatabaseController extends ObserverSubject
 		
 	}
 
- private static Connection getDBConnection() {
+ private Connection getDBConnection() {
 
 		Connection dbConnection = null;
 
@@ -53,7 +53,7 @@ public class DatabaseController extends ObserverSubject
 
 	}	
  
-	public static User getUser(String username) throws SQLException {
+	public User getUser(String username) throws SQLException {
 
 		Connection dbConnection = null;
 		PreparedStatement preparedStatement = null;
@@ -167,7 +167,7 @@ public class DatabaseController extends ObserverSubject
 		return new User();
             */
 	}
-    private static User deleteUser(User tempUserObject) throws SQLException {
+    private User deleteUser(User tempUserObject) throws SQLException {
 
 		Connection dbConnection = null;
 		PreparedStatement preparedStatement = null;
