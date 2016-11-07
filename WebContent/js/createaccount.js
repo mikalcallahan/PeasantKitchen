@@ -1,7 +1,6 @@
 function tojson(){
 	$.fn.serializeObject = function()
 	{
-
 	    var userarray = {}; // set up json brackets for user
 	    var a = this.serializeArray(); // serialize form to a
 	    $.each(a, function() { // for each field
@@ -17,10 +16,9 @@ function tojson(){
 	    return userarray; // return user
 	};
 	$(function() {
-
-	    $('#logon').submit(function() { // when submit is pressed
-			 var user = ($('#logon').serializeObject()); //json-ify form data into jsonobject *put JSON.stringify right before ($)
-			 var jsonobject = JSON.stringify({id: "user.signin", user});
+	    $('#createaccount').submit(function() { // when submit is pressed
+			 var request = ($('#createaccount').serializeObject()); //json-ify form data into jsonobject *put JSON.stringify right before ($)
+			 var jsonobject = JSON.stringify({id: "user.create", payload: request});
 			// var jsonobject = JSON.stringify({id: "user.create" + ($('#createaccount').serializeObject())});
 			 websockets(jsonobject); // call websockets() passing jsonobject
 /* OLD $('#results').text(JSON.stringify($('form').serializeObject())); // results are json-fied to results */
@@ -34,10 +32,7 @@ function websockets(jsonobject){
 	if ("WebSocket" in window){
 		alert("WebSocket is supported by your Browser!"); // hurray its supported!
 		alert(jsonobject); // test to make sure jsonobject is passed
-
-		var ws = new WebSocket("ws://localhost:8080/echo", "a"); // open websocket
-		var wsUri = "ws://echo.websocket.org/";
-		websocket = new WebSocket(wsUri);
+		var ws = new WebSocket("ws://localhost:8080/Peasant_Kitchen/createaccount.html", "a"); // open websocket
 		alert("creating connection"); // creating connection
 
 		/* on websocket open */

@@ -1,6 +1,7 @@
 function tojson(){
 	$.fn.serializeObject = function()
 	{
+
 	    var userarray = {}; // set up json brackets for user
 	    var a = this.serializeArray(); // serialize form to a
 	    $.each(a, function() { // for each field
@@ -16,9 +17,10 @@ function tojson(){
 	    return userarray; // return user
 	};
 	$(function() {
-	    $('#createaccount').submit(function() { // when submit is pressed
-			 var user = ($('#createaccount').serializeObject()); //json-ify form data into jsonobject *put JSON.stringify right before ($)
-			 var jsonobject = JSON.stringify({id: "user.create", user});
+
+	    $('#logon').submit(function() { // when submit is pressed
+			 var request = ($('#logon').serializeObject()); //json-ify form data into jsonobject *put JSON.stringify right before ($)
+			 var jsonobject = JSON.stringify({id: "user.signin", payload:request});
 			// var jsonobject = JSON.stringify({id: "user.create" + ($('#createaccount').serializeObject())});
 			 websockets(jsonobject); // call websockets() passing jsonobject
 /* OLD $('#results').text(JSON.stringify($('form').serializeObject())); // results are json-fied to results */
