@@ -36,7 +36,7 @@ public class DataBase extends User{
        user1.signedIn  = true;
        //updateSignedIn(user1.username,user1.signedIn);
 
-       user1= selectUserDiets(user1);
+       //user1= selectUserDiets(user1);
       
        //user1 =createUser(user1);
      // user1 = deleteUser(user1);
