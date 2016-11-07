@@ -124,13 +124,7 @@ public class DatabaseController extends ObserverSubject
 		
 		return null;
 	}
-	
-	public synchronized User signOutUser(String username)
-	{
-		
-		
-		return null;
-	}
+
 	
 	public synchronized User signOutUser(String username)
 	{

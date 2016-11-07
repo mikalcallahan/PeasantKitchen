@@ -23,15 +23,15 @@ public class Constants
 		}
 		
 		
-		private String descendingContextPath(ArrayList<String> contexts)
-		{
-			StringBuilder absolutePath = new StringBuilder();
-			
-			for(String uri : contexts)
-				absolutePath.append("/" + uri);
-			
-			return absolutePath.toString();
-		}
+//		private String descendingContextPath(ArrayList<String> contexts)
+//		{
+//			StringBuilder absolutePath = new StringBuilder();
+//
+//			for(String uri : contexts)
+//				absolutePath.append("/" + uri);
+//
+//			return absolutePath.toString();
+//		}
 	}
 	
 	public static class PostWebSocketRequestKeys
@@ -42,14 +42,9 @@ public class Constants
 	
 	public static class MessageIDs
 	{
-<<<<<<< HEAD
-		public static final String signIn = "/user/signin";
-		public static final String signOut = "/user/signout";
-=======
 		public static final String signInUser = "user.signin";
 		public static final String signOutUser = "user.signout";
 		public static final String createNewUser = "user.create";
->>>>>>> 17f715cef582faa06fefed12bd1a797eb04f4b02
 	}
 	
 	public static class StandardResponseObjectKeys

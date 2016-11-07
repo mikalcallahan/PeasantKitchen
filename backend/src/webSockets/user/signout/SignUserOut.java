@@ -17,7 +17,7 @@ public class SignUserOut extends PostWebSocket {
 	@Override
 	public boolean initialize() 
 	{
-		this.messageHandlers.put(Constants.MessageHandlerIDs.signOut, new HandleSignOutMessage());
+		this.messageHandlers.put(Constants.MessageIDs.signOutUser, new HandleSignOutMessage());
 		
 		return true;
 	}
