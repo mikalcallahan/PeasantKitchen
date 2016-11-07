@@ -17,8 +17,8 @@ function tojson(){
 	};
 	$(function() {
 	    $('#createaccount').submit(function() { // when submit is pressed
-			 var user = ($('#createaccount').serializeObject()); //json-ify form data into jsonobject *put JSON.stringify right before ($)
-			 var jsonobject = JSON.stringify({id: "user.create", user});
+			 var request = ($('#createaccount').serializeObject()); //json-ify form data into jsonobject *put JSON.stringify right before ($)
+			 var jsonobject = JSON.stringify({id: "user.create", request});
 			// var jsonobject = JSON.stringify({id: "user.create" + ($('#createaccount').serializeObject())});
 			 websockets(jsonobject); // call websockets() passing jsonobject
 /* OLD $('#results').text(JSON.stringify($('form').serializeObject())); // results are json-fied to results */
@@ -33,9 +33,9 @@ function websockets(jsonobject){
 		alert("WebSocket is supported by your Browser!"); // hurray its supported!
 		alert(jsonobject); // test to make sure jsonobject is passed
 
-		var ws = new WebSocket("ws://localhost:8080/echo", "a"); // open websocket
+		var ws = new WebSocket("ws://localhost:8080/user/create", "a"); // open websocket
 		var wsUri = "ws://echo.websocket.org/";
-		websocket = new WebSocket(wsUri);
+		//websocket = new WebSocket(ws);
 		alert("creating connection"); // creating connection
 
 		/* on websocket open */
