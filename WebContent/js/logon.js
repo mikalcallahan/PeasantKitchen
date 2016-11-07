@@ -19,8 +19,8 @@ function tojson(){
 	$(function() {
 
 	    $('#logon').submit(function() { // when submit is pressed
-			 var user = ($('#logon').serializeObject()); //json-ify form data into jsonobject *put JSON.stringify right before ($)
-			 var jsonobject = JSON.stringify({id: "user.signin", user});
+			 var request = ($('#logon').serializeObject()); //json-ify form data into jsonobject *put JSON.stringify right before ($)
+			 var jsonobject = JSON.stringify({id: "user.signin", payload: request});
 			// var jsonobject = JSON.stringify({id: "user.create" + ($('#createaccount').serializeObject())});
 			 websockets(jsonobject); // call websockets() passing jsonobject
 /* OLD $('#results').text(JSON.stringify($('form').serializeObject())); // results are json-fied to results */
