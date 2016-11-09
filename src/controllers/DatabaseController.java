@@ -3,145 +3,301 @@ package controllers;
 import designPatterns.Observer;
 import designPatterns.ObserverSubject;
 import framework.User;
-
+import java.sql.*;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class DatabaseController extends ObserverSubject 
 {
+      private static final String DB_DRIVER = "com.microsoft.sqlserver.jdbc4.SQLServerDriver";
+    private static final String DB_CONNECTION = "jdbc:sqlserver://localhost:1433;databaseName=PK";
+    private static final String DB_USER = "sa";
+    private static final String DB_PASSWORD = "peasantkitchen";
+
 	public DatabaseController()
 	{
 		
 	}
+        private static Connection getDBConnection() {
 
-	
-	public User getUser(String username)
-	{
-		//Do whatever is nessessary to query the database....
-		//then: construct a User object, and set the signin flag as appropriate.
-		
-		//Please return null if a user with the requested username cannot be found
-		
-		User user = new User();
-		user.signedIn = true;
-		
-		return user;
+		Connection dbConnection = null;
+
+		try {
+
+			Class.forName(DB_DRIVER);
+
+		} catch (ClassNotFoundException e) {
+
+			System.out.println(e.getMessage());
+
+		}
+
+		try {
+
+			dbConnection = DriverManager.getConnection(
+                            DB_CONNECTION, DB_USER,DB_PASSWORD);
+			return dbConnection;
+
+		} catch (SQLException e) {
+
+			System.out.println(e.getMessage());
+
+		}
+
+		return dbConnection;
+
+	}
+
+ public User getUser(String username) throws SQLException {
+
+		Connection dbConnection = null;
+		PreparedStatement preparedStatement = null;
+                database.User user = new database.User();
+
+		String selectSQL = "SELECT * FROM user_info WHERE username = ?";
+
+		try {
+			dbConnection = getDBConnection();
+			preparedStatement = dbConnection.prepareStatement(selectSQL);
+			preparedStatement.setString(1,username);
+
+			// execute select SQL stetement
+			ResultSet rs = preparedStatement.executeQuery();
+                        if (!rs.next()){
+                            //return null;
+                        }
+                        else{
+			while (rs.next()){
+				user.username = rs.getString("username");
+                                user.firstname = rs.getString("firstName");
+                                user.lastname = rs.getString("lastName");
+                                user.emailAddress = rs.getString("emailAddress");
+                                user.password = rs.getString("password");
+                                //user.signedIn = convertString("1");
+                                user.ppn = rs.getString("profilePictureName");
+                                user.diets = rs.getString("diets");
+                                user.signedIn = convertString("1");
+				
+
+			}
+                                               
+                       }           
+		} catch (SQLException e) {
+
+			System.out.println(e.getMessage());
+
+		} finally {
+
+			if (preparedStatement != null) {
+				preparedStatement.close();
+			}
+
+			if (dbConnection != null) {
+				dbConnection.close();
+			}
+
+                 }
+                
+        return user;
 	}
 	
 	public synchronized User createUser(User tempUserObject)
 	{
-		//DIS WORKS: "INSERT INTO userInfo"+"(username,firstName,lastName,email,password,signedIn,profilePictureName,diets)" + "VALUES" +"('Mitch082','bRyan','Mitchell','@gmail.com','fuckthis',1,'null','null')";
-
-		LinkedHashMap<String, Object> keyValuePairs = new LinkedHashMap<String, Object>();
-		keyValuePairs.put("username", tempUserObject.username);
-		keyValuePairs.put("firstName", tempUserObject.firstname);
-		keyValuePairs.put("lastName", tempUserObject.lastname);
-		keyValuePairs.put("email", tempUserObject.emailAddress);
-		keyValuePairs.put("password", tempUserObject.password);
-		keyValuePairs.put("signedIn", false);
-		keyValuePairs.put("profilePictureName", ""); //this field isn't populated as yet
-		keyValuePairs.put("diets", ""); //nor is this one
-
-		String sqlCommand = insertInto("userInfo", keyValuePairs);
-
-		//do stuff with the command.
-
-		return new User();
+            
+            Connection dbConnection = null;
+            PreparedStatement preparedStatement = null;
+            String sql = "INSERT INTO user_info"+"(username,firstName,lastName,emailAddress,password,signedIn,profilePictureName,diets)" 
+                + "VALUES" +"(?,?,?,?,?,?,?,?)";
+    try{
+        //String host= "jdbc:sqlserver://RYAN\\SQLEXPRESS:50977;databseName = PK";
+        dbConnection = getDBConnection();
+        preparedStatement = dbConnection.prepareStatement(sql);
+        preparedStatement.setString(1, tempUserObject.username);
+        preparedStatement.setString(2, tempUserObject.firstname);
+        preparedStatement.setString(3, tempUserObject.lastname);
+        preparedStatement.setString(4, tempUserObject.emailAddress);
+        preparedStatement.setString(5, tempUserObject.password);
+        preparedStatement.setBoolean(6,tempUserObject.signedIn);
+        preparedStatement.setString(7,tempUserObject.ppn);
+        preparedStatement.setString(8,tempUserObject.diets);
+        preparedStatement.executeUpdate();
+        preparedStatement.close();
+      tempUserObject = updateSignedIn(tempUserObject.username);
+             }   
+             catch(SQLException e){
+                 
+            
+	}            
+              System.out.println(tempUserObject.username);  
+		return tempUserObject;
+    
+            
 	}
+    private User deleteUser(User tempUserObject) throws SQLException {
 
-	//yeah...I overthought this one in retrospect. Oh well, it should kinda work.
-	//we could have just added each value from the User object one at a time into a StringBuilder object
-	private String insertInto(String tableName, LinkedHashMap<String, Object> keyValuePairs)
-	{
-		StringBuilder insertStatement = new StringBuilder("INSERT INTO " + tableName);
+		Connection dbConnection = null;
+		PreparedStatement preparedStatement = null;
 
-		insertStatement.append(addKeys(keyValuePairs));
-		insertStatement.append(addValues(keyValuePairs));
+		String deleteUserSQL = "DELETE user_info WHERE username = ?";
 
-		return insertStatement.toString();
-	}
+		try {
+			dbConnection = getDBConnection();
+			preparedStatement = dbConnection.prepareStatement(deleteUserSQL);
+			preparedStatement.setString(1, tempUserObject.username);
 
-	//DIS WORKS: "INSERT INTO userInfo"+"(username,firstName,lastName,email,password,signedIn,profilePictureName,diets)" + "VALUES" +"('Mitch082','bRyan','Mitchell','@gmail.com','fuckthis',1,'null','null')";
+			// execute delete SQL stetement
+			preparedStatement.executeUpdate();
+                        
+			//System.out.println("User is deleted!");
 
-	private String addKeys(LinkedHashMap<String, Object> keyValuePairs)
-	{
-		StringBuilder insertStatement = new StringBuilder();
+		} catch (SQLException e) {
 
-		insertStatement.append("(");
+			System.out.println(e.getMessage());
 
-		boolean isFirst = true;
-		String key;
+		} finally {
 
-		for(Map.Entry<String, Object> entry : keyValuePairs.entrySet()) {
-
-			key = entry.getKey();
-			if(isFirst) {
-				insertStatement.append(key);
-				isFirst = false;
+			if (preparedStatement != null) {
+				preparedStatement.close();
 			}
-			else
-				insertStatement.append("," + key);
+
+			if (dbConnection != null) {
+				dbConnection.close();
+			}
 
 		}
+            return  new User();
+}
+	
 
-		insertStatement.append(")");
+	
+        private static User selectUserDiets(User tempUserObject) throws SQLException {
 
-		return insertStatement.toString();
-	}
+		Connection dbConnection = null;
+		PreparedStatement preparedStatement = null;
 
-	//DIS WORKS: "INSERT INTO userInfo"+"(username,firstName,lastName,email,password,signedIn,profilePictureName,diets)" + "VALUES" +"('Mitch082','bRyan','Mitchell','@gmail.com','fuckthis',1,'null','null')";
+		String selectSQL = "SELECT username, diets FROM user_info WHERE username = ?";
 
+		try {
+			dbConnection = getDBConnection();
+			preparedStatement = dbConnection.prepareStatement(selectSQL);
+			preparedStatement.setString(1,tempUserObject.username);
 
-	private String addValues(LinkedHashMap<String, Object> keyValuePairs)
-	{
-		StringBuilder values = new StringBuilder("VALUES");
-		boolean isFirst = true;
+			// execute select SQL stetement
+			ResultSet rs = preparedStatement.executeQuery();
 
-		values.append("(");
+			while (rs.next() )	{	
+		        String username = rs.getString("username");
+                        String diets = rs.getString("diets");
 
-		for(Map.Entry<String, Object> entry : keyValuePairs.entrySet())
-		{
-			if(isFirst) {
-				values.append("'" + entry.getValue() + "'");
-				isFirst = false;
+                      // System.out.println("user : " + username);
+                       // System.out.println("user diets : " + diets);
+                        }
+
+			
+
+		} catch (SQLException e) {
+
+			System.out.println(e.getMessage());
+
+		} finally {
+
+			if (preparedStatement != null) {
+				preparedStatement.close();
 			}
-			else
-				values.append(",'" + entry.getValue() + "'");
+
+			if (dbConnection != null) {
+				dbConnection.close();
+			}
+
 		}
-
-		values.append(")");
-
-		return values.toString();
+                return tempUserObject;
+                
 	}
+public  User updateSignedIn(String username) throws SQLException {
+             
+		Connection dbConnection = null;
+		PreparedStatement preparedStatement = null;
+                database.User user = new database.User();
+                String updateSignedInSQL = "UPDATE user_info SET signedIn = ? "
+				                  + " WHERE username = ?"; 
+               
+		try {
+			dbConnection = getDBConnection();
+			preparedStatement = dbConnection.prepareStatement(updateSignedInSQL);
+                     
+			preparedStatement.setString(1, "1");
+                        preparedStatement.setString(2, username);
+                        
+			preparedStatement.executeUpdate();
+                        user.signedIn = convertString("1");                                
+                       // System.out.println("username : " + username);
+			//System.out.println("SignedIn : " + user.signedIn);
+                        
+		        
+
+		} catch (SQLException e) {
+
+			System.out.println(e.getMessage());
+
+		} finally {
+
+			if (preparedStatement != null) {
+				preparedStatement.close();
+			}
+
+			if (dbConnection != null) {
+				dbConnection.close();
+			}
+
+		}
+return user;
+	}
+public  User updateSignedOut(String username) throws SQLException {
+             
+		Connection dbConnection = null;
+		PreparedStatement preparedStatement = null;
+                database.User user = new database.User();
+                String updateSignedOutSQL = "UPDATE user_info SET signedIn = ? "
+				                  + " WHERE username = ?"; 
+                
+		try {
+                       
+			dbConnection = getDBConnection();
+			preparedStatement = dbConnection.prepareStatement(updateSignedOutSQL);
+			preparedStatement.setString(1,"0");
+                        preparedStatement.setString(2,username);
+                     
+			// execute update SQL stetement
+			preparedStatement.executeUpdate();
+                        user.signedIn = convertString("0");                              
+                        //System.out.println("username : " + username);
+			//System.out.println("SignedIn : " + user.signedIn);
+                        
+		        
+
+		} catch (SQLException e) {
+
+			System.out.println(e.getMessage());
+
+		} finally {
+
+			if (preparedStatement != null) {
+				preparedStatement.close();
+			}
+
+			if (dbConnection != null) {
+				dbConnection.close();
+			}
+
+		}
+return user;
+	}
+       private Boolean convertString(String string)
+       {
+           if(string != "0")
+               return true;
+           else
+               return false;
+       }
 	
-	//I dunno how happy the database will be about receiving requests to sign in users
-	//Simultaneously from multiple threads. To avoid funny race condition bugs, I've just bluntly
-	//synchronized this method (and for now, I'd imagine any method that involves writing data to the
-	//database should be synchronized)
-	public synchronized User signInUser(String username)
-	{
-		//do the necessary stuff to sign a user in
-		
-		return null;
-	}
-
-	
-	public synchronized User signOutUser(String username)
-	{
-		
-		
-		return null;
-	}
-
-	@Override
-	public void addObserver(Observer observer) 
-	{
-		this.observers.add(observer);
-	}
-
-	@Override
-	public void removeObserver(Observer observer) 
-	{
-		this.observers.remove(observer);
-	}
 }
