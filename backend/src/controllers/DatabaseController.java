@@ -271,4 +271,90 @@ public class DatabaseController extends ObserverSubject
                 return tempUserObject;
                 
 	}
+public  User updateSignedIn(String username) throws SQLException {
+             
+		Connection dbConnection = null;
+		PreparedStatement preparedStatement = null;
+                database.User user = new database.User();
+                String updateSignedInSQL = "UPDATE user_info SET signedIn = ? "
+				                  + " WHERE username = ?"; 
+               
+		try {
+			dbConnection = getDBConnection();
+			preparedStatement = dbConnection.prepareStatement(updateSignedInSQL);
+                     
+			preparedStatement.setString(1, "1");
+                        preparedStatement.setString(2, "ParrotHead69");
+                        
+			preparedStatement.executeUpdate();
+                        user.signedIn = convertString("1");                                
+                        System.out.println("username : " + username);
+			System.out.println("SignedIn : " + user.signedIn);
+                        
+		        
+
+		} catch (SQLException e) {
+
+			System.out.println(e.getMessage());
+
+		} finally {
+
+			if (preparedStatement != null) {
+				preparedStatement.close();
+			}
+
+			if (dbConnection != null) {
+				dbConnection.close();
+			}
+
+		}
+return user;
+	}
+public  User updateSignedOut(String username) throws SQLException {
+             
+		Connection dbConnection = null;
+		PreparedStatement preparedStatement = null;
+                database.User user = new database.User();
+                String updateSignedOutSQL = "UPDATE user_info SET signedIn = ? "
+				                  + " WHERE username = ?"; 
+                
+		try {
+                       
+			dbConnection = getDBConnection();
+			preparedStatement = dbConnection.prepareStatement(updateSignedOutSQL);
+			preparedStatement.setString(1,"0");
+                        preparedStatement.setString(2,username);
+                     
+			// execute update SQL stetement
+			preparedStatement.executeUpdate();
+                        user.signedIn = convertString("0");                              
+                        System.out.println("username : " + username);
+			System.out.println("SignedIn : " + user.signedIn);
+                        
+		        
+
+		} catch (SQLException e) {
+
+			System.out.println(e.getMessage());
+
+		} finally {
+
+			if (preparedStatement != null) {
+				preparedStatement.close();
+			}
+
+			if (dbConnection != null) {
+				dbConnection.close();
+			}
+
+		}
+return user;
+	}
+       private Boolean convertString(String string)
+       {
+           if(string != "0")
+               return true;
+           else
+               return false;
+       }
 }
