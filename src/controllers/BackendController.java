@@ -29,7 +29,7 @@ public class BackendController
 	 */
 	
 	
-	public boolean isUsernameTaken(String username)
+	public boolean isUsernameTaken(String username) throws Exception
 	{
 		User user = this.databaseController.getUser(username);
 		
@@ -38,12 +38,12 @@ public class BackendController
 	}
 	
 	
-	public User getUser(String username)
+	public User getUser(String username) throws Exception
 	{
 		return this.databaseController.getUser(username);
 	}
 	
-	public User signUserIn(String username)
+	public User signUserIn(String username) throws Exception
 	{
 		User user = this.getUser(username);
 		
@@ -63,7 +63,7 @@ public class BackendController
 		return user;
 	}
 	
-	public User signUserOut(String username)
+	public User signUserOut(String username) throws Exception
 	{
 		User user = this.getUser(username);
 		
@@ -82,7 +82,7 @@ public class BackendController
 
 	//The temp user object is created by the route calling this method, and populated with the information
 	//that the route was given
-	public User createUser(User tempUserObject)
+	public User createUser(User tempUserObject) throws Exception
 	{
 		if(this.isUsernameTaken(tempUserObject.username))
 			//We should agree with the frontend on some sort of error handling procedure
