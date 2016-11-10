@@ -1,5 +1,7 @@
 package controllers;
 
+import java.util.ArrayList;
+
 import framework.Recipes;
 import framework.User;
 
@@ -131,7 +133,22 @@ public class BackendController
 		return null;
 	}
 	
+	public Recipes getRecipesContainingIngredients(ArrayList<String> ingredients, String username)
+	{
+		//The username is given to this method in case the recomender system is going to be involved in this method. I dunno if
+		//this is going to be the case, now that I think about it.
+		
+		ArrayList<String> cleanedIngredients = cleanIngredients(ingredients);
+		return this.databaseController.getRecipesContainingIngredients(cleanedIngredients);
+	}
 	
+	public Recipes getRecipesWithOnlyTheseIngredients(ArrayList<String> ingredients, String username)
+	{
+		ArrayList<String> cleanedIngredients = cleanIngredients(ingredients);
+		return this.databaseController.getRecipesWithOnlyTheseIngredients(cleanedIngredients);
+	}
+	
+
 	//Returns a list of the most popular recipes stored in the database. If there are not
 	//'enough' popular recipes, recipes will be added at random until 'enough' recipes 
 	//have been chosen
@@ -148,5 +165,14 @@ public class BackendController
 	 * to answer this question, although I suspect it'll end up being a frontend feature]
 	 */
 	
+	private ArrayList<String> cleanIngredients(ArrayList<String> ingredients)
+	{
+		ArrayList<String> cleaned = new ArrayList<String>();
+		
+		for(String ingredient : ingredients)
+			cleaned.add(ingredient.trim().toLowerCase());
+		
+		return cleaned;
+	}
 
 }

@@ -2,12 +2,14 @@ package controllers;
 
 import designPatterns.Observer;
 import designPatterns.ObserverSubject;
+import framework.Recipes;
 import framework.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.*;
 import java.sql.DriverManager;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -53,7 +55,23 @@ public class DatabaseController extends ObserverSubject
 
 		return dbConnection;
 
-	}	
+	}
+	
+	
+	public Recipes getRecipesContainingIngredients(ArrayList<String> cleanedIngredients)
+	{
+		
+		
+		return new Recipes();
+	}
+	
+	public Recipes getRecipesWithOnlyTheseIngredients(ArrayList<String> cleanedIngredients)
+	{
+		
+		
+		return new Recipes();
+	}
+	
 
 	public User getUser(String username) throws SQLException {
 
