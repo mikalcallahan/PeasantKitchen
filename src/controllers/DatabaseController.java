@@ -57,6 +57,9 @@ public class DatabaseController extends ObserverSubject
 
 	}
 	
+	/*
+	 * each word is capitalized
+	 */
 	
 	public Recipes getRecipesContainingIngredients(ArrayList<String> cleanedIngredients)
 	{

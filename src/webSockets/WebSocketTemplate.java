@@ -8,7 +8,12 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
+import com.google.gson.JsonObject;
+
 import framework.PostWebSocket;
+import framework.WebSocketGlobalEnvironment;
+import framework.WebSocketMessageHandler;
+import utilities.Utilities;
 
 @ServerEndpoint("/change/me")
 public class WebSocketTemplate extends PostWebSocket
@@ -45,5 +50,45 @@ public class WebSocketTemplate extends PostWebSocket
 		System.err.println(cause.getMessage());
 	}
 
+	private class MessageHandler extends WebSocketMessageHandler
+	{
+		@Override
+		public void handleMessage(JsonObject payload, Session session) throws Exception 
+		{
+			// TODO Auto-generated method stub
+			Request request = WebSocketGlobalEnvironment.instance().getJsonConverter().fromJson(payload, Request.class);
+			
+			verify(request);
+			
+			//Call some method(s) from the BackendController
+			
+			Response response = createResponse(object);
+			Utilities.sendStandardWebSocketResponse(session, response);
+			session.close();
+		}
+		
+		private void verify(Request request)
+		{
+			
+		}
+		
+		private Response createResponse()
+		{
+			Response response = new Response();
+			
+			//add stuff to the response
+			
+			return response;
+		}
+	}
 	
+	private class Request
+	{
+		
+	}
+	
+	private class Response
+	{
+		
+	}
 }
