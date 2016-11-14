@@ -20,8 +20,10 @@ public class User
 	public String password; //also super secure
 	public String firstname = "";
 	public String lastname = "";
+	public String ppn;
+	public String diets = "";
 
-	public HashSet<String> diets = new HashSet<String>(); //All of the diets' that the user is following. 
+	//public HashSet<String> diets = new HashSet<String>(); //All of the diets' that the user is following. 
 	//(This would include the user being vegan, for example)
 	
 	//where keys = unique identifier for recipe\category of food in the database.
