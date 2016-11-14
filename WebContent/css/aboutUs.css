@@ -1,0 +1,44 @@
+.Members{
+     position: relative;
+     display: block;
+     padding: 20px;
+     margin-left: auto;
+     margin-right: auto;
+     min-width: 1100px;
+     max-width: 1800px;
+     overflow: hidden;
+     background-color: DarkGrey;
+}
+
+/* Flower list items */
+.crew li{
+     background-color: DarkGrey;
+     position: relative;
+     text-align: center;
+     margin-left: auto;
+     margin-right: auto;
+     float: left;
+}
+/* Flower list anchor tags */
+
+.crew li a{
+     font-size: 20px;
+     color: white;
+     text-align: center;
+     font-family: arial;
+     padding-left: 40px;
+     text-decoration: none;
+     overflow: hidden;
+}
+.crew li figure a img{
+     display: block;
+     margin-right: 75px;
+     margin-left: 50px;
+     padding-left: 70px;
+}
+/* Flower unordered lists */
+.crewRows{
+     list-style-type: none;
+     margin-left: 40px;
+     margin-right: auto;
+}

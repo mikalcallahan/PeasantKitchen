@@ -1,26 +1,72 @@
 <!DOCTYPE html>
-<html>
+<html lang = "en">
 <head>
   <title>Peasant Kitchen</title>
-  <link rel="stylehseet" href="index.css">
-<script type="text/javascript"  src="index.js"></script>
+  <link rel = "stylesheet" type = "text/css" href="css/index.css"/>
+<script type = "text/javascript"  src="index.js"></script>
+<meta charset = "utf-8">
+
 </head>
 
 <body>
-  <h1 align="center">Welcome to the Peasant Kitchen</h1>
+  <div id = "heading">
+    <a href="index.html" class = "logo">
+      <img src = "images_folder/logo.png">
+    </a>
+  </div>
+<div>
+  <!--Menu Bar-->
+  <ul class = "menuBar" id = "myMenuBar">
+  <li> <a class "active" href="index.html"> Home </a></li>
+  <li> <a href="recipes.html"> Top Recipes </a></li>
+  <li> <a href="aboutUs.html"> About Us </a> </li>
+  <li> <a href="contact.html"> Contact Us </a></li>
+  <li> <a href="logon.html"> login/Register </a></li>
+  <li class = "icon">
+    <a href = "javascript:void(0)" style = "font-size:14px" onclick = "Menu()"> &#9776;</a>
+  </li>
+  </ul>
+</div>
 
-  <table align= right id="myTable">
-  <tr>
-    <td id = 'item'></td>
-  </tr>
-
-</table>
+<div id = 'my-ingredients' class = "c-bottom" align = center style = "">
+<!--Allows users to enter ingredients-->
 <form>
-  <input id="foods" list="ingredients" />
+  <input id="foods" list="ingredients" onkeydown = "enterButton(event)" placeholder = "Add Ingredients"/>
  <!-- <datalist id="ingredients"></datalist>-->
-  <input name="generate" type="button" value="Add Ingredient!" onclick='createTable();'/>
+  <input name="generate" type="button"  value = "Add Ingredient!" onclick='createTable()'/>
 </form>
 
+<!--Prints users Input-->
+<table align= right id="myTable">
+<tr>
+  <td> </td>
+</tr>
+</table>
+</div>
+<!-- Dropdown Boxes-->
+<div align = left >
+<dl class = 'dropdown'>
+  <dt>
+    <a href="#">
+      <span class = 'Time'> Time </span>
+      <p class = "multiSelect"></p>
+    </a>
+
+    <dd>
+      <div class = "mSelect">
+        <ul>
+          <li> <input type = "checkbox" value = "5m" /> 5min-10min </li>
+          <li> <input type = "checkbox" value = "10m" /> 10min-15min </li>
+          <li> <input type = "checkbox" value = "15m" /> 15min-20min </li>
+          <li> <input type = "checkbox" value = "25m" /> 25min+ </li>
+
+        </ul>
+      </div>
+    </dd>
+  </dt>
+  <button> Filter </button>
+</dl>
+</div>
 </body>
 
 </html>

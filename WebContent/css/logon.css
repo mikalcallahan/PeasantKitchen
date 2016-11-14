@@ -1,13 +1,6 @@
-/* css the body if desired // centers form */
-body{
-	margin: 0;
-	padding: 0;
-}
-
+<style>
 form {
     border: 3px solid #f1f1f1;
-	 margin: 0 auto;
-	 width: 400px;
 }
 
 input[type=text], input[type=password] {
@@ -63,3 +56,4 @@ span.psw {
        width: 100%;
     }
 }
+</style>

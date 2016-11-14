@@ -1,13 +1,69 @@
 /* css for index */
-
-form{
+body
+{
+ background-color: darkGrey;
+ min-width: 1800px;
+}
+form
+{
 	display:table;
 	margin: 0 auto;
 	align-items: center;
 }
 
-#myTable{
-	display:table-row;
-	margin: 0 auto;
-	align-content: right;
+TD
+{
+	border: 1px solid black;
+}
+
+ul.menuBar
+{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: grey;
+}
+/*Float the list items side by side*/
+ul.menuBar li {float: left;}
+
+/* Style the links inside the list items */
+ul.menuBar li a
+{
+      display: inline-block;
+      color: #red;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+      transition: 0.3s;
+      font-size: 17px;
+}
+/*
+ul.menuBar li a:hover {background-color: #555;}
+
+ul.menuBar li.icon {display: none;}
+@media screen and (max-width:680px) {
+  ul.topnav li:not(:first-child) {display: none;}
+  ul.topnav li.icon {
+    float: right;
+    display: inline-block;
+  }
+}
+
+@media screen and (max-width:680px) {
+  ul.menuBar.responsive {position: relative;}
+  ul.menuBar.responsive li.icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+	*/
+  ul.menuBar.responsive li {
+    float: none;
+    display: inline;
+  }
+  ul.menuBar.responsive li a {
+    display: block;
+    text-align: left;
+  }
 }

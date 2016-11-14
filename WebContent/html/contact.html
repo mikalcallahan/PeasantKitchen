@@ -1,0 +1,97 @@
+<!--Contact Us html -->
+<!Doctype html>
+
+<html lang="en">
+  <head>
+      <title> Peasant Kitchen </title>
+      <link rel="stylesheet" type="text/css" href="css/contact.css"/>
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+      <meta charset="utf-8">
+  </head>
+  <body>
+    <div id = "heading">
+      <a href="index.html" class = "logo">
+        <img src = "images_folder/logo.png">
+      </a>
+    </div>
+  <div>
+    <!--Menu Bar-->
+    <ul class = "menuBar" id = "myMenuBar">
+    <li> <a class "active" href="index.html"> Home </a></li>
+    <li> <a href="recipes.html"> Top Recipes </a></li>
+    <li> <a href="aboutUs.html"> About Us </a> </li>
+    <li> <a href="contact.html"> Contact Us </a></li>
+    <li> <a href="logon.html"> login/Register </a></li>
+    <li class = "icon">
+      <a href = "javascript:void(0)" style = "font-size:14px" onclick = "Menu()"> &#9776;</a>
+    </li>
+    </ul>
+  </div> <!-- End div for the menu bar-->
+
+<!-- Container for the rest of the page-->
+  <div class = "restOfPage">
+      <div class = "sideBar">
+        <br /> <br />
+        <h1 align = right id = "PopularRecipes"> Popular Recipes </h1>
+        <ul class = "BestRecipes">
+          <li>
+
+          </li>
+
+        </ul>
+  </div>
+
+  <div class = "header">
+    <h2 id = "contactUs"> Contact Us </h2>
+  </div>
+
+<!--Contact Us Content-->
+  <div class = "contactUsContent">
+
+    <br />
+    <p id = "CompanyInfo">
+          Location: <br />
+          Peasant Kitchen Inc. <br />
+          333 S. Twin Oaks Valley Rd. <br />
+          San Marcos, CA 92096 <br />
+          (760) 987-6543 <br /> <br />
+
+
+          Hours of Operation: <br />
+          <br/ >Monday: 12:30pm - 1:20pm <br />
+          Tuesday: Closed <br />
+          Wednesday: 12:30pm - 1:20pm <br />
+          Thursday: Closed <br />
+          Friday: 12:30pm - 1:20pm<br />
+          Saturday: By Appointment <br />
+          Sunday:  By Appointment <br />
+    </p>
+    <br /><br />
+  </div>
+
+  <div class = "textBox">
+    <form>
+          Email Address: <br / >
+          <input type = "text" id = "emailBox" placeholder = "peasantKitchen@gmail.com" size = "50">
+          <br / >
+          Question or Concerns: <br />
+          <input type = "text" id = "QandA" placeholder= "Question, Comments or Concerns: " size = "800">
+          <br />
+          <p class = "buttons">
+              <label class = "submit">
+                <button type = "submit" id = "submitButton" value="submit" onclick = ""> Submit </button>
+              </label>
+
+              <label class = "rest">
+                <button type = "rest" id = "restButton" value="rest"> Rest </button>
+              </label>
+          </p>
+    </form>
+  </div>
+</div>
+<div class = "footer">
+</div>
+
+  </body>
+
+</html>
