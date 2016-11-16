@@ -11,7 +11,10 @@ package framework;
 public class IngredientsList
 {
 	public String[] ingredients;
+        public int ingredientID;
+        public String ingredient;
 
+	
 
 
 	public IngredientsList()
