@@ -57,15 +57,185 @@ public class DatabaseController extends ObserverSubject
 
 	}
 	
-	/*
-	 * each word is capitalized
-	 */
 	
-	public Recipes getRecipesContainingIngredients(ArrayList<String> cleanedIngredients)
+	
+   public ArrayList<Recipe> getRecipeInfo(ArrayList<Recipe> tempRecipe)throws SQLException
+   {
+       Connection dbConnection = null;
+       PreparedStatement preparedStatement = null;
+       
+       Recipe temp = new Recipe();
+       for(int i = 0; i <tempRecipe.size();i++)
+       {
+       String getRecipeNameSQL = "SELECT RECIPE_NAME, RECIPE_PROCESS,RECIPE_REQUIREMENTS FROM RECIPES WHERE R_ID = ? ";
+       try {
+         
+            
+            temp =tempRecipe.get(i);
+            
+			dbConnection = getDBConnection();
+			preparedStatement = dbConnection.prepareStatement(getRecipeNameSQL);
+			preparedStatement.setInt(1,temp.recipeID);
+                        
+			// execute select SQL stetement
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next() )	{	
+		        
+                         temp.recipeName = rs.getString("RECIPE_NAME");
+                         temp.recipeProcess = rs.getString("RECIPE_PROCESS");
+                         temp.recipeRequirements = rs.getString("RECIPE_REQUIREMENTS");
+                         
+			
+                      
+                       System.out.println("Name: " + temp.recipeName);
+                       System.out.println("Process: " + temp.recipeProcess);
+                       System.out.println("Requirements: " + temp.recipeRequirements);
+                     
+                        }
+
+       	
+       
+		} catch (SQLException e) {
+
+			System.out.println(e.getMessage());
+                
+		} finally {
+
+			if (preparedStatement != null) {
+				preparedStatement.close();
+			}
+
+			if (dbConnection != null) {
+				dbConnection.close();
+			}
+
+		}
+       
+       }
+       return tempRecipe;
+   }
+   public ArrayList<Recipe> getRecipeId(ArrayList<Integer> ingredientID)throws SQLException
+   {
+       Connection dbConnection = null;
+       PreparedStatement preparedStatement = null;
+       
+       int ingredientId = 0;
+       ArrayList<Recipe> recipeResults = new ArrayList<Recipe>();
+       for(int i = 0; i < ingredientID.size(); i++) {
+          
+       String getRecipeIdSQL = "SELECT RECIPE_ID FROM RECIPE_INGREDIENTS WHERE INGREDIENT_ID = ? ";//
+       
+       try {
+			dbConnection = getDBConnection();
+			preparedStatement = dbConnection.prepareStatement(getRecipeIdSQL);
+                        
+                        ingredientId = ingredientID.get(i);
+			preparedStatement.setInt(1,ingredientId);
+
+			// execute select SQL stetement
+			ResultSet rs = preparedStatement.executeQuery();
+                        
+			while (rs.next() )	
+                        {	
+		        Recipe tempRecipe = new Recipe();
+                         tempRecipe.recipeID = rs.getInt("RECIPE_ID");
+			recipeResults.add(tempRecipe);
+                      
+                       System.out.println("Recipe ID; " + tempRecipe.recipeID);
+                        }
+
+			
+
+		} catch (SQLException e) {
+
+			System.out.println(e.getMessage());
+
+		} finally {
+
+			if (preparedStatement != null) {
+				preparedStatement.close();
+			}
+
+			if (dbConnection != null) {
+				dbConnection.close();
+			}
+
+		}
+       }
+       return getRecipeInfo(recipeResults);
+   }
+   public ArrayList<Integer> getIngredientId(ArrayList<String> ingredientsList)throws SQLException
+   {
+       Connection dbConnection = null;
+       PreparedStatement preparedStatement = null;
+       String ingredient = "";
+       int IngredientID = 0;
+       ArrayList<Integer> ingredientId = new ArrayList<Integer>();
+       for(int i = 0; i < ingredientsList.size(); i++)
+       {
+           ingredient = ingredientsList.get(i);
+       String getIngredientIdSQL = "SELECT INGREDIENT_ID FROM Ingredients WHERE IngrName = ? ";
+       try {
+			dbConnection = getDBConnection();
+			preparedStatement = dbConnection.prepareStatement(getIngredientIdSQL);
+			preparedStatement.setString(1,ingredient);
+
+			// execute select SQL stetement
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next() )	{	
+		        
+                         IngredientID = rs.getInt("INGREDIENT_ID");
+			ingredientId.add(IngredientID);
+                      
+                       // System.out.println("Ingredient ID: " + IngredientID);
+                        }
+
+			
+
+		} catch (SQLException e) {
+
+			System.out.println(e.getMessage());
+
+		} finally {
+
+			if (preparedStatement != null) {
+				preparedStatement.close();
+			}
+
+			if (dbConnection != null) {
+				dbConnection.close();
+			}
+
+		}
+       
+       }
+   
+       return ingredientId;
+   }
+	public ArrayList<Recipe> getRecipesContainingIngredients(ArrayList<String> cleanedIngredients)
 	{
-		
-		
-		return new Recipes();
+            String ingredient = null;
+            //int ingredientID = 0;
+            ArrayList<Recipe> recipes= new ArrayList<Recipe>();
+            ArrayList<String> ingredientsList= new ArrayList<String>();
+            ArrayList<Integer> ingredientsListID= new ArrayList<Integer>();
+            try{
+                ingredientsList = cleanedIngredients;  
+                ingredientsListID= getIngredientId(ingredientsList);
+                Recipe recipe = new Recipe();
+                recipes =getRecipeId(ingredientsListID);
+            
+            }
+            
+            
+            catch(Exception e){
+                
+            }
+            
+            return recipes;
+        }
 	}
 	
 	public Recipes getRecipesWithOnlyTheseIngredients(ArrayList<String> cleanedIngredients)
