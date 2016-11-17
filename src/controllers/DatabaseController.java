@@ -2,6 +2,7 @@ package controllers;
 
 import designPatterns.Observer;
 import designPatterns.ObserverSubject;
+import framework.Recipe;
 import framework.Recipes;
 import framework.User;
 import java.sql.Connection;
@@ -59,7 +60,7 @@ public class DatabaseController extends ObserverSubject
 	
 	
 	
-   public ArrayList<Recipe> getRecipeInfo(ArrayList<Recipe> tempRecipe)throws SQLException
+   public Recipes getRecipeInfo(Recipes tempRecipe)throws SQLException
    {
        Connection dbConnection = null;
        PreparedStatement preparedStatement = null;
@@ -115,13 +116,13 @@ public class DatabaseController extends ObserverSubject
        }
        return tempRecipe;
    }
-   public ArrayList<Recipe> getRecipeId(ArrayList<Integer> ingredientID)throws SQLException
+   public Recipes getRecipeId(ArrayList<Integer> ingredientID)throws SQLException
    {
        Connection dbConnection = null;
        PreparedStatement preparedStatement = null;
        
        int ingredientId = 0;
-       ArrayList<Recipe> recipeResults = new ArrayList<Recipe>();
+       Recipes recipeResults = new Recipes();
        for(int i = 0; i < ingredientID.size(); i++) {
           
        String getRecipeIdSQL = "SELECT RECIPE_ID FROM RECIPE_INGREDIENTS WHERE INGREDIENT_ID = ? ";//
@@ -214,14 +215,17 @@ public class DatabaseController extends ObserverSubject
    
        return ingredientId;
    }
-	public ArrayList<Recipe> getRecipesContainingIngredients(ArrayList<String> cleanedIngredients)
+   
+	public Recipes getRecipesContainingIngredients(ArrayList<String> cleanedIngredients)
 	{
             String ingredient = null;
             //int ingredientID = 0;
-            ArrayList<Recipe> recipes= new ArrayList<Recipe>();
+            Recipes recipes= new Recipes();
             ArrayList<String> ingredientsList= new ArrayList<String>();
             ArrayList<Integer> ingredientsListID= new ArrayList<Integer>();
-            try{
+            
+            try
+            {
                 ingredientsList = cleanedIngredients;  
                 ingredientsListID= getIngredientId(ingredientsList);
                 Recipe recipe = new Recipe();
@@ -231,11 +235,10 @@ public class DatabaseController extends ObserverSubject
             
             
             catch(Exception e){
-                
+                System.err.println("getRecipesContainingIngredients blew up!");
             }
             
             return recipes;
-        }
 	}
 	
 	public Recipes getRecipesWithOnlyTheseIngredients(ArrayList<String> cleanedIngredients)
