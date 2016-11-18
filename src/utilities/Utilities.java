@@ -42,12 +42,12 @@ public class Utilities
 		
 		errorObject.put(Constants.ExceptionMessageKeys.type, e.getClass().getSimpleName());
 		errorObject.put(Constants.ExceptionMessageKeys.message, e.getMessage());
-		errorObject.put(Constants.ExceptionMessageKeys.stackTrace, Utilities.formatStackTrace(e.getStackTrace()));
+		errorObject.put(Constants.ExceptionMessageKeys.stackTrace, Utilities.stackTraceToString(e.getStackTrace()));
 		
 		Utilities.sendStandardWebSocketResponse(session, null, errorObject);
 	}
 	
-	public static String formatStackTrace(StackTraceElement[] stackTrace)
+	public static String stackTraceToString(StackTraceElement[] stackTrace)
 	{
 		if(stackTrace.length == 0)
 			return "";
@@ -55,7 +55,6 @@ public class Utilities
 		StringBuilder stackTraceStr = new StringBuilder();
 		
 		stackTraceStr.append(stackTrace[0]);
-		
 		for(int index = 1; index < stackTrace.length; index++)
 			stackTraceStr.append("\n" + stackTrace[index]);
 		
@@ -78,6 +77,6 @@ public class Utilities
 		System.err.println("The backend failed to deliver the following exception to the user because the user was unreachable.");
 		System.err.println("Exception: ");
 		System.err.println("Message: [" + e.getMessage() + "]");
-		System.err.println("Stacktrace: [\n" + Utilities.formatStackTrace(e.getStackTrace()) + "\n]");
+		System.err.println("Stacktrace: [\n" + Utilities.stackTraceToString(e.getStackTrace()) + "\n]");
 	}
 }

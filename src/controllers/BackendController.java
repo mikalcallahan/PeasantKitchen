@@ -153,15 +153,4 @@ public class BackendController
 	{
 		return null;
 	}
-
-	
-	
-	
-	/*
-	 * I dunno if filtering is a backend or a frontend feature [My SRS spec doesn't have enough info
-	 * to answer this question, although I suspect it'll end up being a frontend feature]
-	 */
-	
-	
-
 }

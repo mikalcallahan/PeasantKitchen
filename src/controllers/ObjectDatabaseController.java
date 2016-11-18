@@ -20,7 +20,7 @@ import framework.WebSocketGlobalEnvironment;
  */
 
 
-public class ContigentDatabaseController extends DatabaseController 
+public class ObjectDatabaseController extends DatabaseController 
 {	
 	@Override
 	public Recipes getRecipesContainingIngredients(ArrayList<String> cleanedIngredients) 
