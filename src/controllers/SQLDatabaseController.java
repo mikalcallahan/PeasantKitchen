@@ -2,6 +2,7 @@ package controllers;
 
 import designPatterns.Observer;
 import designPatterns.ObserverSubject;
+import framework.DatabaseController;
 import framework.Recipe;
 import framework.Recipes;
 import framework.User;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class DatabaseController extends ObserverSubject 
+public class SQLDatabaseController extends DatabaseController
 {
 	//private static final String DB_CONNECTION = "jdbc:sqlserver://RYAN\\SQLEXPRESS:50977;databseName=PK";
 	private static final String DB_DRIVER = "com.microsoft.sqlserver.jdbc4.SQLServerDriver";
@@ -23,7 +24,7 @@ public class DatabaseController extends ObserverSubject
 	private static final String DB_PASSWORD = "peasantkitchen";
 	
 	
-	public DatabaseController()
+	public SQLDatabaseController()
 	{
 
 	}

@@ -11,7 +11,7 @@ public class WebSocketGlobalEnvironment
 	
 	private Gson jsonConverter;
 	private BackendController backendController;
-	//ResouceHandler class [maybe using jetty's. This handler manages files on the local file system]
+	private ApplicationData applicationData;
 	
 	private WebSocketGlobalEnvironment()
 	{
@@ -35,5 +35,10 @@ public class WebSocketGlobalEnvironment
 	public Gson getJsonConverter()
 	{
 		return this.jsonConverter;
+	}
+	
+	public ApplicationData getApplicationData()
+	{
+		return this.applicationData;
 	}
 }

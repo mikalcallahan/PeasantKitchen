@@ -55,15 +55,14 @@ public class WebSocketTemplate extends PostWebSocket
 		@Override
 		public void handleMessage(JsonObject payload, Session session) throws Exception 
 		{
-			// TODO Auto-generated method stub
 			Request request = WebSocketGlobalEnvironment.instance().getJsonConverter().fromJson(payload, Request.class);
 			
 			verify(request);
 			
 			//Call some method(s) from the BackendController
 			
-			Response response = createResponse(object);
-			Utilities.sendStandardWebSocketResponse(session, response);
+			//Response response = createResponse(object);
+			//Utilities.sendStandardWebSocketResponse(session, response);
 			session.close();
 		}
 		
