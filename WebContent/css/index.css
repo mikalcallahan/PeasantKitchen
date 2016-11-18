@@ -2,7 +2,9 @@
 body
 {
  background-color: darkGrey;
- min-width: 1800px;
+ color: inherit;
+/* min-width: 1800px;*/
+width: 100%;
 }
 form
 {
@@ -11,8 +13,7 @@ form
 	align-items: center;
 }
 
-TD
-{
+td{
 	border: 1px solid black;
 }
 
@@ -23,6 +24,8 @@ ul.menuBar
   padding: 0;
   overflow: hidden;
   background-color: grey;
+  color: inherit;
+  width: 99%;
 }
 /*Float the list items side by side*/
 ul.menuBar li {float: left;}
@@ -31,7 +34,8 @@ ul.menuBar li {float: left;}
 ul.menuBar li a
 {
       display: inline-block;
-      color: #red;
+	  background-color: inherit;
+      color: red;
       text-align: center;
       padding: 14px 16px;
       text-decoration: none;
@@ -58,6 +62,7 @@ ul.menuBar li.icon {display: none;}
     top: 0;
   }
 	*/
+
   ul.menuBar.responsive li {
     float: none;
     display: inline;
@@ -66,4 +71,19 @@ ul.menuBar li.icon {display: none;}
     display: block;
     text-align: left;
   }
+
+#enteringredients{
+	float:left;
+	width: 100%;
 }
+
+.ingredientsbox{
+	width: 95%;
+	margin: 0px auto;
+}
+  .myingredients{
+	  border: black solid;
+	  height: 200px;
+	  width: auto;
+	/*margin: 0px auto;*/
+  }

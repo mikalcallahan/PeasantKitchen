@@ -3,7 +3,7 @@
 <head>
   <title>Peasant Kitchen</title>
   <link rel = "stylesheet" type = "text/css" href="../css/index.css"/>
-<script type = "text/javascript"  src="index.js"></script>
+<script type = "text/javascript"  src="../js/index.js"></script>
 <meta charset = "utf-8">
 
 </head>
@@ -27,22 +27,27 @@
   </li>
   </ul>
 </div>
-
-<div id = 'my-ingredients' class = "c-bottom">
+<br>
+<div class="ingredientsbox">
 <!--Allows users to enter ingredients-->
-<form>
+<form id="enteringredients">
 	<input type="text" id="foods" onkeydown="enterButton(event)" placeholder="Add Ingredients"/>
   <!--<input id="foods" list="ingredients" onkeydown = "enterButton(event)" placeholder = "Add Ingredients"/>-->
  <!-- <datalist id="ingredients"></datalist>-->
-  <input name="generate" type="button"  value = "Add Ingredient!" onclick='createTable()'/>
+  <input name="generate" id="ingredientsadd" type="button"  value = "Add Ingredient!" onclick="createTable()"/>
 </form>
-</div>
+<br><br>
+<div class = 'myingredients'>
+
 <!--Prints users Input-->
 <table id="myTable">
 <tr>
   <td> </td>
 </tr>
 </table>
+</div>
+</div>
+
 <!-- Dropdown Boxes-->
 <div>
 <dl class = 'dropdown'>
