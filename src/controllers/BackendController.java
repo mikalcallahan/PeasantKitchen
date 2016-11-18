@@ -2,8 +2,10 @@ package controllers;
 
 import java.util.ArrayList;
 
+import framework.DatabaseController;
 import framework.Recipes;
 import framework.User;
+import utilities.StringUtils;
 
 
 public class BackendController 
@@ -18,7 +20,7 @@ public class BackendController
 	
 	private void initalize()
 	{
-		this.databaseController = new DatabaseController();
+		this.databaseController = new ContigentDatabaseController();
 		this.recomendationController = new RecomendationController();
 		
 		//Set the recommendation controller as an observer of the database controller
@@ -87,8 +89,6 @@ public class BackendController
 	public User createUser(User tempUserObject) throws Exception
 	{
 		if(this.isUsernameTaken(tempUserObject.username))
-			//We should agree with the frontend on some sort of error handling procedure
-			//this is a stop gap solution [maybe error codes, or maybe conditional handling of certain exception messages]
 			throw new RuntimeException("The requested username [" + tempUserObject.username + "] is already taken. Please select another");
 		
 		
@@ -138,13 +138,13 @@ public class BackendController
 		//The username is given to this method in case the recomender system is going to be involved in this method. I dunno if
 		//this is going to be the case, now that I think about it.
 		
-		ArrayList<String> cleanedIngredients = cleanIngredients(ingredients);
+		ArrayList<String> cleanedIngredients = StringUtils.cleanIngredients(ingredients);
 		return this.databaseController.getRecipesContainingIngredients(cleanedIngredients);
 	}
 	
 	public Recipes getRecipesWithOnlyTheseIngredients(ArrayList<String> ingredients, String username)
 	{
-		ArrayList<String> cleanedIngredients = cleanIngredients(ingredients);
+		ArrayList<String> cleanedIngredients = StringUtils.cleanIngredients(ingredients);
 		return this.databaseController.getRecipesWithOnlyTheseIngredients(cleanedIngredients);
 	}
 	
@@ -165,14 +165,6 @@ public class BackendController
 	 * to answer this question, although I suspect it'll end up being a frontend feature]
 	 */
 	
-	private ArrayList<String> cleanIngredients(ArrayList<String> ingredients)
-	{
-		ArrayList<String> cleaned = new ArrayList<String>();
-		
-		for(String ingredient : ingredients)
-			cleaned.add(ingredient.trim().toLowerCase());
-		
-		return cleaned;
-	}
+	
 
 }
