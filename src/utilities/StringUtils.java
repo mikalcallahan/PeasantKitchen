@@ -1,7 +1,19 @@
 package utilities;
 
+import java.util.ArrayList;
+
 public class StringUtils 
 {
+	public static ArrayList<String> cleanIngredients(ArrayList<String> ingredients)
+	{
+		ArrayList<String> cleaned = new ArrayList<String>();
+		
+		for(String ingredient : ingredients)
+			cleaned.add(ingredient.trim().toLowerCase());
+		
+		return cleaned;
+	}
+	
 	public static boolean isOnlyWhitespace(String str)
 	{
 		if(str == null || str.isEmpty())
