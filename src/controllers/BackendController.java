@@ -20,7 +20,7 @@ public class BackendController
 	
 	private void initalize()
 	{
-		this.databaseController = new ContigentDatabaseController();
+		this.databaseController = new SQLDatabaseController();
 		this.recomendationController = new RecomendationController();
 		
 		//Set the recommendation controller as an observer of the database controller
@@ -59,9 +59,6 @@ public class BackendController
 		if(user.isSignedIn())
 			return user; //if they are, ignore this signin request.
 		
-		//For now, we'll record which users are logged in by setting a flag in
-		//the database entry for that user.
-		//I has my concerns about that approach, but we'll see how it goes for now
 		this.databaseController.signInUser(username);
 		
 		return user;
