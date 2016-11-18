@@ -25,6 +25,7 @@ ul.menuBar
   overflow: hidden;
   background-color: grey;
   color: inherit;
+  width: 99%;
 }
 /*Float the list items side by side*/
 ul.menuBar li {float: left;}
@@ -73,13 +74,16 @@ ul.menuBar li.icon {display: none;}
 
 #enteringredients{
 	float:left;
+	width: 100%;
 }
 
 .ingredientsbox{
-	width: 100%;
+	width: 95%;
+	margin: 0px auto;
 }
   .myingredients{
 	  border: black solid;
 	  height: 200px;
 	  width: auto;
+	/*margin: 0px auto;*/
   }

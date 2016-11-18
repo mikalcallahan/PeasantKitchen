@@ -5,13 +5,19 @@ function createTable() {
 	var entry = document.getElementById("foods").value;
     cell1.innerHTML = entry;
 }
-
-function enterButton(event) {
+/*function enterButton(event) {
 	var x = event.keyCode;
 		if (x == 13) {
 		 	return createTable();
 		}
 	}
+*/
+function enterButton(e){
+	if(e.keyCode === 13){
+		e.preventDefault(); // Ensure it is only this code that rusn
+		createTable();
+	}
+}
 /*
 function Menu()
 {
