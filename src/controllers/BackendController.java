@@ -2,6 +2,8 @@ package controllers;
 
 import java.util.ArrayList;
 
+import com.sun.appserv.server.LifecycleEvent;
+
 import framework.DatabaseController;
 import framework.Recipes;
 import framework.User;
@@ -25,6 +27,16 @@ public class BackendController
 		
 		//Set the recommendation controller as an observer of the database controller
 		this.databaseController.addObserver(this.recomendationController);
+	}
+	
+	public LifecycleEvent serverStartupTasks(LifecycleEvent startupEvent)
+	{
+		return this.databaseController.serverStartupTasks(startupEvent);
+	}
+	
+	public LifecycleEvent serverShutdownTasks(LifecycleEvent shutdownEvent)
+	{
+		return this.databaseController.serverShutdownTasks(shutdownEvent);
 	}
 	
 	

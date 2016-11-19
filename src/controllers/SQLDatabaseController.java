@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import com.sun.appserv.server.LifecycleEvent;
+
 public class SQLDatabaseController extends DatabaseController
 {
 	//private static final String DB_CONNECTION = "jdbc:sqlserver://RYAN\\SQLEXPRESS:50977;databseName=PK";
@@ -515,6 +517,18 @@ public class SQLDatabaseController extends DatabaseController
 	public void removeObserver(Observer observer) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public LifecycleEvent serverStartupTasks(LifecycleEvent startupEvent) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public LifecycleEvent serverShutdownTasks(LifecycleEvent shutdownEvent) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

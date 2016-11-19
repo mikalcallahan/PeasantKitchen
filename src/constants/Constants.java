@@ -11,7 +11,17 @@ public class Constants
 	public static final String recipiesFileName = "recipies.obj";
 	
 	public static final File webSocketTestingDir = new File("/home/stoffel/Documents/School/Software Engineering/SemesterProject/PeasantKitchen/backend/testing/web sockets/");
+	public static final File applicationDataFolder = getApplicationDataFolder();
 
+	private static File getApplicationDataFolder()
+	{
+		String glassfishDomainConfigFolder = System.getProperty("com.sun.aas.instanceRoot");
+
+		if(glassfishDomainConfigFolder == null)
+			return new File(".");
+		else
+			return new File(glassfishDomainConfigFolder).getParentFile();
+	}
 	
 	
 	public static class Contexts

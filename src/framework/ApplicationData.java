@@ -18,24 +18,27 @@ public class ApplicationData
 	protected List<Recipe> concurrentRecipes = Collections.synchronizedList(recipes);
 	protected ConcurrentHashMap<String, User> users = new ConcurrentHashMap<String, User>();
 	
-	public ApplicationData()
+	private transient File parentDir;
+	
+	public ApplicationData(File parentDir)
 	{
+		this.parentDir = parentDir;
 	}
 	
-	public void loadFromDisk(File parentDir) throws Exception
+	public void loadFromDisk() throws Exception
 	{
-		String recipesAbsPath = getAbsolutePath(parentDir, Constants.recipiesFileName);
-		String usersAbsPath = getAbsolutePath(parentDir, Constants.usersFileName);
+		String recipesAbsPath = getAbsolutePath(this.parentDir, Constants.recipiesFileName);
+		String usersAbsPath = getAbsolutePath(this.parentDir, Constants.usersFileName);
 		
 		this.recipes = loadObjectFromDisk(recipesAbsPath, Recipes.class);
 		this.concurrentRecipes = Collections.synchronizedList(this.recipes);
 		this.users = loadObjectFromDisk(usersAbsPath, users.getClass());
 	}
 	
-	public void saveToDisk(File parentDir) throws Exception
+	public void saveToDisk() throws Exception
 	{	
-		String recipesAbsPath = getAbsolutePath(parentDir, Constants.recipiesFileName);
-		String usersAbsPath = getAbsolutePath(parentDir, Constants.usersFileName);
+		String recipesAbsPath = getAbsolutePath(this.parentDir, Constants.recipiesFileName);
+		String usersAbsPath = getAbsolutePath(this.parentDir, Constants.usersFileName);
 		
 		prepareDestinationFolder(recipesAbsPath, usersAbsPath);
 		
@@ -124,7 +127,8 @@ public class ApplicationData
 
 	public static void main(String [] args) throws Exception
 	{
-		ApplicationData test = new ApplicationData();
+		File parentDir = new File("/home/stoffel/Documents/School/Software Engineering/TestingOutput/");
+		ApplicationData test = new ApplicationData(parentDir);
 		
 		User mahNewUser = new User();
 		mahNewUser.username = "Mr user";
@@ -143,13 +147,13 @@ public class ApplicationData
 		
 		System.out.println(test.toString());
 		
-		File parentDir = new File("/home/stoffel/Documents/School/Software Engineering/TestingOutput/");
+		
 		
 		System.out.println("Attempting to save the application data to [" + parentDir.getAbsolutePath() + "]");
-		test.saveToDisk(parentDir);
+		test.saveToDisk();
 		
 		System.out.println("Attempting to load the application data from [" + parentDir.getAbsolutePath() + "]");
-		test.loadFromDisk(parentDir);
+		test.loadFromDisk();
 		
 		System.out.println(test.toString());
 	}

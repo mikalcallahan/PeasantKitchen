@@ -1,9 +1,13 @@
 package controllers;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import com.sun.appserv.server.LifecycleEvent;
+
+import constants.Constants;
 import designPatterns.Observer;
 import framework.ApplicationData;
 import framework.DatabaseController;
@@ -21,11 +25,12 @@ import framework.WebSocketGlobalEnvironment;
 
 
 public class ObjectDatabaseController extends DatabaseController 
-{	
+{
+	protected ApplicationData applicationData;
+	
 	@Override
 	public Recipes getRecipesContainingIngredients(ArrayList<String> cleanedIngredients) 
 	{
-		ApplicationData applicationData = WebSocketGlobalEnvironment.instance().getApplicationData();
 		List<Recipe> recipes = applicationData.getRecipes();
 		Recipes results = new Recipes();
 		
@@ -57,7 +62,6 @@ public class ObjectDatabaseController extends DatabaseController
 	@Override
 	public Recipes getRecipesWithOnlyTheseIngredients(ArrayList<String> cleanedIngredients) 
 	{
-		ApplicationData applicationData = WebSocketGlobalEnvironment.instance().getApplicationData();
 		List<Recipe> recipes = applicationData.getRecipes();
 		Recipes results = new Recipes();
 		
@@ -81,15 +85,12 @@ public class ObjectDatabaseController extends DatabaseController
 	@Override
 	public User getUser(String username) throws Exception 
 	{
-		ApplicationData applicationData = WebSocketGlobalEnvironment.instance().getApplicationData();
 		return applicationData.getUsers().get(username);
 	}
 
 	@Override
 	public User createUser(User tempUserObject) 
 	{
-		ApplicationData applicationData = WebSocketGlobalEnvironment.instance().getApplicationData();
-		
 		User newUser = new User(tempUserObject);
 		
 		//Successfully handles the case where multiple threads are trying to add the same user (hence, same key)
@@ -131,6 +132,37 @@ public class ObjectDatabaseController extends DatabaseController
 		this.observers.remove(observer);
 	}
 	
+	@Override
+	public LifecycleEvent serverStartupTasks(LifecycleEvent startupEvent) 
+	{
+		this.applicationData = new ApplicationData(Constants.applicationDataFolder);
+		
+		try {
+			this.applicationData.loadFromDisk();
+		}catch(Exception e)
+		{
+			System.err.println("Failed to load the application data from disk");
+			e.printStackTrace(System.err);
+		}
+
+		return startupEvent;
+	}
+
+	@Override
+	public LifecycleEvent serverShutdownTasks(LifecycleEvent shutdownEvent) 
+	{
+		try 
+		{
+			this.applicationData.saveToDisk();
+		} catch (Exception e) 
+		{
+			System.err.println("Failed to save the application data to disk");
+			e.printStackTrace();
+		}
+		
+		return shutdownEvent;
+	}
+	
 	
 	//Testing main
 
@@ -138,5 +170,7 @@ public class ObjectDatabaseController extends DatabaseController
 	{
 
 	}
+
+	
 
 }
