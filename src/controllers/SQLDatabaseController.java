@@ -522,13 +522,13 @@ public class SQLDatabaseController extends DatabaseController
 	@Override
 	public LifecycleEvent serverStartupTasks(LifecycleEvent startupEvent) {
 		// TODO Auto-generated method stub
-		return null;
+		return startupEvent;
 	}
 
 	@Override
 	public LifecycleEvent serverShutdownTasks(LifecycleEvent shutdownEvent) {
 		// TODO Auto-generated method stub
-		return null;
+		return shutdownEvent;
 	}
 
 }
