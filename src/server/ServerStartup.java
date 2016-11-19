@@ -15,10 +15,10 @@ public class ServerStartup implements LifecycleListener
 	@Override
 	public void handleEvent(LifecycleEvent event) throws ServerLifecycleException 
 	{
-		if(event.getEventType() == LifecycleEvent.STARTUP_EVENT)
-			startupBackend(event);
-		else if(event.getEventType() == LifecycleEvent.SHUTDOWN_EVENT)
-			shutdownBackend(event);
+//		if(event.getEventType() == LifecycleEvent.STARTUP_EVENT)
+//			startupBackend(event);
+//		else if(event.getEventType() == LifecycleEvent.SHUTDOWN_EVENT)
+//			shutdownBackend(event);
 	}
 	
 	private LifecycleEvent startupBackend(LifecycleEvent event)
