@@ -31,16 +31,8 @@ public class ApplicationData
 		String usersAbsPath = getAbsolutePath(this.parentDir, Constants.usersFileName);
 		
 		this.recipes = loadObjectFromDisk(recipesAbsPath, Recipes.class);
-		
-		if(this.recipes == null)
-			this.recipes = new Recipes();
-		
 		this.concurrentRecipes = Collections.synchronizedList(this.recipes);
-		
 		this.users = loadObjectFromDisk(usersAbsPath, users.getClass());
-		
-		if(this.users == null)
-			this.users = new ConcurrentHashMap<String, User>();
 	}
 	
 	public void saveToDisk() throws Exception
@@ -95,9 +87,6 @@ public class ApplicationData
 	
 	private <T> T loadObjectFromDisk(String absPathToSrc, Class<T> type) throws Exception
 	{
-		if(!(new File(absPathToSrc).exists()))
-			return null;
-		
 		FileInputStream fis = new FileInputStream(absPathToSrc);
 		ObjectInputStream ois = new ObjectInputStream(fis);
 		T object = type.cast(ois.readObject());
