@@ -6,6 +6,7 @@ body
 /* min-width: 1800px;*/
 width: 100%;
 }
+
 form
 {
 	display:table;
@@ -75,6 +76,10 @@ ul.menuBar li.icon {display: none;}
 #enteringredients{
 	float:left;
 	width: 100%;
+}
+
+#ingredientsSubmit{
+	
 }
 
 .ingredientsbox{
