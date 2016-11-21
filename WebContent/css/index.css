@@ -78,8 +78,12 @@ ul.menuBar li.icon {display: none;}
 	width: 100%;
 }
 
-#ingredientsSubmit{
-	
+#amtTable{
+	float: left;
+}
+
+#ingrTable{
+	float: right;
 }
 
 .ingredientsbox{

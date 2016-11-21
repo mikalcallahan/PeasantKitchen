@@ -30,17 +30,32 @@
 <br>
 <div class="ingredientsbox">
 <!--Allows users to enter ingredients-->
+
 <form id="enteringredients">
+	<select id="numberof" onchange = "createTable1()">
+		<option value="0">0</option>
+		<option value="1">1</option>
+		<option value="2">2</option>
+		<option value="3">3</option>
+		<option value="4">4</option>
+		<option value="5">5</option>
+	</select>
+
 	<input type="text" id="foods" onkeydown="enterButton(event)" placeholder="Add Ingredients"/>
   <!--<input id="foods" list="ingredients" onkeydown = "enterButton(event)" placeholder = "Add Ingredients"/>-->
  <!-- <datalist id="ingredients"></datalist>-->
-  <input name="generate" id="ingredientsadd" type="button"  value = "Add Ingredient!" onclick="createTable()"/>
+ 	<input name="generate" id="ingredientsadd" type="button"  value = "Add Ingredient!" onclick="createTable()"/>
 </form>
 <br><br>
 <div class = 'myingredients'>
 
 <!--Prints users Input-->
-<table id="myTable">
+<table id="amtTable">
+<tr>
+  <td> </td>
+</tr>
+</table>
+<table id="ingrTable">
 <tr>
   <td> </td>
 </tr>

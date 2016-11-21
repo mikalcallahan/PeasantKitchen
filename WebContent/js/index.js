@@ -1,15 +1,29 @@
 ingredientsArray = [];
+ingredientsAmount = [];
 
 function createTable() {
-    var table = document.getElementById("myTable");
-    var row = table.insertRow(0);
-    var cell1 = row.insertCell(0);
+
+    var ingredientstable = document.getElementById("ingrTable");
+    var row1 = ingredientstable.insertRow(0);
+    var cell1 = row1.insertCell(0);
 	var entry = document.getElementById("foods").value;
     cell1.innerHTML = entry;
 	ingredientsArray.push(entry);
 }
 
+function createTable1() {
+	var ingredientsamt = document.getElementById("amtTable");
+    var row1 = ingredientsamt.insertRow(0);
+    var cell1 = row1.insertCell(0);
+	var entry = document.getElementById("numberof").value;
+    cell1.innerHTML = entry;
+	ingredientsAmount.push(entry);
+}
+
+
 function submitIngredients(){
+	ingredientsText = ingredientsArray.toString();
+
 	alert(ingredientsArray.toString());
 }
 /*function enterButton(event) {
