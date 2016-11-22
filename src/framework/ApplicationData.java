@@ -8,9 +8,11 @@ import java.io.ObjectOutputStream;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
 import constants.Constants;
+import designPatterns.Visitor;
 
 public class ApplicationData 
 {
@@ -58,6 +60,21 @@ public class ApplicationData
 		
 		storedRecipes.mkdirs();
 		storedUsers.mkdirs();
+	}
+	
+	public void visitRecipes(Visitor<Recipe> visitor)
+	{
+		synchronized (this.concurrentRecipes) 
+		{
+			for(Recipe recipe : this.concurrentRecipes)
+				visitor.visit(recipe);
+		}
+	}
+	
+	public void visitUsers(Visitor<User> visitor)
+	{
+		for(Entry<String, User> entry : this.users.entrySet())
+			visitor.visit(entry.getValue());
 	}
 	
 	/*

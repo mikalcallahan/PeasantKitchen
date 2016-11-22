@@ -9,6 +9,7 @@ import com.sun.appserv.server.LifecycleEvent;
 
 import constants.Constants;
 import designPatterns.Observer;
+import designPatterns.Visitor;
 import framework.ApplicationData;
 import framework.DatabaseController;
 import framework.Recipe;
@@ -31,17 +32,17 @@ public class ObjectDatabaseController extends DatabaseController
 	@Override
 	public Recipes getRecipesContainingIngredients(ArrayList<String> cleanedIngredients) 
 	{
-		List<Recipe> recipes = applicationData.getRecipes();
 		Recipes results = new Recipes();
 		
-		synchronized (recipes) 
+		this.applicationData.visitRecipes(new Visitor<Recipe>() 
 		{
-			for(Recipe recipe : recipes)
+			@Override
+			public void visit(Recipe recipe) 
 			{
 				if(recipeContainsIngredients(recipe, cleanedIngredients))
 					results.add(recipe);
 			}
-		}
+		});
 		
 		return results;
 	}
@@ -62,24 +63,24 @@ public class ObjectDatabaseController extends DatabaseController
 	@Override
 	public Recipes getRecipesWithOnlyTheseIngredients(ArrayList<String> cleanedIngredients) 
 	{
-		List<Recipe> recipes = applicationData.getRecipes();
 		Recipes results = new Recipes();
 		
-		synchronized (recipes) 
+		this.applicationData.visitRecipes(new Visitor<Recipe>() 
 		{
-			for(Recipe recipe : recipes)
+			@Override
+			public void visit(Recipe recipe) 
 			{
 				if(recipeContainsExactIngredients(recipe, cleanedIngredients))
 					results.add(recipe);
 			}
-		}
+		});
 		
 		return results;
 	}
 	
 	private boolean recipeContainsExactIngredients(Recipe recipe, Collection<String> ingredients)
 	{
-		return this.recipeContainsIngredients(recipe, ingredients); //CHANGE ME
+		return this.recipeContainsIngredients(recipe, ingredients); //TODO: CHANGE ME
 	}
  
 	@Override
