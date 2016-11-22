@@ -22,6 +22,7 @@ public class BackendController
 	
 	private void initalize()
 	{
+		//this.databaseController = new SQLDatabaseController();
 		this.databaseController = new ObjectDatabaseController();
 		this.recomendationController = new RecomendationController();
 		
