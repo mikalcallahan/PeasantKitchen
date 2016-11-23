@@ -8,9 +8,11 @@ import java.io.ObjectOutputStream;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
 import constants.Constants;
+import designPatterns.Visitor;
 
 public class ApplicationData 
 {
@@ -31,16 +33,8 @@ public class ApplicationData
 		String usersAbsPath = getAbsolutePath(this.parentDir, Constants.usersFileName);
 		
 		this.recipes = loadObjectFromDisk(recipesAbsPath, Recipes.class);
-		
-		if(this.recipes == null)
-			this.recipes = new Recipes();
-		
 		this.concurrentRecipes = Collections.synchronizedList(this.recipes);
-		
 		this.users = loadObjectFromDisk(usersAbsPath, users.getClass());
-		
-		if(this.users == null)
-			this.users = new ConcurrentHashMap<String, User>();
 	}
 	
 	public void saveToDisk() throws Exception
@@ -66,6 +60,21 @@ public class ApplicationData
 		
 		storedRecipes.mkdirs();
 		storedUsers.mkdirs();
+	}
+	
+	public void visitRecipes(Visitor<Recipe> visitor)
+	{
+		synchronized (this.concurrentRecipes) 
+		{
+			for(Recipe recipe : this.concurrentRecipes)
+				visitor.visit(recipe);
+		}
+	}
+	
+	public void visitUsers(Visitor<User> visitor)
+	{
+		for(Entry<String, User> entry : this.users.entrySet())
+			visitor.visit(entry.getValue());
 	}
 	
 	/*
@@ -95,9 +104,6 @@ public class ApplicationData
 	
 	private <T> T loadObjectFromDisk(String absPathToSrc, Class<T> type) throws Exception
 	{
-		if(!(new File(absPathToSrc).exists()))
-			return null;
-		
 		FileInputStream fis = new FileInputStream(absPathToSrc);
 		ObjectInputStream ois = new ObjectInputStream(fis);
 		T object = type.cast(ois.readObject());

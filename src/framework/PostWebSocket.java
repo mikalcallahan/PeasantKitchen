@@ -38,9 +38,6 @@ public abstract class PostWebSocket
     
     protected void handleMessages(String messageJson, Session session)
     {
-    	//if nobody gives me a message id, I could try using this (subclass's) 
-    	//class name
-    	
     	try 
     	{
     		handleCurrentMessage(messageJson, session);

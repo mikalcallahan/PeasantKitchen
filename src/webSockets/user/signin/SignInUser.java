@@ -81,6 +81,7 @@ public class SignInUser extends PostWebSocket
 	    	//Create our response to the client
 	    	Response response = new Response();
 	    	response.success = user.isSignedIn();
+	    	response.username = user.username;
 	    	
 	    	//send our response to the client
 	    	Utilities.sendStandardWebSocketResponse(session, response);
@@ -98,6 +99,7 @@ public class SignInUser extends PostWebSocket
 		private class Response
 		{
 			public Boolean success = false;
+			public String username = "";
 		}
     }
 
