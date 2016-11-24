@@ -21,6 +21,9 @@ public class Recipe implements Serializable
     public String recipeName = "";
     public String recipeRequirements = "";
     public String recipeProcess = "";
+    public ArrayList<IngredientQuantity> ingredientQuantities = new ArrayList<IngredientQuantity>();
+
+    
     public int recipeID;
     
     public Recipe()
