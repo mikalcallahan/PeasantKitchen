@@ -28,13 +28,21 @@ public class ApplicationData
 	}
 	
 	public void loadFromDisk() throws Exception
-	{
-		String recipesAbsPath = getAbsolutePath(this.parentDir, Constants.recipiesFileName);
-		String usersAbsPath = getAbsolutePath(this.parentDir, Constants.usersFileName);
+	{		
+		File storedRecipes = new File(this.parentDir, Constants.recipiesFileName);
+		File storedUsers = new File(this.parentDir, Constants.usersFileName);
 		
-		this.recipes = loadObjectFromDisk(recipesAbsPath, Recipes.class);
+		if(!storedRecipes.exists())
+			this.recipes = loadDefaultRecipes(this.parentDir);
+		else
+			this.recipes = loadObjectFromDisk(storedRecipes, Recipes.class);
+		
 		this.concurrentRecipes = Collections.synchronizedList(this.recipes);
-		this.users = loadObjectFromDisk(usersAbsPath, users.getClass());
+		
+		if(!storedUsers.exists())
+			this.users = loadDefaultUsers();
+		else
+			this.users = loadObjectFromDisk(storedUsers, users.getClass());
 	}
 	
 	public void saveToDisk() throws Exception
@@ -96,15 +104,25 @@ public class ApplicationData
 	 * Helper methods
 	 */
 	
+	private Recipes loadDefaultRecipes(File parentDir)
+	{
+		return null;
+	}
+	
+	private ConcurrentHashMap<String, User> loadDefaultUsers()
+	{
+		return new ConcurrentHashMap<String, User>(); //there are not default users
+	}
+	
 	private String getAbsolutePath(File folder, String filenameInFolder)
 	{
 		return new File(folder.getAbsolutePath(), filenameInFolder).getAbsolutePath();
 	}
 	
 	
-	private <T> T loadObjectFromDisk(String absPathToSrc, Class<T> type) throws Exception
+	private <T> T loadObjectFromDisk(File objectLocation, Class<T> type) throws Exception
 	{
-		FileInputStream fis = new FileInputStream(absPathToSrc);
+		FileInputStream fis = new FileInputStream(objectLocation.getAbsolutePath());
 		ObjectInputStream ois = new ObjectInputStream(fis);
 		T object = type.cast(ois.readObject());
 		
