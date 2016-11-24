@@ -3,13 +3,17 @@ package framework;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
+
+import com.opencsv.CSVReader;
 
 import constants.Constants;
 import designPatterns.Visitor;
@@ -33,7 +37,7 @@ public class ApplicationData
 		File storedUsers = new File(this.parentDir, Constants.usersFileName);
 		
 		if(!storedRecipes.exists())
-			this.recipes = loadDefaultRecipes(this.parentDir);
+			this.recipes = loadDefaultRecipes();
 		else
 			this.recipes = loadObjectFromDisk(storedRecipes, Recipes.class);
 		
@@ -104,9 +108,72 @@ public class ApplicationData
 	 * Helper methods
 	 */
 	
-	private Recipes loadDefaultRecipes(File parentDir)
+	private Recipes loadDefaultRecipes() throws Exception
 	{
-		return null;
+		List<String[]> recipesCSVData = parseCSV("RECIPES.csv");
+		return convertCSVDataToRecipes(recipesCSVData);
+	}
+	
+	private List<String[]> parseCSV(String csvFileName) throws Exception
+	{
+		File csvFile = new File(this.parentDir, csvFileName);
+		CSVReader reader = new CSVReader(new FileReader(csvFile.getAbsolutePath()));
+		List<String[]> csvEntries = reader.readAll();
+		
+		return csvEntries;
+	}
+	
+	private Recipes convertCSVDataToRecipes(List<String[]> recipesCSVData)
+	{
+		Recipes recipes = new Recipes();
+		Recipe currRecipe;
+		String[] lineEntries;
+		
+		//Ignore the header (line 1)
+		for (int index = 1; index < recipesCSVData.size(); index++) 
+		{
+			lineEntries = recipesCSVData.get(index);
+			currRecipe = convertCSVLineToRecipe(lineEntries);
+			
+			if(currRecipe != null)
+				recipes.add(currRecipe);
+		}
+		
+		
+		return recipes;
+	}
+	
+	private Recipe convertCSVLineToRecipe(String[] lineEntries)
+	{
+		Recipe recipe = new Recipe();
+		
+		recipe.recipeID = Integer.parseInt(lineEntries[0].trim());
+		recipe.recipeName = lineEntries[1];
+		recipe.recipeRequirements = lineEntries[2];
+		recipe.recipeProcess = lineEntries[3];
+		recipe.ingredientQuantities = parseIngredientQuantities(recipe.recipeProcess);
+		
+		return recipe;
+	}
+	
+	private ArrayList<IngredientQuantity> parseIngredientQuantities(String ingredientProcess)
+	{
+		ArrayList<IngredientQuantity> ingredientQuantities = new ArrayList<IngredientQuantity>();
+		
+		//<Number><Unit><Ingredient>, ...
+		
+		for(String ingredientQuantityString : ingredientProcess.split(","))
+		{
+			for(String element : ingredientQuantityString.split("<"))
+			{
+				if(!element.endsWith(">"))
+					//malformed
+					throw new NullPointerException("GAH WHY NO WORK");
+				
+			}
+		}
+		
+		return ingredientQuantities;
 	}
 	
 	private ConcurrentHashMap<String, User> loadDefaultUsers()
