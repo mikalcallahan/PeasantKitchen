@@ -105,13 +105,12 @@ public class ApplicationData
 	
 	private Recipes loadDefaultRecipes() throws Exception
 	{
-		List<String[]> recipesCSVData = parseCSV("RECIPES.csv");
+		List<String[]> recipesCSVData = parseCSV(this.getRecipesCSV());
 		return convertCSVDataToRecipes(recipesCSVData);
 	}
 	
-	private List<String[]> parseCSV(String csvFileName) throws Exception
+	private List<String[]> parseCSV(File csvFile) throws Exception
 	{
-		File csvFile = new File(this.parentDir, csvFileName);
 		CSVReader reader = new CSVReader(new FileReader(csvFile.getAbsolutePath()));
 		List<String[]> csvEntries = reader.readAll();
 		
@@ -259,14 +258,14 @@ public class ApplicationData
 		return new File(this.getStoredObjectsFolder(), Constants.storedRecipesObjectFileName);
 	}
 
-	private File databaseCSVFolder()
+	public File getDabaseCSVsFolder()
 	{
-		File csvFolder = new File(this.parentDir, "CSVs");
-		
-		if(!csvFolder.exists())
-			csvFolder.mkdirs();
-		
-		return csvFolder;
+		return new File(this.parentDir, Constants.databaseCSVFolder);
+	}
+	
+	public File getRecipesCSV()
+	{
+		return new File(this.getDabaseCSVsFolder(), Constants.recipesCSV);
 	}
 	
 	
