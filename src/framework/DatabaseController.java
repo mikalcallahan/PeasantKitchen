@@ -6,7 +6,7 @@ import com.sun.appserv.server.LifecycleEvent;
 
 import designPatterns.ObserverSubject;
 
-public abstract class DatabaseController extends ObserverSubject  
+public abstract class DatabaseController extends ObserverSubject
 {
 	public abstract Recipes getRecipesContainingIngredients(ArrayList<String> cleanedIngredients);
 	public abstract Recipes getRecipesWithOnlyTheseIngredients(ArrayList<String> cleanedIngredients);

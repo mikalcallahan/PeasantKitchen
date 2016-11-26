@@ -4,6 +4,27 @@ import java.util.ArrayList;
 
 public class StringUtils 
 {
+	public static String removeEndingCharacters(String string, int numberOfCharactersToRemove)
+	{
+		if(numberOfCharactersToRemove >= string.length())
+			return "";
+
+		return string.substring(0, string.length() - numberOfCharactersToRemove);
+	}
+
+	public static String join(Iterable<String> strings)
+	{
+		if(strings == null)
+			return null;
+
+		StringBuilder joined = new StringBuilder();
+
+		for(String substring : strings)
+			joined.append(substring);
+
+		return joined.toString();
+	}
+
 	public static ArrayList<String> cleanIngredients(ArrayList<String> ingredients)
 	{
 		ArrayList<String> cleaned = new ArrayList<String>();

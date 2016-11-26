@@ -17,6 +17,7 @@ import com.opencsv.CSVReader;
 
 import constants.Constants;
 import designPatterns.Visitor;
+import org.apache.commons.io.FileUtils;
 import utilities.StringUtils;
 
 public class ApplicationData 
@@ -34,8 +35,8 @@ public class ApplicationData
 	
 	public void loadFromDisk() throws Exception
 	{		
-		File storedRecipes = new File(this.parentDir, Constants.recipiesFileName);
-		File storedUsers = new File(this.parentDir, Constants.usersFileName);
+		File storedRecipes = new File(this.parentDir, Constants.storedRecipesObjectFileName);
+		File storedUsers = new File(this.parentDir, Constants.storedUsersObjectFileName);
 		
 		if(!storedRecipes.exists())
 			this.recipes = loadDefaultRecipes();
@@ -52,28 +53,21 @@ public class ApplicationData
 	
 	public void saveToDisk() throws Exception
 	{	
-		String recipesAbsPath = getAbsolutePath(this.parentDir, Constants.recipiesFileName);
-		String usersAbsPath = getAbsolutePath(this.parentDir, Constants.usersFileName);
+        prepareDestinationFolder();
 		
-		prepareDestinationFolder(recipesAbsPath, usersAbsPath);
-		
-		saveObjectToDisk(recipesAbsPath, this.recipes);
-		saveObjectToDisk(usersAbsPath, this.users);
+		saveObjectToDisk(this.getStoredRecipesObject(), this.recipes);
+		saveObjectToDisk(this.getStoredUsersObject(), this.users);
 	}
-	
-	private void prepareDestinationFolder(String recipesAbsPath, String usersAbsPath)
-	{
-		File storedRecipes = new File(recipesAbsPath);
-		File storedUsers = new File(usersAbsPath);
-		
-		if(storedRecipes.exists())
-			storedRecipes.delete();
-		if(storedUsers.exists())
-			storedUsers.delete();
-		
-		storedRecipes.mkdirs();
-		storedUsers.mkdirs();
-	}
+
+	private void prepareDestinationFolder() throws Exception
+    {
+        File storedObjectFolder = this.getStoredObjectsFolder();
+
+        if(storedObjectFolder.exists())
+			FileUtils.deleteDirectory(storedObjectFolder);
+
+		storedObjectFolder.mkdirs();
+    }
 	
 	public void visitRecipes(Visitor<Recipe> visitor)
 	{
@@ -156,7 +150,7 @@ public class ApplicationData
 		return recipe;
 	}
 	
-	private ArrayList<IngredientQuantity> parseIngredientQuantities(String ingredientProcess)
+	public ArrayList<IngredientQuantity> parseIngredientQuantities(String ingredientProcess)
 	{
 		ArrayList<IngredientQuantity> ingredientQuantities = new ArrayList<IngredientQuantity>();
 		
@@ -234,9 +228,9 @@ public class ApplicationData
 		return object;
 	}
 	
-	private <T> T saveObjectToDisk(String absPathToDest, T object) throws Exception
+	private <T> T saveObjectToDisk(File objectDestination, T object) throws Exception
 	{
-		FileOutputStream fos = new FileOutputStream(absPathToDest);
+		FileOutputStream fos = new FileOutputStream(objectDestination.getAbsolutePath());
 		ObjectOutputStream oos = new ObjectOutputStream(fos);
 		
 		oos.writeObject(object);
@@ -249,24 +243,22 @@ public class ApplicationData
 	/*
 	 * get File Objects
 	 */
+
+	private File getStoredObjectsFolder()
+    {
+        return new File(this.parentDir, Constants.storedObjectsFolderName);
+    }
 	
-	
-	private File storedUsersObject()
+	private File getStoredUsersObject()
 	{
-		return null;
+        return new File(this.getStoredObjectsFolder(), Constants.storedUsersObjectFileName);
 	}
 	
-	private File storedRecipesObject()
+	private File getStoredRecipesObject()
 	{
-		File objectsFolder = new File(this.parentDir, Constants.storedObjectsFolderName);
-		
-		if(!objectsFolder.exists())
-			objectsFolder.mkdirs();
-		
-		File storedRecipes = new File(objectsFolder, Constants.recipiesFileName);
-		return storedRecipes;
+		return new File(this.getStoredObjectsFolder(), Constants.storedRecipesObjectFileName);
 	}
-	
+
 	private File databaseCSVFolder()
 	{
 		File csvFolder = new File(this.parentDir, "CSVs");

@@ -1,6 +1,6 @@
 package designPatterns;
 
-public abstract class Visitor<T> 
+public interface Visitor<T>
 {
-	public abstract void visit(T item);
+	void visit(T item);
 }

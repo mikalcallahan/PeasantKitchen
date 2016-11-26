@@ -2,7 +2,7 @@ package designPatterns;
 
 import java.util.HashSet;
 
-public abstract class ObserverSubject 
+public abstract class ObserverSubject
 {
 	protected HashSet<Observer> observers = new HashSet<Observer>();
 	

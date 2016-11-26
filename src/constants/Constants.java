@@ -6,13 +6,15 @@ import framework.AddnSet;
 
 public class Constants 
 {
-	public static final String usersFileName = "users.obj";
-	public static final String recipiesFileName = "recipies.obj";
+	public static final String storedUsersObjectFileName = "users.obj";
+	public static final String storedRecipesObjectFileName = "recipies.obj";
 	public static final String storedObjectsFolderName = "StoredObjects";
 	
 	public static final File webSocketTestingDir = new File("/home/stoffel/Documents/School/Software Engineering/SemesterProject/PeasantKitchen/backend/testing/web sockets/");
 	public static final File applicationDataFolder = getApplicationDataFolder();
-	
+
+
+
 	public static class ApplicationData
 	{
 		public static final String openElement = "<";
