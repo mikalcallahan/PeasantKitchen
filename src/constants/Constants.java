@@ -9,6 +9,8 @@ public class Constants
 	public static final String storedUsersObjectFileName = "users.obj";
 	public static final String storedRecipesObjectFileName = "recipies.obj";
 	public static final String storedObjectsFolderName = "StoredObjects";
+	public static final String databaseCSVFolder = "DatabaseCSVs";
+	public static final String recipesCSV = "RECIPES.csv";
 	
 	public static final File webSocketTestingDir = new File("/home/stoffel/Documents/School/Software Engineering/SemesterProject/PeasantKitchen/backend/testing/web sockets/");
 	public static final File applicationDataFolder = getApplicationDataFolder();
