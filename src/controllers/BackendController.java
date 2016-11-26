@@ -7,7 +7,7 @@ import com.sun.appserv.server.LifecycleEvent;
 import framework.DatabaseController;
 import framework.Recipes;
 import framework.User;
-import utilities.StringUtils;
+import utilities.StringUtilites;
 
 
 public class BackendController 
@@ -148,13 +148,13 @@ public class BackendController
 		//The username is given to this method in case the recomender system is going to be involved in this method. I dunno if
 		//this is going to be the case, now that I think about it.
 		
-		ArrayList<String> cleanedIngredients = StringUtils.cleanIngredients(ingredients);
+		ArrayList<String> cleanedIngredients = StringUtilites.cleanIngredients(ingredients);
 		return this.databaseController.getRecipesContainingIngredients(cleanedIngredients);
 	}
 	
 	public Recipes getRecipesWithOnlyTheseIngredients(ArrayList<String> ingredients, String username)
 	{
-		ArrayList<String> cleanedIngredients = StringUtils.cleanIngredients(ingredients);
+		ArrayList<String> cleanedIngredients = StringUtilites.cleanIngredients(ingredients);
 		return this.databaseController.getRecipesWithOnlyTheseIngredients(cleanedIngredients);
 	}
 	

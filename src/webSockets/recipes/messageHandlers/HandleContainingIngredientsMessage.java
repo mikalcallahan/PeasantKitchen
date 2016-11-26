@@ -9,7 +9,7 @@ import com.google.gson.JsonObject;
 import framework.Recipes;
 import framework.WebSocketGlobalEnvironment;
 import framework.WebSocketMessageHandler;
-import utilities.StringUtils;
+import utilities.StringUtilites;
 import utilities.Utilities;
 
 public class HandleContainingIngredientsMessage extends WebSocketMessageHandler
@@ -30,14 +30,14 @@ public class HandleContainingIngredientsMessage extends WebSocketMessageHandler
 	
 	private void verify(Request request)
 	{
-		if(StringUtils.isVoidString(request.username))
+		if(StringUtilites.isVoidString(request.username))
 			throw new NullPointerException("/recipes/contains: requires a username to process your request");
 		
 		if(request.ingredients == null || request.ingredients.isEmpty())
 			throw new NullPointerException("/recipes/contains: requires a list of ingredients to process your request");
 		
 		for(String ingredient : request.ingredients)
-			if(StringUtils.isVoidString(ingredient))
+			if(StringUtilites.isVoidString(ingredient))
 				throw new NullPointerException("/recipes/contains: Malformed ingredient list. The list of ingredients contained: [" + ingredient + "]");
 	}
 	

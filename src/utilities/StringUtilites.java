@@ -2,7 +2,7 @@ package utilities;
 
 import java.util.ArrayList;
 
-public class StringUtils 
+public class StringUtilites
 {
 	public static String removeEndingCharacters(String string, int numberOfCharactersToRemove)
 	{
@@ -69,7 +69,7 @@ public class StringUtils
 	{
 		if(str == null ||
 		   str.isEmpty() || 
-		   StringUtils.isOnlyWhitespace(str))
+		   StringUtilites.isOnlyWhitespace(str))
 				return true;
 		
 		return false;

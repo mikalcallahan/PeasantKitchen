@@ -18,7 +18,7 @@ import com.opencsv.CSVReader;
 import constants.Constants;
 import designPatterns.Visitor;
 import org.apache.commons.io.FileUtils;
-import utilities.StringUtils;
+import utilities.StringUtilites;
 
 public class ApplicationData 
 {
@@ -106,6 +106,14 @@ public class ApplicationData
 	private Recipes loadDefaultRecipes() throws Exception
 	{
 		List<String[]> recipesCSVData = parseCSV(this.getRecipesCSV());
+
+//		for (int index = 1; index < recipesCSVData.size(); index++)
+//		{
+//			for(String item : recipesCSVData.get(index))
+//				System.out.print(item + "  ");
+//			System.out.println();
+//		}
+
 		return convertCSVDataToRecipes(recipesCSVData);
 	}
 	
@@ -139,14 +147,22 @@ public class ApplicationData
 	private Recipe convertCSVLineToRecipe(String[] lineEntries)
 	{
 		Recipe recipe = new Recipe();
-		
-		recipe.recipeID = Integer.parseInt(lineEntries[0].trim());
+
+		recipe.recipeID = getRecipeID(lineEntries[0]);
 		recipe.recipeName = lineEntries[1];
 		recipe.recipeRequirements = lineEntries[2];
 		recipe.recipeProcess = lineEntries[3];
 		recipe.ingredientQuantities = parseIngredientQuantities(recipe.recipeProcess);
 		
 		return recipe;
+	}
+
+	private Integer getRecipeID(String rawRecipeID)
+	{
+		if(StringUtilites.isVoidString(rawRecipeID))
+			return new Integer(1);
+		else
+			return Integer.parseInt(rawRecipeID.trim());
 	}
 	
 	public ArrayList<IngredientQuantity> parseIngredientQuantities(String ingredientProcess)
@@ -159,15 +175,19 @@ public class ApplicationData
 		for(String ingredientQuantityString : ingredientProcess.split(Constants.ApplicationData.elementSeperator))
 		{
 			ingredientQuantityString = ingredientQuantityString.trim();
+
+			System.out.println("Ingredient quantity string:" + ingredientQuantityString);
 			
 			for(String element : ingredientQuantityString.split(Constants.ApplicationData.openElement))
 			{
 				element = element.trim();
+
+				System.out.println("Attempting to parse: " + element);
 				
 				if(!element.endsWith(Constants.ApplicationData.closingElement))
 					throw new NullPointerException("Parse error: The Ingredient quantity string [" + element + "] was malformed.");
 				
-				elementValues.add(StringUtils.removeEndingCharacters(element, 1)); //Remove the trailing closingElement from the element string
+				elementValues.add(StringUtilites.removeEndingCharacters(element, 1)); //Remove the trailing closingElement from the element string
 			}
 			
 			ingredientQuantities.add(makeIngredientQuantity(elementValues));
@@ -189,8 +209,8 @@ public class ApplicationData
 		ingredientQuantity.quantity = getQuantity(elementValues.get(0));
 		ingredientQuantity.unit = elementValues.get(1).trim();
 		
-		if(StringUtils.isVoidString(elementValues.get(2)))
-			throw new NullPointerException("Parse error: You must specify an ingredient in the last element of: [" + StringUtils.join(elementValues) + "]");
+		if(StringUtilites.isVoidString(elementValues.get(2)))
+			throw new NullPointerException("Parse error: You must specify an ingredient in the last element of: [" + StringUtilites.join(elementValues) + "]");
 		
 		ingredientQuantity.ingredient = elementValues.get(2).trim();
 		
@@ -199,7 +219,7 @@ public class ApplicationData
 	
 	private Integer getQuantity(String rawQuantityString)
 	{
-		if(StringUtils.isVoidString(rawQuantityString))
+		if(StringUtilites.isVoidString(rawQuantityString))
 			rawQuantityString = "1";
 		
 		return Integer.parseInt(rawQuantityString.trim());
@@ -288,34 +308,44 @@ public class ApplicationData
 
 	public static void main(String [] args) throws Exception
 	{
+		//<2><lb><Eggs>
+
+		String test = "<2><lb><Eggs>";
+
+		for(String str : StringUtils.split("<"))
+			System.out.println(str);
+	}
+
+	private static void testLoadingAndSaving() throws Exception
+	{
 		File parentDir = new File("/home/stoffel/Documents/School/Software Engineering/TestingOutput/");
 		ApplicationData test = new ApplicationData(parentDir);
-		
+
 		User mahNewUser = new User();
 		mahNewUser.username = "Mr user";
 		mahNewUser.emailAddress = "mr@user.com";
 		mahNewUser.firstname = "AnElifi";
 		mahNewUser.lastname = "No";
-		
+
 		Recipe testRecipe = new Recipe();
 		testRecipe.recipeID = 1;
 		testRecipe.recipeName = "mahRecipe";
 		testRecipe.recipeProcess = "1. Boil water. 2. Place egg in water. 3) Remove egg from water.";
 		testRecipe.recipeRequirements = "1) Egg. 2) Water. 3) Time.";
-		
+
 		test.getUsers().put(mahNewUser.username, mahNewUser);
 		test.getRecipes().add(testRecipe);
-		
+
 		System.out.println(test.toString());
-		
-		
-		
+
+
+
 		System.out.println("Attempting to save the application data to [" + parentDir.getAbsolutePath() + "]");
 		test.saveToDisk();
-		
+
 		System.out.println("Attempting to load the application data from [" + parentDir.getAbsolutePath() + "]");
 		test.loadFromDisk();
-		
+
 		System.out.println(test.toString());
 	}
 }

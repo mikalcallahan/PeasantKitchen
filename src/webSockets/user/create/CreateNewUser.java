@@ -15,7 +15,7 @@ import framework.PostWebSocket;
 import framework.User;
 import framework.WebSocketGlobalEnvironment;
 import framework.WebSocketMessageHandler;
-import utilities.StringUtils;
+import utilities.StringUtilites;
 import utilities.Utilities;
 
 @ServerEndpoint("/user/create")
@@ -78,10 +78,10 @@ public class CreateNewUser extends PostWebSocket
 		
 		private void verify(RequestParameters requestParameters) throws Exception
 		{
-			if(StringUtils.isVoidString(requestParameters.username))
+			if(StringUtilites.isVoidString(requestParameters.username))
 				throw new NullPointerException("You must specify a username to create a new account");
 			
-			if(StringUtils.isVoidString(requestParameters.password))
+			if(StringUtilites.isVoidString(requestParameters.password))
 				throw new NullPointerException("You must specify a password to create a new account");
 		}
 		

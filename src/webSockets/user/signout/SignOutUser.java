@@ -14,7 +14,7 @@ import framework.PostWebSocket;
 import framework.User;
 import framework.WebSocketGlobalEnvironment;
 import framework.WebSocketMessageHandler;
-import utilities.StringUtils;
+import utilities.StringUtilites;
 import utilities.Utilities;
 
 public class SignOutUser extends PostWebSocket
@@ -73,7 +73,7 @@ public class SignOutUser extends PostWebSocket
 		
 		private void verify(Request request)
 		{
-			if(StringUtils.isVoidString(request.username))
+			if(StringUtilites.isVoidString(request.username))
 				throw new NullPointerException("ERROR: You must specify the username of the user to sign out");
 		}
 		

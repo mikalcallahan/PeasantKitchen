@@ -2,11 +2,6 @@ package framework;
 
 import java.util.HashMap;
 
-import javax.websocket.CloseReason;
-import javax.websocket.OnClose;
-import javax.websocket.OnError;
-import javax.websocket.OnMessage;
-import javax.websocket.OnOpen;
 import javax.websocket.Session;
 
 import com.google.gson.JsonElement;
@@ -14,8 +9,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import constants.Constants;
-import logging.Logger;
-import utilities.StringUtils;
+import utilities.StringUtilites;
 import utilities.Utilities;
 
 
@@ -90,7 +84,7 @@ public abstract class PostWebSocket
     			throw new NullPointerException("ERROR: The required parameter [" + field + "] was not recieved by the backend!");
     		}
     		
-    		if(StringUtils.isVoidString(fieldElement.getAsString()))
+    		if(StringUtilites.isVoidString(fieldElement.getAsString()))
     			throw new NullPointerException("ERROR: Please supply a value for the parameter [" + field + "]");
     	}
     }
