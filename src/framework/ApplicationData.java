@@ -17,6 +17,7 @@ import com.opencsv.CSVReader;
 
 import constants.Constants;
 import designPatterns.Visitor;
+import utilities.StringUtils;
 
 public class ApplicationData 
 {
@@ -139,7 +140,6 @@ public class ApplicationData
 				recipes.add(currRecipe);
 		}
 		
-		
 		return recipes;
 	}
 	
@@ -161,20 +161,57 @@ public class ApplicationData
 		ArrayList<IngredientQuantity> ingredientQuantities = new ArrayList<IngredientQuantity>();
 		
 		//<Number><Unit><Ingredient>, ...
+		ArrayList<String> elementValues = new ArrayList<String>(3);
 		
-		for(String ingredientQuantityString : ingredientProcess.split(","))
+		for(String ingredientQuantityString : ingredientProcess.split(Constants.ApplicationData.elementSeperator))
 		{
-			for(String element : ingredientQuantityString.split("<"))
+			ingredientQuantityString = ingredientQuantityString.trim();
+			
+			for(String element : ingredientQuantityString.split(Constants.ApplicationData.openElement))
 			{
-				if(!element.endsWith(">"))
-					//malformed
-					throw new NullPointerException("GAH WHY NO WORK");
+				element = element.trim();
 				
+				if(!element.endsWith(Constants.ApplicationData.closingElement))
+					throw new NullPointerException("Parse error: The Ingredient quantity string [" + element + "] was malformed.");
+				
+				elementValues.add(StringUtils.removeEndingCharacters(element, 1)); //Remove the trailing closingElement from the element string
 			}
+			
+			ingredientQuantities.add(makeIngredientQuantity(elementValues));
+			elementValues.clear();
 		}
 		
 		return ingredientQuantities;
 	}
+	
+	//<Number><Unit><Ingredient>, ...
+	
+	private IngredientQuantity makeIngredientQuantity(ArrayList<String> elementValues)
+	{
+		if(elementValues.size() != 3)
+			throw new NullPointerException("Parse error: The <Number><Unit><Ingredient> must all be specified. You cannot leave one off!");
+		
+		IngredientQuantity ingredientQuantity = new IngredientQuantity();
+		
+		ingredientQuantity.quantity = getQuantity(elementValues.get(0));
+		ingredientQuantity.unit = elementValues.get(1).trim();
+		
+		if(StringUtils.isVoidString(elementValues.get(2)))
+			throw new NullPointerException("Parse error: You must specify an ingredient in the last element of: [" + StringUtils.join(elementValues) + "]");
+		
+		ingredientQuantity.ingredient = elementValues.get(2).trim();
+		
+		return ingredientQuantity;
+	}
+	
+	private Integer getQuantity(String rawQuantityString)
+	{
+		if(StringUtils.isVoidString(rawQuantityString))
+			rawQuantityString = "1";
+		
+		return Integer.parseInt(rawQuantityString.trim());
+	}
+	
 	
 	private ConcurrentHashMap<String, User> loadDefaultUsers()
 	{
@@ -185,7 +222,6 @@ public class ApplicationData
 	{
 		return new File(folder.getAbsolutePath(), filenameInFolder).getAbsolutePath();
 	}
-	
 	
 	private <T> T loadObjectFromDisk(File objectLocation, Class<T> type) throws Exception
 	{
@@ -207,6 +243,38 @@ public class ApplicationData
 		oos.close();
 		
 		return object;
+	}
+	
+	
+	/*
+	 * get File Objects
+	 */
+	
+	
+	private File storedUsersObject()
+	{
+		return null;
+	}
+	
+	private File storedRecipesObject()
+	{
+		File objectsFolder = new File(this.parentDir, Constants.storedObjectsFolderName);
+		
+		if(!objectsFolder.exists())
+			objectsFolder.mkdirs();
+		
+		File storedRecipes = new File(objectsFolder, Constants.recipiesFileName);
+		return storedRecipes;
+	}
+	
+	private File databaseCSVFolder()
+	{
+		File csvFolder = new File(this.parentDir, "CSVs");
+		
+		if(!csvFolder.exists())
+			csvFolder.mkdirs();
+		
+		return csvFolder;
 	}
 	
 	
