@@ -56,7 +56,7 @@ public class ObjectDatabaseController extends DatabaseController
 		{
 			@Override
 			public void visit(Recipe recipe) 
-			{
+			{				
 				if(recipeContainsIngredients(recipe, cleanedIngredients))
 					results.add(recipe);
 			}

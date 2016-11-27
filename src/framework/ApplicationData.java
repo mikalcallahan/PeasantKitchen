@@ -73,7 +73,7 @@ public class ApplicationData
         File storedObjectFolder = this.getStoredObjectsFolder();
 
         if(storedObjectFolder.exists())
-			FileUtils.deleteDirectory(storedObjectFolder);
+			FileUtils.cleanDirectory(storedObjectFolder);
 
 		storedObjectFolder.mkdirs();
     }
@@ -115,14 +115,6 @@ public class ApplicationData
 	private Recipes loadDefaultRecipes() throws Exception
 	{
 		List<String[]> recipesCSVData = parseCSV(this.getRecipesCSV());
-
-//		for (int index = 1; index < recipesCSVData.size(); index++)
-//		{
-//			for(String item : recipesCSVData.get(index))
-//				System.out.print(item + "  ");
-//			System.out.println();
-//		}
-
 		return convertCSVDataToRecipes(recipesCSVData);
 	}
 	
@@ -186,8 +178,6 @@ public class ApplicationData
 		for(String ingredientQuantityString : ingredientProcess.split(Constants.ApplicationData.elementSeperator))
 		{
 			ingredientQuantityString = ingredientQuantityString.trim();
-
-			System.out.println("Ingredient quantity string:" + ingredientQuantityString);
 			
 			ingredientQuantityItems = ingredientQuantityString.split(Constants.ApplicationData.openElement);
 			
@@ -197,7 +187,6 @@ public class ApplicationData
 				
 				if(StringUtilites.isVoidString(element))
 					continue;
-
 				
 				if(!element.endsWith(Constants.ApplicationData.closingElement))
 					throw new NullPointerException("Parse error: The Ingredient quantity string [" + element + "], in the element [" + ingredientQuantityString + "], was malformed.");
@@ -208,9 +197,6 @@ public class ApplicationData
 			ingredientQuantities.add(makeIngredientQuantity(elementValues));
 			elementValues.clear();
 		}
-		
-		for(IngredientQuantity test : ingredientQuantities)
-			System.out.println(test.toString());
 		
 		return ingredientQuantities;
 	}

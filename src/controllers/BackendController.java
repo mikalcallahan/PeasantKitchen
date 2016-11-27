@@ -7,6 +7,7 @@ import com.sun.appserv.server.LifecycleEvent;
 
 import framework.ApplicationData;
 import framework.DatabaseController;
+import framework.Recipe;
 import framework.Recipes;
 import framework.User;
 import utilities.StringUtilites;
@@ -185,6 +186,9 @@ public class BackendController
 		
 		ObjectDatabaseController testingDatabase = new ObjectDatabaseController(appData);
 		BackendController testingBackendController = new BackendController(testingDatabase);
+		
+		for(Recipe recipe : appData.getRecipes())
+			System.out.println(recipe.toString());
 		
 		return testingBackendController;
 	}
