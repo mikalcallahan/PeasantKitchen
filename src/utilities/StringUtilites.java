@@ -30,9 +30,17 @@ public class StringUtilites
 		ArrayList<String> cleaned = new ArrayList<String>();
 		
 		for(String ingredient : ingredients)
-			cleaned.add(ingredient.trim().toLowerCase());
+			cleaned.add(StringUtilites.cleanIngredient(ingredient));
 		
 		return cleaned;
+	}
+	
+	public static String cleanIngredient(String ingredient)
+	{
+		if(StringUtilites.isVoidString(ingredient))
+			return "";
+		
+		return ingredient.trim().toLowerCase();
 	}
 	
 	public static boolean isOnlyWhitespace(String str)

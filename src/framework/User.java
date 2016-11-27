@@ -81,4 +81,35 @@ public class User implements Serializable
 
 		return fieldNameToValue;
 	}
+	
+	@Override
+	public boolean equals(Object other)
+	{
+		if(!(other instanceof User))
+			return false;
+		
+		User otherUser = (User)other;
+		
+		this.sameObject(this.diets, otherUser.diets);
+		this.sameObject(this.emailAddress, otherUser.emailAddress);
+		this.sameObject(this.firstname, otherUser.firstname);
+		this.sameObject(this.lastname, otherUser.lastname);
+		this.sameObject(this.password, otherUser.password);
+		this.sameObject(this.ppn, otherUser.ppn);
+		this.sameObject(this.profilePictureName, otherUser.profilePictureName);
+		this.sameObject(this.signedIn, otherUser.signedIn);
+		this.sameObject(this.username, otherUser.username);
+		
+		return true;
+	}
+	
+	private boolean sameObject(Object a, Object b)
+	{
+		if(a == null && b == null)
+			return true;
+		else if(a == null || b == null)
+			return false;
+		else
+			return a.equals(b);
+	}
 }

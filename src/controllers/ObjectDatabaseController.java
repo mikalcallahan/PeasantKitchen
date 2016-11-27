@@ -3,7 +3,9 @@ package controllers;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.sun.appserv.server.LifecycleEvent;
 
@@ -12,10 +14,12 @@ import designPatterns.Observer;
 import designPatterns.Visitor;
 import framework.ApplicationData;
 import framework.DatabaseController;
+import framework.IngredientQuantity;
 import framework.Recipe;
 import framework.Recipes;
 import framework.User;
 import framework.WebSocketGlobalEnvironment;
+import utilities.CollectionUtils;
 
 
 /*
@@ -29,6 +33,20 @@ public class ObjectDatabaseController extends DatabaseController
 {
 	protected ApplicationData applicationData;
 	
+	public ObjectDatabaseController()
+	{
+		
+	}
+	
+	public ObjectDatabaseController(ApplicationData applicationData) 
+	{
+		super();
+		this.applicationData = applicationData;
+	}
+
+
+
+
 	@Override
 	public Recipes getRecipesContainingIngredients(ArrayList<String> cleanedIngredients) 
 	{
@@ -53,8 +71,10 @@ public class ObjectDatabaseController extends DatabaseController
 	
 	private boolean recipeContainsIngredients(Recipe recipe, Collection<String> ingredients)
 	{
+		Set<String> uniqueRecipeIngredients = recipe.getUniqueIngredients();
+		
 		for(String ingredient : ingredients)
-			if(!recipe.recipeRequirements.toLowerCase().contains(ingredient.toLowerCase().trim()))
+			if(!uniqueRecipeIngredients.contains(ingredient))
 				return false;
 		
 		return true;
@@ -80,7 +100,10 @@ public class ObjectDatabaseController extends DatabaseController
 	
 	private boolean recipeContainsExactIngredients(Recipe recipe, Collection<String> ingredients)
 	{
-		return this.recipeContainsIngredients(recipe, ingredients); //TODO: CHANGE ME
+		Set<String> uniqueRecipeIngredients = recipe.getUniqueIngredients();
+		HashSet<String> uniqueIngredients = CollectionUtils.hashSet(ingredients);
+		
+		return CollectionUtils.equalSets(uniqueIngredients, uniqueRecipeIngredients);
 	}
  
 	@Override
@@ -91,7 +114,7 @@ public class ObjectDatabaseController extends DatabaseController
 
 	@Override
 	public User createUser(User tempUserObject) 
-	{
+	{	
 		User newUser = new User(tempUserObject);
 		
 		//Successfully handles the case where multiple threads are trying to add the same user (hence, same key)
@@ -102,7 +125,7 @@ public class ObjectDatabaseController extends DatabaseController
 		if(storedUser != null)
 			throw new RuntimeException("The requested username [" + tempUserObject.username + "] is already taken. Please select another");
 		
-		return storedUser;
+		return newUser;
 	}
 
 	@Override

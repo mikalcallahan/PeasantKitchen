@@ -8,6 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -35,8 +36,8 @@ public class ApplicationData
 	
 	public void loadFromDisk() throws Exception
 	{		
-		File storedRecipes = new File(this.parentDir, Constants.storedRecipesObjectFileName);
-		File storedUsers = new File(this.parentDir, Constants.storedUsersObjectFileName);
+		File storedRecipes = this.getStoredRecipesObject();
+		File storedUsers = this.getStoredUsersObject();
 		
 		if(!storedRecipes.exists())
 			this.recipes = loadDefaultRecipes();
@@ -49,6 +50,14 @@ public class ApplicationData
 			this.users = loadDefaultUsers();
 		else
 			this.users = loadObjectFromDisk(storedUsers, users.getClass());
+		
+//		if(this.users == null)
+//			System.out.println("Failed to load the users!");
+//		else if(this.users.isEmpty())
+//			System.out.println("No users to load");
+//		else
+//			for(Entry<String, User> entry : this.users.entrySet())
+//				System.out.println("Entry: " + entry.getKey() + "." + entry.getValue());
 	}
 	
 	public void saveToDisk() throws Exception
@@ -168,6 +177,8 @@ public class ApplicationData
 	public ArrayList<IngredientQuantity> parseIngredientQuantities(String ingredientProcess)
 	{
 		ArrayList<IngredientQuantity> ingredientQuantities = new ArrayList<IngredientQuantity>();
+		String[] ingredientQuantityItems;
+		String element;
 		
 		//<Number><Unit><Ingredient>, ...
 		ArrayList<String> elementValues = new ArrayList<String>(3);
@@ -178,14 +189,18 @@ public class ApplicationData
 
 			System.out.println("Ingredient quantity string:" + ingredientQuantityString);
 			
-			for(String element : ingredientQuantityString.split(Constants.ApplicationData.openElement))
+			ingredientQuantityItems = ingredientQuantityString.split(Constants.ApplicationData.openElement);
+			
+			for(int index = 0; index < ingredientQuantityItems.length; index++)
 			{
-				element = element.trim();
+				element = ingredientQuantityItems[index].trim();
+				
+				if(StringUtilites.isVoidString(element))
+					continue;
 
-				System.out.println("Attempting to parse: " + element);
 				
 				if(!element.endsWith(Constants.ApplicationData.closingElement))
-					throw new NullPointerException("Parse error: The Ingredient quantity string [" + element + "] was malformed.");
+					throw new NullPointerException("Parse error: The Ingredient quantity string [" + element + "], in the element [" + ingredientQuantityString + "], was malformed.");
 				
 				elementValues.add(StringUtilites.removeEndingCharacters(element, 1)); //Remove the trailing closingElement from the element string
 			}
@@ -193,6 +208,9 @@ public class ApplicationData
 			ingredientQuantities.add(makeIngredientQuantity(elementValues));
 			elementValues.clear();
 		}
+		
+		for(IngredientQuantity test : ingredientQuantities)
+			System.out.println(test.toString());
 		
 		return ingredientQuantities;
 	}
@@ -202,17 +220,13 @@ public class ApplicationData
 	private IngredientQuantity makeIngredientQuantity(ArrayList<String> elementValues)
 	{
 		if(elementValues.size() != 3)
-			throw new NullPointerException("Parse error: The <Number><Unit><Ingredient> must all be specified. You cannot leave one off!");
+			throw new NullPointerException("Parse error: You must specify the ingredient in this format: <Number><Unit><Ingredient>. You must have exactly 3 opening < and 3 closing >; none of the < or > can be ommitted!");
 		
 		IngredientQuantity ingredientQuantity = new IngredientQuantity();
 		
 		ingredientQuantity.quantity = getQuantity(elementValues.get(0));
 		ingredientQuantity.unit = elementValues.get(1).trim();
-		
-		if(StringUtilites.isVoidString(elementValues.get(2)))
-			throw new NullPointerException("Parse error: You must specify an ingredient in the last element of: [" + StringUtilites.join(elementValues) + "]");
-		
-		ingredientQuantity.ingredient = elementValues.get(2).trim();
+		ingredientQuantity.ingredient = getIngredient(elementValues.get(2));
 		
 		return ingredientQuantity;
 	}
@@ -225,6 +239,13 @@ public class ApplicationData
 		return Integer.parseInt(rawQuantityString.trim());
 	}
 	
+	private String getIngredient(String rawIngredient)
+	{
+		if(StringUtilites.isVoidString(rawIngredient))
+			throw new NullPointerException("Parse error: Missing ingredient!");
+		
+		return StringUtilites.cleanIngredient(rawIngredient);
+	}
 	
 	private ConcurrentHashMap<String, User> loadDefaultUsers()
 	{
@@ -308,12 +329,7 @@ public class ApplicationData
 
 	public static void main(String [] args) throws Exception
 	{
-		//<2><lb><Eggs>
-
-		String test = "<2><lb><Eggs>";
-
-		for(String str : StringUtils.split("<"))
-			System.out.println(str);
+		testLoadingAndSaving();
 	}
 
 	private static void testLoadingAndSaving() throws Exception

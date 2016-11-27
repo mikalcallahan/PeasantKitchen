@@ -1,9 +1,11 @@
 package controllers;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import com.sun.appserv.server.LifecycleEvent;
 
+import framework.ApplicationData;
 import framework.DatabaseController;
 import framework.Recipes;
 import framework.User;
@@ -17,13 +19,17 @@ public class BackendController
 	
 	public BackendController()
 	{
-		this.initalize();
+		this.initalize(new ObjectDatabaseController());
 	}
 	
-	private void initalize()
+	public BackendController(DatabaseController databaseController)
 	{
-		//this.databaseController = new SQLDatabaseController();
-		this.databaseController = new ObjectDatabaseController();
+		this.initalize(databaseController);
+	}
+	
+	private void initalize(DatabaseController databaseController)
+	{
+		this.databaseController = databaseController;
 		this.recomendationController = new RecomendationController();
 		
 		//Set the recommendation controller as an observer of the database controller
@@ -85,9 +91,9 @@ public class BackendController
 		if(user == null)
 			throw new NullPointerException("The user [" + username + "] does not exist!");
 		
-		//is the user already signed in?
+		//is the user already signed out?
 		if(!user.isSignedIn())
-			return user; //if they aren't signed in, ignore this signin request.
+			return user; //If they're already signed out, ignore this request
 		
 		user = this.databaseController.signOutUser(username);
 		
@@ -100,7 +106,6 @@ public class BackendController
 	{
 		if(this.isUsernameTaken(tempUserObject.username))
 			throw new RuntimeException("The requested username [" + tempUserObject.username + "] is already taken. Please select another");
-		
 		
 		return this.databaseController.createUser(tempUserObject);
 	}
@@ -152,7 +157,7 @@ public class BackendController
 		return this.databaseController.getRecipesContainingIngredients(cleanedIngredients);
 	}
 	
-	public Recipes getRecipesWithOnlyTheseIngredients(ArrayList<String> ingredients, String username)
+	public Recipes getRecipesWithOnlyTheseIngredients(ArrayList<String> ingredients, String username) throws Exception
 	{
 		ArrayList<String> cleanedIngredients = StringUtilites.cleanIngredients(ingredients);
 		return this.databaseController.getRecipesWithOnlyTheseIngredients(cleanedIngredients);
@@ -165,5 +170,22 @@ public class BackendController
 	public Recipes getDefaultHomepageRecipes()
 	{
 		return null;
+	}
+	
+	
+	/**
+	 * Only used for testing.
+	 * @return
+	 */
+	
+	public static BackendController makeTestingBackendController(File parentDir) throws Exception
+	{
+		ApplicationData appData = new ApplicationData(parentDir);
+		appData.loadFromDisk();
+		
+		ObjectDatabaseController testingDatabase = new ObjectDatabaseController(appData);
+		BackendController testingBackendController = new BackendController(testingDatabase);
+		
+		return testingBackendController;
 	}
 }
