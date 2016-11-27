@@ -153,7 +153,7 @@ public class ApplicationData
 	
 	
 	/*
-	 * get File Objects
+	 * Get various resource files\folders
 	 */
 
 	private File getStoredObjectsFolder()

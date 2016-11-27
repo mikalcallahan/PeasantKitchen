@@ -25,19 +25,20 @@ public class RecipesParser implements Parser<File, Recipes>
 	public Recipes parse(File input) throws Exception
 	{
 		List<String[]> recipesCSVData = parseCSV(input);
-		return convertCSVDataToRecipes(recipesCSVData);
+		return convertParsedCSVDataToRecipes(recipesCSVData);
 	}
-	
 	
 	private List<String[]> parseCSV(File csvFile) throws Exception
 	{
 		CSVReader reader = new CSVReader(new FileReader(csvFile.getAbsolutePath()));
 		List<String[]> csvEntries = reader.readAll();
 		
+		reader.close();
+		
 		return csvEntries;
 	}
 	
-	private Recipes convertCSVDataToRecipes(List<String[]> recipesCSVData)
+	private Recipes convertParsedCSVDataToRecipes(List<String[]> recipesCSVData)
 	{
 		Recipes recipes = new Recipes();
 		Recipe currRecipe;
@@ -72,7 +73,7 @@ public class RecipesParser implements Parser<File, Recipes>
 	private Integer getRecipeID(String rawRecipeID)
 	{
 		if(StringUtilites.isVoidString(rawRecipeID))
-			return new Integer(1);
+			return new Integer(Constants.ApplicationData.defaultRecipeID);
 		else
 			return Integer.parseInt(rawRecipeID.trim());
 	}
@@ -89,7 +90,6 @@ public class RecipesParser implements Parser<File, Recipes>
 		for(String ingredientQuantityString : ingredientProcess.split(Constants.ApplicationData.elementSeperator))
 		{
 			ingredientQuantityString = ingredientQuantityString.trim();
-			
 			ingredientQuantityItems = ingredientQuantityString.split(Constants.ApplicationData.openElement);
 			
 			for(int index = 0; index < ingredientQuantityItems.length; index++)
@@ -131,7 +131,7 @@ public class RecipesParser implements Parser<File, Recipes>
 	private Range getQuantity(String rawQuantityString)
 	{
 		if(StringUtilites.isVoidString(rawQuantityString))
-			rawQuantityString = "1.0";
+			return new Range(Constants.ApplicationData.defaultIngredientQuantity);
 		
 		String cleaned = rawQuantityString.trim();
 		
@@ -178,6 +178,4 @@ public class RecipesParser implements Parser<File, Recipes>
 		
 		return StringUtilites.cleanIngredient(rawIngredient);
 	}
-
-	
 }

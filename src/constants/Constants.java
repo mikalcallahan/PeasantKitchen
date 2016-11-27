@@ -23,6 +23,9 @@ public class Constants
 		public static final String closingElement = ">";
 		public static final String elementSeperator = ",";
 		public static final String quantityRange = "-";
+		
+		public static final Integer defaultRecipeID = 1;
+		public static final Double defaultIngredientQuantity = 1.0;
 	}
 
 	private static File getApplicationDataFolder()
