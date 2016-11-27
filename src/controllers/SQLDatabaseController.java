@@ -544,10 +544,7 @@ public class SQLDatabaseController extends DatabaseController
 
     private Boolean convertString(String string)
     {
-        if (string != "0")
-            return true;
-        else
-            return false;
+        return string != "0";
     }
 
     @Override
