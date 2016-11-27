@@ -92,9 +92,7 @@ public class BackendController
         if (user.isSignedIn())
             return user; //if they are, ignore this signin request.
 
-        this.databaseController.signInUser(username);
-
-        return user;
+        return this.databaseController.signInUser(username);
     }
 
     public User signUserOut(String username) throws Exception
@@ -109,9 +107,7 @@ public class BackendController
         if (!user.isSignedIn())
             return user; //If they're already signed out, ignore this request
 
-        user = this.databaseController.signOutUser(username);
-
-        return user;
+        return this.databaseController.signOutUser(username);
     }
 
     //The temp user object is created by the route calling this method, and populated with the information
