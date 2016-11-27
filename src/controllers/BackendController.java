@@ -187,9 +187,6 @@ public class BackendController
 		ObjectDatabaseController testingDatabase = new ObjectDatabaseController(appData);
 		BackendController testingBackendController = new BackendController(testingDatabase);
 		
-		for(Recipe recipe : appData.getRecipes())
-			System.out.println(recipe.toString());
-		
 		return testingBackendController;
 	}
 }
