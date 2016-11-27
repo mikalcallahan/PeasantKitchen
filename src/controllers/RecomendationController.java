@@ -6,21 +6,21 @@ import framework.User;
 
 public class RecomendationController implements Observer
 {
-	public RecomendationController()
-	{
-		
-	}
-	
-	public Recipes recommend(User user)
-	{
-		return null;
-	}
+    public RecomendationController()
+    {
 
-	@Override
-	public void update() 
-	{
-		// TODO Auto-generated method stub
-		
-	}
+    }
+
+    public Recipes recommend(User user)
+    {
+        return null;
+    }
+
+    @Override
+    public void update()
+    {
+        // TODO Auto-generated method stub
+
+    }
 
 }

@@ -1,8 +1,5 @@
 package controllers.tests;
 
-import java.io.File;
-import java.util.ArrayList;
-
 import controllers.BackendController;
 import designPatterns.Visitor;
 import framework.Recipe;
@@ -10,41 +7,46 @@ import framework.Recipes;
 import framework.User;
 import utilities.CollectionUtils;
 
-public class TesterMain {
+import java.io.File;
+import java.util.ArrayList;
 
-	public static void main(String[] args) 
-	{
-		try 
-		{
-			File parentDir = new File("/home/stoffel/Documents/School/Software Engineering/TestingOutput/");
-			BackendController testingController = BackendController.makeTestingBackendController(parentDir);
+public class TesterMain
+{
 
-			User newUser = new User();
-			newUser.username = "MAH USER";
-			newUser.password = "password";
+    public static void main(String[] args)
+    {
+        try
+        {
+            File parentDir = new File("/home/stoffel/Documents/School/Software Engineering/TestingOutput/");
+            BackendController testingController = BackendController.makeTestingBackendController(parentDir);
 
-			User signedInUser;
+            User newUser = new User();
+            newUser.username = "MAH USER";
+            newUser.password = "password";
 
-			ArrayList<String> ingredients = CollectionUtils.arrayList("ground beef");
+            User signedInUser;
 
-			signedInUser = testingController.createUser(newUser);
-			signedInUser = testingController.signUserIn(signedInUser.username);
+            ArrayList<String> ingredients = CollectionUtils.arrayList("ground beef");
 
-			Recipes recipes = testingController.getRecipesContainingIngredients(ingredients, newUser.username);
-			
-			recipes.visit(new Visitor<Recipe>() 
-			{
-				@Override
-				public void visit(Recipe item) 
-				{
-					System.out.println(item.toString() + "\n");
-				}
-			});
-			
-		}catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-	}
+            signedInUser = testingController.createUser(newUser);
+            signedInUser = testingController.signUserIn(signedInUser.username);
+
+            Recipes recipes = testingController.getRecipesContainingIngredients(ingredients, newUser.username);
+
+            recipes.visit(new Visitor<Recipe>()
+            {
+                @Override
+                public void visit(Recipe item)
+                {
+                    System.out.println(item.toString() + "\n");
+                }
+            });
+
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
 
 }

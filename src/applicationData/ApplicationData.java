@@ -134,7 +134,7 @@ public class ApplicationData
 
 	
 	/*
-	 * Helper methods
+     * Helper methods
 	 */
 
     public List<Recipe> getRecipes()

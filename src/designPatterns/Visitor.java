@@ -2,5 +2,5 @@ package designPatterns;
 
 public interface Visitor<T>
 {
-	void visit(T item);
+    void visit(T item);
 }

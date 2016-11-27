@@ -4,16 +4,17 @@ import java.util.HashSet;
 
 public abstract class ObserverSubject
 {
-	protected HashSet<Observer> observers = new HashSet<Observer>();
-	
-	//abstract methods
-	public abstract void addObserver(Observer observer);
-	public abstract void removeObserver(Observer observer);
-	
-	public void updateObservers()
-	{
-		for(Observer observer : this.observers)
-			observer.update();
-	}
-	
+    protected HashSet<Observer> observers = new HashSet<Observer>();
+
+    //abstract methods
+    public abstract void addObserver(Observer observer);
+
+    public abstract void removeObserver(Observer observer);
+
+    public void updateObservers()
+    {
+        for (Observer observer : this.observers)
+            observer.update();
+    }
+
 }
