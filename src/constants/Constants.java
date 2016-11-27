@@ -22,6 +22,7 @@ public class Constants
 		public static final String openElement = "<";
 		public static final String closingElement = ">";
 		public static final String elementSeperator = ",";
+		public static final String quantityRange = "-";
 	}
 
 	private static File getApplicationDataFolder()

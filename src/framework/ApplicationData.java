@@ -18,6 +18,8 @@ import com.opencsv.CSVReader;
 
 import constants.Constants;
 import designPatterns.Visitor;
+import framework.IngredientQuantity.Range;
+
 import org.apache.commons.io.FileUtils;
 import utilities.StringUtilites;
 
@@ -153,7 +155,7 @@ public class ApplicationData
 		recipe.recipeName = lineEntries[1];
 		recipe.recipeRequirements = lineEntries[2];
 		recipe.recipeProcess = lineEntries[3];
-		recipe.ingredientQuantities = parseIngredientQuantities(recipe.recipeProcess);
+		recipe.ingredientQuantities = parseIngredientQuantities(recipe.recipeRequirements);
 		
 		return recipe;
 	}
@@ -217,12 +219,47 @@ public class ApplicationData
 		return ingredientQuantity;
 	}
 	
-	private Integer getQuantity(String rawQuantityString)
+	private Range getQuantity(String rawQuantityString)
 	{
 		if(StringUtilites.isVoidString(rawQuantityString))
-			rawQuantityString = "1";
+			rawQuantityString = "1.0";
 		
-		return Integer.parseInt(rawQuantityString.trim());
+		String cleaned = rawQuantityString.trim();
+		
+		if(cleaned.contains(Constants.ApplicationData.quantityRange))
+			return parseRange(cleaned);
+		else
+			return new Range(Double.parseDouble(cleaned));
+	}
+	
+	//2.5 - 3
+	private Range parseRange(String quantityRange)
+	{
+		Double lower = 0.0;
+		Double upper = 0.0;
+		
+		String[] lowerAndUpperSplit = quantityRange.split(Constants.ApplicationData.quantityRange);
+		
+		if(lowerAndUpperSplit.length != 2)
+			throw new RuntimeException("Parse error: You must specify the lower and upper bounds of the range: [" + quantityRange + "]");
+		
+		lower = extractVal(lowerAndUpperSplit[0]);
+		upper = extractVal(lowerAndUpperSplit[1]);
+		
+		if(lower.equals(upper))
+			return new Range(lower);
+		
+		//Check if we need to flip the values
+		if(lower.compareTo(upper) > 0)
+			return new Range(upper, lower);
+
+		return new Range(lower, upper);
+	}
+	
+	private Double extractVal(String str)
+	{
+		return 
+				Double.parseDouble(str.trim());
 	}
 	
 	private String getIngredient(String rawIngredient)
@@ -315,8 +352,25 @@ public class ApplicationData
 
 	public static void main(String [] args) throws Exception
 	{
-		testLoadingAndSaving();
+		File parentDir = new File("/home/stoffel/Documents/School/Software Engineering/TestingOutput/");
+		ApplicationData test = new ApplicationData(parentDir);
+		
+		test.loadFromDisk();
+		
+		List<Recipe> recipes = test.getRecipes();
+		
+		for(Recipe recipe : recipes)
+		{
+			for(IngredientQuantity ingredient : recipe.ingredientQuantities)
+			{
+				System.out.println(ingredient.toString());
+			}
+			
+			System.out.println("\n");
+		}
 	}
+	
+	
 
 	private static void testLoadingAndSaving() throws Exception
 	{
