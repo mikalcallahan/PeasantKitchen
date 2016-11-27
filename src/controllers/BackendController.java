@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import com.sun.appserv.server.LifecycleEvent;
 
-import framework.ApplicationData;
+import applicationData.ApplicationData;
 import framework.DatabaseController;
 import framework.Recipe;
 import framework.Recipes;

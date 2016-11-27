@@ -6,8 +6,8 @@ import com.sun.appserv.server.LifecycleEvent;
 import com.sun.appserv.server.LifecycleListener;
 import com.sun.appserv.server.ServerLifecycleException;
 
+import applicationData.ApplicationData;
 import constants.Constants;
-import framework.ApplicationData;
 import framework.WebSocketGlobalEnvironment;
 
 public class ServerStartup implements LifecycleListener 

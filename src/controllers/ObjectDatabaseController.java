@@ -9,10 +9,10 @@ import java.util.Set;
 
 import com.sun.appserv.server.LifecycleEvent;
 
+import applicationData.ApplicationData;
 import constants.Constants;
 import designPatterns.Observer;
 import designPatterns.Visitor;
-import framework.ApplicationData;
 import framework.DatabaseController;
 import framework.IngredientQuantity;
 import framework.Recipe;

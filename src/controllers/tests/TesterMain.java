@@ -25,7 +25,7 @@ public class TesterMain {
 
 			User signedInUser;
 
-			ArrayList<String> ingredients = CollectionUtils.arrayList("animal flesh");
+			ArrayList<String> ingredients = CollectionUtils.arrayList("ground beef");
 
 			signedInUser = testingController.createUser(newUser);
 			signedInUser = testingController.signUserIn(signedInUser.username);
