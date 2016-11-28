@@ -1,6 +1,7 @@
 package designPatterns;
 
-public interface Observer {
+public interface Observer
+{
 
-	public abstract void update();
+    public abstract void update();
 }
