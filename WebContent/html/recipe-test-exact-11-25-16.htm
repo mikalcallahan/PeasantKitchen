@@ -14,7 +14,7 @@
 				// Web Socket is connected, send data using send()
 				alert("Message is sent...");
 
-				ingredientArray = ['Ground Beef', 'Pasta Sauce'];
+				ingredientArray = ['Ground Beef', 'Pasta Sauce', 'Spaghetti Noodles'];
 				requestObject = {
 					username : "mr user",  ingredients: ingredientArray
 					
@@ -54,6 +54,10 @@
 					else if (responseObject.ingredients.contains('Pasta Sauce')
 					{
 						alert("2nd Ingredient found.");
+					}
+					else if (responseObject.ingredients.contains('Spaghetti Noodles')
+					{
+						alert("3rd Ingredient found.");
 					}
 				} 
 				else 
