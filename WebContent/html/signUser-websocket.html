@@ -6,12 +6,78 @@
 	function UserReadInWebSocketTest() {
 		if ("WebSocket" in window) {
 			alert("WebSocket is supported by your Browser!");
-
+			
+			 var ws = new WebSocket("ws://localhost:8080/Peasant_Kitchen/user/create"); //If want to look at response of different websocket change /create
+				
+             ws.onopen = function()
+             {
+                // Web Socket is connected, send data using send()
+                alert("Message is sent...");
+                
+				  requestObject = {username: "mr user", email: "mr@user", password: "123", signedIn: "yes"}; //Changes when switching //This looks at Request/Request Parameters
+                evenBetterRequestObject = {id: "user.create", payload: requestObject} //Doesn't change
+                
+                ws.send(JSON.stringify(evenBetterRequestObject));
+             
+             };
+				
+             ws.onmessage = function (evt) 
+             { 
+                //var received_msg = evt.data;
+                alert('Recieved: [' + received_msg + ']');
+				  
+				  var response = JSON.parse(evt.data); //gives response and error fields (just a json string) response from create new user. this only looks at Response class in websocket (not request)
+				  var responseObject = response.response; //you don't have access to functions in class (createnewuser, signinuser, etc)
+				  var error = response.error;
+				  
+				  if (error == null || error == undefined)
+				  {
+					  if (responseObject.username == NULL)
+	                  {
+	                     alert("Error: Username does not exist");
+	                  }
+	                  else if (responseObject.password == NULL)
+	                  {
+	                     alert ("Error: Password does not exist");
+	                  }
+	                  else if (responseObject.username != "mr user")
+	                  {
+	                	  alert ("Error: Users do not match.");
+	                	  
+	                  }
+	                  else if (responseObject.password != "123")
+	                  {
+	                	  alert ("Error: Passwords do not match.");
+	                	  
+	                  }
+	                  else if (responseObject.email!= "mr@user")
+	                  {
+	                	  alert ("Error: Emails do not match.");
+	                	  
+	                  }
+	                
+				  }
+				  else
+				  {
+					alert(JSON.stringify(error))
+				  }
+				  
+                 //ws.received_msg(JSON.stringify(requestObject));
+               
+             };
+				
+             ws.onclose = function()
+             { 
+                // websocket is closed.
+                alert("Connection is closed..."); 
+             };
+			
+			
 			// Let us open a web socket
-			var ws = new WebSocket(
+			var wsSignIn = new WebSocket(
 					"ws://localhost:8080/Peasant_Kitchen/user/signin"); //If want to look at response of different websocket change /create
 
-			ws.onopen = function() {
+			wsSignIn.onopen = function() {
 				// Web Socket is connected, send data using send()
 				alert("Message is sent...");
 
@@ -26,11 +92,11 @@
 					payload : requestObject
 				}
 
-				ws.send(JSON.stringify(evenBetterRequestObject));
+				wsSignIn.send(JSON.stringify(evenBetterRequestObject));
 
 			};
 
-			ws.onmessage = function(evt) {
+			wsSignIn.onmessage = function(evt) {
 				//var received_msg = evt.data;
 				alert('Recieved: [' + received_msg + ']');
 
@@ -67,10 +133,9 @@
 					alert(JSON.stringify(error))
 				}
 
-
 			};
 
-			ws.onclose = function() {
+			wsSignIn.onclose = function() {
 				// websocket is closed.
 				alert("Connection is closed...");
 			};
