@@ -1,4 +1,8 @@
 /* css for index */
+#banner{
+
+}
+
 body
 {
  background-color: darkGrey;
@@ -83,7 +87,7 @@ ul.menuBar li.icon {display: none;}
 }
 
 #ingrTable{
-	float: right;
+	float: left;
 }
 
 .ingredientsbox{
