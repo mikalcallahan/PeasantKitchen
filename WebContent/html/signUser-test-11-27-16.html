@@ -18,8 +18,7 @@
 				requestObject = {
 					username : "mr user",
 					email : "mr@user",
-					password : "123",
-					success : "true"
+					password : "123"
 				}; //Changes when switching
 				//evenBetterRequestObject = {id: "user.create", payload: requestObject} //Doesn't change
 				evenBetterRequestObject = {
@@ -39,35 +38,36 @@
 				var responseObject = response.response; //you don't have access to functions in class (createnewuser, signinuser, etc)
 				var error = response.error;
 
-				if (error == null || error == undefined) 
+				if (error == null || error == undefined)
 				{
-					if (responseObject.username == NULL) 
+					if (responseObject.username == NULL)
 					{
-						alert("Username does not exist");
-					} else if (responseObject.username.contains(" ")) 
-					{
-						alert("More than 1 user name entered");
+						alert("Error: Username does not exist");
 					} else if (responseObject.password == NULL) {
-						alert("Password does not exist");
-					} else if (responseObject.password.contains(" ")) {
-						alert("More than 1 password entered");
+						alert("Error: Password does not exist");
 					}
 					else if (responseObject.username === "mr user")
 					{
-						alert("User name matches.");
+						alert("Success: User name matches.");
 
 					} else if (responseObject.username != "mr user")
 					{
-						alert("User name does not match.");
+						alert("Error: User name does not match.");
+					}else if(responseObject.success === true) {
+						alert("Success: The websocket indicated the request suceeded!")
+					}
+					else if(responseObject.success !== true)
+					{
+						alert("Error: The websocket indicated the request did not suceed!")
 					}
 
-				} 
-				else 
+				}
+				else
 				{
 					alert(JSON.stringify(error))
 				}
 
-				
+
 			};
 
 			ws.onclose = function() {
