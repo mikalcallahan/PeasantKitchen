@@ -190,5 +190,11 @@ public class ObjectDatabaseController extends DatabaseController
         return shutdownEvent;
     }
 
+	@Override
+	public User removeUser(String username) throws Exception 
+	{
+		return this.applicationData.getUsers().remove(username);
+	}
+
 
 }
