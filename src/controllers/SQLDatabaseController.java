@@ -575,4 +575,10 @@ public class SQLDatabaseController extends DatabaseController
         return shutdownEvent;
     }
 
+	@Override
+	public User removeUser(String username) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
