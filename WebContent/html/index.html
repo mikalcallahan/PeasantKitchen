@@ -1,38 +1,40 @@
 <!DOCTYPE html>
-<html lang = "en">
+<html lang="en">
+
 <head>
-  <title>Peasant Kitchen</title>
-  <link rel = "stylesheet" type = "text/css" href="../css/index.css"/>
-<script type = "text/javascript"  src="../js/index.js"></script>
-<meta charset = "utf-8">
+	<title>Peasant Kitchen</title>
+	<link rel="stylesheet" type="text/css" href="../css/index.css" />
+	<script type="text/javascript" src="../js/index.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<meta charset="utf-8">
 
 </head>
 
 <body>
-  <div id = "heading">
-    <a href="index.html" class = "logo">
-      <img src = "../images_folder/logo.png" alt="damn">
-    </a>
-  </div>
-<div>
-  <!--Menu Bar-->
-  <ul class = "menuBar" id = "myMenuBar">
-  <li> <a class="active" href="index.html"> Home </a></li>
-  <li> <a href="recipes.html"> Top Recipes </a></li>
-  <li> <a href="aboutUs.html"> About Us </a> </li>
-  <li> <a href="contact.html"> Contact Us </a></li>
-  <li> <a href="logon.html"> login/Register </a></li>
-  <li class = "icon">
-    <a href = "javascript:void(0)" style = "font-size:14px" onclick = "Menu()"> &#9776;</a>
-  </li>
-  </ul>
-</div>
-<br>
-<div class="ingredientsbox">
-<!--Allows users to enter ingredients-->
+	<div id="heading">
+		<a href="index.html" class="logo">
+			<img id="banner" src="../images_folder/banner.png" alt="damn">
+		</a>
+	</div>
+	<div>
+		<!--Menu Bar-->
+		<ul class="menuBar" id="myMenuBar">
+			<li> <a class="active" href="index.html"> Home </a></li>
+			<li> <a href="recipes.html"> Top Recipes </a></li>
+			<li> <a href="aboutUs.html"> About Us </a> </li>
+			<li> <a href="contact.html"> Contact Us </a></li>
+			<li> <a href="logon.html"> login/Register </a></li>
+			<li class="icon">
+				<a href="javascript:void(0)" style="font-size:14px" onclick="Menu()"> &#9776;</a>
+			</li>
+		</ul>
+	</div>
+	<br>
+	<div class="ingredientsbox">
+		<!--Allows users to enter ingredients-->
 
-<form id="enteringredients">
-	<select id="numberof" onchange = "createTable1()">
+		<form id="enteringredients">
+			<select id="numberof" onchange="createTable1()">
 		<option value="0">0</option>
 		<option value="1">1</option>
 		<option value="2">2</option>
@@ -41,35 +43,35 @@
 		<option value="5">5</option>
 	</select>
 
-	<input type="text" id="foods" onkeydown="enterButton(event)" placeholder="Add Ingredients"/>
-  <!--<input id="foods" list="ingredients" onkeydown = "enterButton(event)" placeholder = "Add Ingredients"/>-->
- <!-- <datalist id="ingredients"></datalist>-->
- 	<input name="generate" id="ingredientsadd" type="button"  value = "Add Ingredient!" onclick="createTable()"/>
-</form>
-<br><br>
-<div class = 'myingredients'>
+			<input type="text" id="foods" onkeydown="enterButton(event)" placeholder="Add Ingredients" />
+			<!--<input id="foods" list="ingredients" onkeydown = "enterButton(event)" placeholder = "Add Ingredients"/>-->
+			<!-- <datalist id="ingredients"></datalist>-->
+			<input name="generate" id="ingredientsadd" type="button" value="Add Ingredient!" onclick="createTable()" />
+		</form>
+		<br><br>
+		<div class='myingredients'>
 
-<!--Prints users Input-->
-<table id="amtTable">
-<tr>
-  <td> </td>
-</tr>
-</table>
-<table id="ingrTable">
-<tr>
-  <td> </td>
-</tr>
-</table>
-</div>
-<input name="generate" id="ingredientsSubmit" type="button"  value = "Submit Ingredients!" onclick="submitIngredients()"/>
-</div>
+			<!--Prints users Input-->
+			<table id="amtTable">
+				<tr>
+					<td> </td>
+				</tr>
+			</table>
+			<table id="ingrTable">
+				<tr>
+					<td> </td>
+				</tr>
+			</table>
+		</div>
+		<input name="generate" id="ingredientsSubmit" type="button" value="Submit Ingredients!" onclick="submitIngredients()" />
+	</div>
 
 
 
-<!-- Dropdown Boxes-->
-<div>
-<dl class = 'dropdown'>
-  <dt>
+	<!-- Dropdown Boxes-->
+	<div>
+		<dl class='dropdown'>
+			<dt>
     <a href="#">
       <span class = 'Time'> Time </span>
       <p class = "multiSelect"></p>
