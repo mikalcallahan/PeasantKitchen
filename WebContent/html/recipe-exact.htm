@@ -9,16 +9,16 @@
 
 			// Let us open a web socket
 			var ws = new WebSocket("ws://localhost:8080/Peasant_Kitchen/recipe"); //If want to look at response of different websocket change /create
-			
+
 			ingredientArray = ['Ground Beef', 'Pasta Sauce', 'Spaghetti Noodles'];
-			
+
 			ws.onopen = function() {
 				// Web Socket is connected, send data using send()
 				//alert("Message is sent...");
 
 				requestObject = {
 					username : "mr user",  ingredients: ingredientArray
-					
+
 				}; //Changes when switching
 				//evenBetterRequestObject = {id: "user.create", payload: requestObject} //Doesn't change
 				evenBetterRequestObject = {
@@ -60,14 +60,14 @@
 					}
 
 					alert("Success: Test passed!");
-					
-				} 
-				else 
+
+				}
+				else
 				{
 					alert(JSON.stringify(error))
 				}
 
-			
+
 
 			};
 

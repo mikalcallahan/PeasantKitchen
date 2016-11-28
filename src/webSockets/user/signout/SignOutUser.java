@@ -10,7 +10,9 @@ import utilities.StringUtilites;
 import utilities.Utilities;
 
 import javax.websocket.*;
+import javax.websocket.server.ServerEndpoint;
 
+@ServerEndpoint("/user/signout")
 public class SignOutUser extends PostWebSocket
 {
     @Override
