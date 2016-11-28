@@ -120,9 +120,9 @@ public class BackendController
         return this.databaseController.createUser(tempUserObject);
     }
 
-    public User removeUser(User user)
+    public User removeUser(User user) throws Exception
     {
-        return null;
+        return this.databaseController.removeUser(user.username);
     }
 
     public User userLikesRecipe(User user, String recipeName)

@@ -16,6 +16,7 @@
 
 	 /* css the body if desired // centers form */
 	body{
+		background-color: darkGrey;
 		margin: 0;
 		padding: 0;
 	}
