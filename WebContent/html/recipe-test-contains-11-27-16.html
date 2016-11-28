@@ -10,14 +10,16 @@
 			// Let us open a web socket
 			var ws = new WebSocket("ws://localhost:8080/Peasant_Kitchen/recipe"); //If want to look at response of different websocket change /create
 
+			ingredientArray = ['Chicken Wings'];
+
 			ws.onopen = function() {
 				// Web Socket is connected, send data using send()
 				alert("Message is sent...");
 
-				ingredientArray = ['Chicken Wings'];
+				//ingredientArray = ['Chicken Wings'];
 				requestObject = {
 					username : "mr user",  ingredients: ingredientArray
-					
+
 				}; //Changes when switching
 				//evenBetterRequestObject = {id: "user.create", payload: requestObject} //Doesn't change
 				evenBetterRequestObject = {
@@ -31,7 +33,7 @@
 
 			ws.onmessage = function(evt) {
 				//var received_msg = evt.data;
-				alert('Recieved: [' + received_msg + ']');
+				//alert('Recieved: [' + received_msg + ']');
 
 				var response = JSON.parse(evt.data); //gives response and error fields (just a json string) response from create new user. this only looks at Response class in websocket (not request)
 				var responseObject = response.response; //you don't have access to functions in class (createnewuser, signinuser, etc)
@@ -39,21 +41,26 @@
 
 				if (error == null || error == undefined)
 				{
-					if (responseObject.username == NULL) 
-					{
-						alert("Username does not exist");
-					} 
-					else if (responseObject.username.contains(" "))
-					{
-						alert("More than 1 user name entered");
-					}
-					else if (responseObject.ingredients.contains('Chicken Wings'))
-					{
-						alert("Recipes Found.");
-					}
-					
-				} 
-				else 
+						var recipes = responseObject.recipes;
+
+						if(recipes.length != 2) {
+								alert("2 Recipes were expected, but we recieved " + recipes.length + " instead!");
+								alert("The recipes were: " + JSON.stringify(recipes));
+						}
+
+						var expectedRecipeNames = ["Seasoned Chicken Wings", "Teriyaki Wings"];
+
+						for(var index = 0; index < recipes.length; index++)
+						{
+								var currRecipe = recipes[index];
+
+								if(currRecipe.recipeName !== expectedRecipeNames[0] || currRecipe.recipeName !== expectedRecipeNames[1])
+										alert("Test failed! Unexpectedly recieved " + JSON.stringify(currRecipe) + ".");
+						}
+
+						alert("Test passed!");
+				}
+				else
 				{
 					alert(JSON.stringify(error))
 				}
