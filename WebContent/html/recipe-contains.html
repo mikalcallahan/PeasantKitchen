@@ -44,8 +44,9 @@
 						var recipes = responseObject.recipes;
 
 						if(recipes.length != 2) {
-								alert("2 Recipes were expected, but we recieved " + recipes.length + " instead!");
+								alert("Error: 2 Recipes were expected, but we recieved " + recipes.length + " instead!");
 								alert("The recipes were: " + JSON.stringify(recipes));
+								return;
 						}
 
 						var expectedRecipeNames = ["Seasoned Chicken Wings", "Teriyaki Wings"];
@@ -55,10 +56,11 @@
 								var currRecipe = recipes[index];
 
 								if(currRecipe.recipeName !== expectedRecipeNames[0] || currRecipe.recipeName !== expectedRecipeNames[1])
-										alert("Test failed! Unexpectedly recieved " + JSON.stringify(currRecipe) + ".");
+										alert("Error: Test failed! Unexpectedly recieved " + JSON.stringify(currRecipe) + ".");
+								return;
 						}
-
-						alert("Test passed!");
+						
+						alert("Success: Test passed!");
 				}
 				else
 				{

@@ -9,12 +9,13 @@
 
 			// Let us open a web socket
 			var ws = new WebSocket("ws://localhost:8080/Peasant_Kitchen/recipe"); //If want to look at response of different websocket change /create
-
+			
+			ingredientArray = ['Ground Beef', 'Pasta Sauce', 'Spaghetti Noodles'];
+			
 			ws.onopen = function() {
 				// Web Socket is connected, send data using send()
-				alert("Message is sent...");
+				//alert("Message is sent...");
 
-				ingredientArray = ['Ground Beef', 'Pasta Sauce', 'Spaghetti Noodles'];
 				requestObject = {
 					username : "mr user",  ingredients: ingredientArray
 					
@@ -31,7 +32,7 @@
 
 			ws.onmessage = function(evt) {
 				//var received_msg = evt.data;
-				alert('Recieved: [' + received_msg + ']');
+				//alert('Recieved: [' + received_msg + ']');
 
 				var response = JSON.parse(evt.data); //gives response and error fields (just a json string) response from create new user. this only looks at Response class in websocket (not request)
 				var responseObject = response.response; //you don't have access to functions in class (createnewuser, signinuser, etc)
@@ -39,26 +40,27 @@
 
 				if (error == null || error == undefined)
 				{
-					if (responseObject.username == NULL) 
-					{
-						alert("Username does not exist");
-					} 
-					else if (responseObject.username.contains(" "))
-					{
-						alert("More than 1 user name entered");
+					var recipes = responseObject.recipes;
+
+					if(recipes.length != 1) {
+							alert("Error: 1 Recipe was expected, but we recieved " + recipes.length + " instead!");
+							alert("The recipes were: " + JSON.stringify(recipes));
+							return;
 					}
-					else if (responseObject.ingredients.contains('Ground Beef'))
+
+					var expectedRecipeNames = ["Spaghetti"];
+
+					for(var index = 0; index < recipes.length; index++)
 					{
-						alert("1st Ingredient found.");
+							var currRecipe = recipes[index];
+
+							if(currRecipe.recipeName !== expectedRecipeNames[0])
+									alert("Error: Test failed! Unexpectedly recieved " + JSON.stringify(currRecipe) + ".");
+							return;
 					}
-					else if (responseObject.ingredients.contains('Pasta Sauce')
-					{
-						alert("2nd Ingredient found.");
-					}
-					else if (responseObject.ingredients.contains('Spaghetti Noodles')
-					{
-						alert("3rd Ingredient found.");
-					}
+
+					alert("Success: Test passed!");
+					
 				} 
 				else 
 				{

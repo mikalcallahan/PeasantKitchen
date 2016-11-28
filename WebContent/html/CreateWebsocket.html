@@ -37,41 +37,33 @@
 				  {
 					  if (responseObject.username == NULL)
 	                  {
-	                     alert("Username does not exist");
-	                  }
-	                  else if (responseObject.username.contains(" "))
-	                  {
-	                     alert ("More than 1 user name entered");
+	                     alert("Error: Username does not exist");
 	                  }
 	                  else if (responseObject.email == NULL)
 	                  {
-	                     alert("Email does not exist");
+	                     alert("Error: Email does not exist");
 	                  }
 	                  else if (!responseObject.email.contains("@"))
 	                  {
-	                     alert ("Invalid email address entered");
+	                     alert ("Error: Invalid email address entered");
 	                  }
 	                  else if (responseObject.password == NULL)
 	                  {
-	                     alert ("Password does not exist");
-	                  }
-	                  else if (responseObject.password.contains(" "))
-	                  {
-	                     alert ("More than 1 password entered");
+	                     alert ("Error: Password does not exist");
 	                  }
 	                  else if (responseObject.username != "mr user")
 	                  {
-	                	  alert ("Users do not match.");
+	                	  alert ("Error: Users do not match.");
 	                	  
 	                  }
 	                  else if (responseObject.password != "123")
 	                  {
-	                	  alert ("Passwords do not match.");
+	                	  alert ("Error: Passwords do not match.");
 	                	  
 	                  }
 	                  else if (responseObject.email!= "mr@user")
 	                  {
-	                	  alert ("Emails do not match.");
+	                	  alert ("Error: Emails do not match.");
 	                	  
 	                  }
 	                
