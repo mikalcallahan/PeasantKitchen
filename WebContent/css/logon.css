@@ -1,7 +1,17 @@
-<style>
-form {
-    border: 3px solid #f1f1f1;
+
+
+body{
+  background-color: darkGrey;
+  margin: 0;
+  padding: 0;
+  text-align: center;
 }
+
+form {
+      border: 3px solid #f1f1f1;
+     margin: 0 auto;
+     width: 400px;
+  }
 
 input[type=text], input[type=password] {
     width: 100%;
@@ -44,7 +54,9 @@ img.PKitchen {
 }
 
 .container {
-    padding: 16px;
+    padding: 15px;
+    text-align: center;
+    align-items: center;
 }
 
 span.psw {
@@ -56,4 +68,3 @@ span.psw {
        width: 100%;
     }
 }
-</style>
