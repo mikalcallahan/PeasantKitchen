@@ -41,12 +41,25 @@ public class ControllerTests {
 
     }
     
-    //test for space in username/pass
-    @Test
-    public void breakTestSpaceValuesCreatingUser()
+    //test for creatingUser by creating the same user twice
+    @Test (expected = NullPointerException.class) 
+    public void testSameUserCreatingUser() throws Exception
     {
-        try
-        {
+            BackendController testingController = BackendController.makeTestingBackendController(parentDir);
+
+            User newUser = new User();
+            newUser.username = "MAH USER";
+            newUser.username = "MAH USER";
+
+            User createdUser = testingController.createUser(newUser);
+            createdUser = testingController.createUser(newUser);
+
+    }
+    
+    //test for creatingUser with space in username/pass
+    @Test (expected = NullPointerException.class)
+    public void breakTestSpaceValuesCreatingUser() throws Exception
+    {
             BackendController testingController = BackendController.makeTestingBackendController(parentDir);
 
             User newUser = new User();
@@ -55,20 +68,10 @@ public class ControllerTests {
 
             User createdUser = testingController.createUser(newUser);
 
-            assertTrue("", )
-            
-            assertTrue("The initial User object: [\n" + newUser.toString() + "\n] is different than the created User object: [\n" + createdUser.toString() + "]\n", newUser.equals(createdUser));
-
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-
     }
     
-    //test for user/pass with nulls
-    @Test
+    //test for creatingUser with nulls in user/pass
+    @Test (expected = NullPointerException.class)
     public void breakTestNullValuesCreatingUser()
     {
         try
@@ -81,8 +84,9 @@ public class ControllerTests {
 
             User createdUser = testingController.createUser(newUser);
 
-            assertTrue("The initial User object: [\n" + newUser.toString() + "\n] is different than the created User object: [\n" + createdUser.toString() + "]\n", newUser.equals(createdUser));
-
+            assertTrue("Exception was expected but we recieved a user object instead.", createdUser == null);
+            //assertNull("Username is null.", newUser.username);
+            //assertNull("Password is null.", newUser.password);
         }
         catch (Exception e)
         {
@@ -90,22 +94,25 @@ public class ControllerTests {
         }
 
     }
-    //create one with no space
-    @Test
-    public void breakTestNullValuesCreatingUser()
+    //test for creatingUser with empty string in user/pass
+    @Test (expected = NullPointerException.class)
+    public void breakTestNoValuesCreatingUser()
     {
         try
         {
             BackendController testingController = BackendController.makeTestingBackendController(parentDir);
 
             User newUser = new User();
-            newUser.username = null;
-            newUser.password = null;
+            newUser.username = "";
+            newUser.password = "";
 
             User createdUser = testingController.createUser(newUser);
 
-            assertTrue("The initial User object: [\n" + newUser.toString() + "\n] is different than the created User object: [\n" + createdUser.toString() + "]\n", newUser.equals(createdUser));
+            assertTrue("Exception was expected but we recieved a user object instead.", createdUser == null);
 
+            //assertTrue("Empty username", newUser.username.isEmpty());
+            //assertTrue("Empty passwrord", newUser.password.isEmpty());
+            
         }
         catch (Exception e)
         {
@@ -118,7 +125,7 @@ public class ControllerTests {
     @Test
     public void testSigningInUser()
     {
-    	try
+        try
         {
             BackendController testingController = BackendController.makeTestingBackendController(parentDir);
 
@@ -142,8 +149,8 @@ public class ControllerTests {
     @Test
     public void testSigningOutUser()
     {
-    	try
-    	{
+        try
+        {
             BackendController testingController = BackendController.makeTestingBackendController(parentDir);
 
             User newUser = new User();
@@ -159,7 +166,7 @@ public class ControllerTests {
             assertTrue("Error: Different username", newUser.username.equals(signedOutUser.username));
             assertTrue("Error: Different password", newPass.password.equals(signedOutUser.username));
            
-    	} 
+        } 
         catch (Exception e)
         {
             e.printStackTrace();
@@ -170,19 +177,20 @@ public class ControllerTests {
     @Test
     public void testIsUsernameTaken()
     {
-    	try
-    	{
-    		BackendController testingController = BackendController.makeTestingBackendController(parentDir);
-    		
-    		User newUser = new User();
+        try
+        {
+            BackendController testingController = BackendController.makeTestingBackendController(parentDir);
+            
+            User newUser = new User();
             newUser.username = "MAH USER";  //first user
-            newUser.username = "MAH USER";	//second user
+            newUser.username = "MAH USER";  //second user
 
-    		boolean takenUsername = testingController.isUsernameTaken(newUser.username);
-    		
-    		//assertTrue("Username is taken", takenUsername.isUsernameTaken());
-    		//assertTrue(true);
-    	}
+            User user1 = testingController.createUser(newUser);
+            boolean takenUsername = testingController.isUsernameTaken(newUser.username);
+            
+            assertTrue("The system failed to reserve the username [" + newUser.username + "]", takenUsername);
+            //assertTrue(true);
+        }
         catch (Exception e)
         {
             e.printStackTrace();
@@ -192,56 +200,25 @@ public class ControllerTests {
     @Test
     public void testRemovingUser()
     {
-    	try
-    	{
-    		BackendController testingController = BackendController.makeTestingBackendController(parentDir);
-    		
-    		User newUser = new User();
-    		newUser.username = null;
-    		
+        try
+        {
+            BackendController testingController = BackendController.makeTestingBackendController(parentDir);
+            
+            User newUser = new User();
+            newUser.username = null;
+            
             User removedUser = testingController.removeUser(newUser);
 
             assertTrue("Removing user failure", removedUser.removeUser(newUser));
-    	}
-    	 catch (Exception e)
+        }
+         catch (Exception e)
         {
             e.printStackTrace();
         }
     }
 
-    @Test
-    public void testUserLikesRecipe()
-    {
-        try
-        {
-            BackendController testingController = BackendController.makeTestingBackendController(parentDir);
-            
-            assertTrue(true);
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-
-    }
-     
-    @Test
-    public void testUserLikesFoodCatagory()
-    {
-        try
-        {
-            BackendController testingController = BackendController.makeTestingBackendController(parentDir);
-            
-            assertTrue(true);
-
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-
-    }
-
+    
+   
     public void testRecommendRecipes()
     {
         try
@@ -260,6 +237,7 @@ public class ControllerTests {
     @Test
     public void testGetRecipesContainingIngredients()
     {
+        //contains if you pass egg but they may contain other things
         try
         {
             BackendController testingController = BackendController.makeTestingBackendController(parentDir);
@@ -268,11 +246,13 @@ public class ControllerTests {
             newUser.username = "MAH USER";
 
             ArrayList<String> list = new ArrayList<String>(){{
-            	add("Butter");
-            	add("Olive Oil");
-            	add("Ground Beef");
+                add("Butter");
+                add("Olive Oil");
+                add("Ground Beef");
             }};
             
+            ArrayList<String> mahList = new ArrayList<String>();
+            mahList.add("Butter");
             
             //assertTrue(true);
                        
@@ -287,7 +267,8 @@ public class ControllerTests {
     @Test
     public void TestGetRecipesWithOnlyTheseIngredients()
     {
-    	try
+    	//if you pass eggs, it's gonna return only eggs.
+        try
         {
             BackendController testingController = BackendController.makeTestingBackendController(parentDir);
 
@@ -296,7 +277,7 @@ public class ControllerTests {
             
             ArrayList<String> recipe = new ArrayList<String>();
             recipe.add("Boil Water, cook ground beef until brown 2. Drain grease from ground beef "
-            		+ "3. Add noodles to water…cook until soft, add pasta sauce to ground beef and let simmer.");
+                    + "3. Add noodles to water…cook until soft, add pasta sauce to ground beef and let simmer.");
 
         }
         catch (Exception e)

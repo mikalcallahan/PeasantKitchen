@@ -1,196 +1,180 @@
 <!DOCTYPE HTML>
 <html>
-<head>
 
-<script type="text/javascript">
-	function UserReadInWebSocketTest() {
-		if ("WebSocket" in window) {
-			alert("WebSocket is supported by your Browser!");
-			
-			////
-			var ws = new WebSocket("ws://localhost:8080/Peasant_Kitchen/user/create"); //If want to look at response of different websocket change /create
-			
-            ws.onopen = function()
-            {
-               // Web Socket is connected, send data using send()
-               alert("Message is sent...");
-               
-				  requestObject = {username: "mr user", email: "mr@user", password: "123"}; //Changes when switching //This looks at Request/Request Parameters
-               evenBetterRequestObject = {id: "user.create", payload: requestObject} //Doesn't change
-               
-               ws.send(JSON.stringify(evenBetterRequestObject));
-            
-            };
-				
-            ws.onmessage = function (evt) 
-            { 
-               //var received_msg = evt.data;
-               alert('Recieved: [' + received_msg + ']');
-				  
-				  var response = JSON.parse(evt.data); //gives response and error fields (just a json string) response from create new user. this only looks at Response class in websocket (not request)
-				  var responseObject = response.response; //you don't have access to functions in class (createnewuser, signinuser, etc)
-				  var error = response.error;
-				  
-				  if (error == null || error == undefined)
-				  {
-					  
-					  if (responseObject.success != true)
-					  {
-						  alert("Error: The user could not be signed in.");
-						  return;
-						  
-					  }
-					  else if (responseObject.success == true)
-					  {
-						  alert("Success: The user was signed in.");
-						  
-					  }
-				      else if (responseObject.username == NULL)
-	                  {
-	                     alert("Error: The system responded with a null username but a real username was expected. ");
-	                     return;
-	                  }
-	                  else if (responseObject.username != "mr user")
-	                  {
-	                	  alert ("Error: The system failed to reply with the expected user name: mr user");
-	                	  return;
-	                	  
-	                  }
-	                  
-				  }
-				  else
-				  {
-					alert(JSON.stringify(error))
-				  }
-				  
-                //ws.received_msg(JSON.stringify(requestObject));
-              
-            };
-				
-            ws.onclose = function()
-            { 
-               // websocket is closed.
-               //alert("Connection is closed..."); 
-            };
-			
-			
-			// Let us open a web socket
-			var wsSignIn = new WebSocket(
+<head>
+	<meta charset="utf-8">
+	<title>Test</title>
+	<script type="text/javascript">
+		function UserReadInWebSocketTest() {
+			if ("WebSocket" in window) {
+				alert("WebSocket is supported by your Browser!");
+
+				////
+				var ws = new WebSocket("ws://localhost:8080/Peasant_Kitchen/user/create"); //If want to look at response of different websocket change /create
+
+				ws.onopen = function() {
+					// Web Socket is connected, send data using send()
+					alert("Message is sent...");
+
+					requestObject = {
+						username: "mr user",
+						email: "mr@user",
+						password: "123"
+					}; //Changes when switching //This looks at Request/Request Parameters
+					evenBetterRequestObject = {
+							id: "user.create",
+							payload: requestObject
+						} //Doesn't change
+
+					ws.send(JSON.stringify(evenBetterRequestObject));
+
+				};
+
+				ws.onmessage = function(evt) {
+					//var received_msg = evt.data;
+					alert('Recieved: [' + received_msg + ']');
+
+					var response = JSON.parse(evt.data); //gives response and error fields (just a json string) response from create new user. this only looks at Response class in websocket (not request)
+					var responseObject = response.response; //you don't have access to functions in class (createnewuser, signinuser, etc)
+					var error = response.error;
+
+					if (error == null || error == undefined) {
+
+						if (responseObject.success != true) {
+							alert("Error: The user could not be signed in.");
+							return;
+
+						} else if (responseObject.success == true) {
+							alert("Success: The user was signed in.");
+
+						} else if (responseObject.username == NULL) {
+							alert("Error: The system responded with a null username but a real username was expected. ");
+							return;
+						} else if (responseObject.username != "mr user") {
+							alert("Error: The system failed to reply with the expected user name: mr user");
+							return;
+
+						}
+
+					} else {
+						alert(JSON.stringify(error))
+					}
+
+					//ws.received_msg(JSON.stringify(requestObject));
+
+				};
+
+				ws.onclose = function() {
+					// websocket is closed.
+					//alert("Connection is closed...");
+				};
+
+
+				// Let us open a web socket
+				var wsSignIn = new WebSocket(
 					"ws://localhost:8080/Peasant_Kitchen/user/signin"); //If want to look at response of different websocket change /create
 
-			wsSignIn.onopen = function() {
-				// Web Socket is connected, send data using send()
-				//alert("Message is sent...");
+				wsSignIn.onopen = function() {
+					// Web Socket is connected, send data using send()
+					//alert("Message is sent...");
 
-				requestObject = {
-					username : "mr user",
-					email : "mr@user",
-					password : "123"
-				}; //Changes when switching
-				//evenBetterRequestObject = {id: "user.create", payload: requestObject} //Doesn't change
-				evenBetterRequestObject = {
-					id : "user.signin",
-					payload : requestObject
-				}
-
-				wsSignIn.send(JSON.stringify(evenBetterRequestObject));
-
-			};
-
-			wsSignIn.onmessage = function(evt) {
-				//var received_msg = evt.data;
-				//alert('Recieved: [' + received_msg + ']');
-
-				var response = JSON.parse(evt.data); //gives response and error fields (just a json string) response from create new user. this only looks at Response class in websocket (not request)
-				var responseObject = response.response; //you don't have access to functions in class (createnewuser, signinuser, etc)
-				var error = response.error;
-
-				if (error == null || error == undefined)
-				{
-					if(responseObject.success === true) {
-						alert("Success: The websocket indicated the request suceeded!");
-					}
-					else if(responseObject.success !== true)
-					{
-						alert("Error: The websocket indicated the request did not suceed!");
-						return;
+					requestObject = {
+						username: "mr user",
+						email: "mr@user",
+						password: "123"
+					}; //Changes when switching
+					//evenBetterRequestObject = {id: "user.create", payload: requestObject} //Doesn't change
+					evenBetterRequestObject = {
+						id: "user.signin",
+						payload: requestObject
 					}
 
-				}
-				else
-				{
-					alert(JSON.stringify(error))
-				}
+					wsSignIn.send(JSON.stringify(evenBetterRequestObject));
 
-			};
+				};
 
-			wsSignIn.onclose = function() {
-				// websocket is closed.
-				alert("Connection is closed...");
-			};
-			
-			// Let us open a web socket
-			var wsSignOut = new WebSocket(
+				wsSignIn.onmessage = function(evt) {
+					//var received_msg = evt.data;
+					//alert('Recieved: [' + received_msg + ']');
+
+					var response = JSON.parse(evt.data); //gives response and error fields (just a json string) response from create new user. this only looks at Response class in websocket (not request)
+					var responseObject = response.response; //you don't have access to functions in class (createnewuser, signinuser, etc)
+					var error = response.error;
+
+					if (error == null || error == undefined) {
+						if (responseObject.success === true) {
+							alert("Success: The websocket indicated the request suceeded!");
+						} else if (responseObject.success !== true) {
+							alert("Error: The websocket indicated the request did not suceed!");
+							return;
+						}
+
+					} else {
+						alert(JSON.stringify(error))
+					}
+
+				};
+
+				wsSignIn.onclose = function() {
+					// websocket is closed.
+					alert("Connection is closed...");
+				};
+
+				// Let us open a web socket
+				var wsSignOut = new WebSocket(
 					"ws://localhost:8080/Peasant_Kitchen/user/signout"); //If want to look at response of different websocket change /create
 
-			wsSignOut.onopen = function() {
-				// Web Socket is connected, send data using send()
-				//alert("Message is sent...");
+				wsSignOut.onopen = function() {
+					// Web Socket is connected, send data using send()
+					//alert("Message is sent...");
 
-				requestObject = {
-					username : "mr user",
-					
-				}; //Changes when switching
-				//evenBetterRequestObject = {id: "user.create", payload: requestObject} //Doesn't change
-				evenBetterRequestObject = {
-					id : "user.signout",
-					payload : requestObject
-				}
+					requestObject = {
+						username: "mr user",
 
-				wsSignOut.send(JSON.stringify(evenBetterRequestObject));
-
-			};
-
-			ws.onmessage = function(evt) {
-				//var received_msg = evt.data;
-				//alert('Recieved: [' + received_msg + ']');
-
-				var response = JSON.parse(evt.data); //gives response and error fields (just a json string) response from create new user. this only looks at Response class in websocket (not request)
-				var responseObject = response.response; //you don't have access to functions in class (createnewuser, signinuser, etc)
-				var error = response.error;
-
-				if (error == null || error == undefined)
-				{
-					if (responseObject.success === true) {
-						alert("Success: The websocket indicated the request suceeded!")
-					}
-					else if(responseObject.success !== true)
-					{
-						alert("Error: The websocket indicated the request did not succeed!")
+					}; //Changes when switching
+					//evenBetterRequestObject = {id: "user.create", payload: requestObject} //Doesn't change
+					evenBetterRequestObject = {
+						id: "user.signout",
+						payload: requestObject
 					}
 
-				}
-				else
-				{
-					alert(JSON.stringify(error))
-				}
+					wsSignOut.send(JSON.stringify(evenBetterRequestObject));
 
-			};
+				};
 
-			wsSignOut.onclose = function() {
-				// websocket is closed.
-				//alert("Connection is closed...");
-			};
+				ws.onmessage = function(evt) {
+					//var received_msg = evt.data;
+					//alert('Recieved: [' + received_msg + ']');
+
+					var response = JSON.parse(evt.data); //gives response and error fields (just a json string) response from create new user. this only looks at Response class in websocket (not request)
+					var responseObject = response.response; //you don't have access to functions in class (createnewuser, signinuser, etc)
+					var error = response.error;
+
+					if (error == null || error == undefined) {
+						if (responseObject.success === true) {
+							alert("Success: The websocket indicated the request suceeded!")
+						} else if (responseObject.success !== true) {
+							alert("Error: The websocket indicated the request did not succeed!")
+						}
+
+					} else {
+						alert(JSON.stringify(error))
+					}
+
+				};
+
+				wsSignOut.onclose = function() {
+					// websocket is closed.
+					//alert("Connection is closed...");
+				};
+			} else {
+				// The browser doesn't support WebSocket
+				alert("WebSocket NOT supported by your Browser!");
+			}
 		}
-
-		else {
-			// The browser doesn't support WebSocket
-			alert("WebSocket NOT supported by your Browser!");
-		}
-	}
-</script>
-
+	</script>
 </head>
+
 <body>
 
 	<div id="sse">
@@ -198,4 +182,5 @@
 	</div>
 
 </body>
+
 </html>

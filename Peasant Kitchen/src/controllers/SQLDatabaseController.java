@@ -245,55 +245,55 @@ public class SQLDatabaseController extends DatabaseController
 
     public Recipes getRecipesWithOnlyTheseIngredients(ArrayList<String> cleanedIngredients) throws Exception
     {
-        String ingredient = null;
-        int ingredientID = 0;
-        ArrayList<Recipe> recipes = new ArrayList<Recipe>();
-        ArrayList<String> ingredientsList = new ArrayList<String>();
-        ArrayList<Integer> ingredientsListID = new ArrayList<Integer>();
-        try
-        {
-            ingredientsList = cleanedIngredients;
-            ingredientsListID = getIngredientId(ingredientsList);
-            recipes = getRecipeId(ingredientsListID);
-            Recipe tempRec = new Recipe();
-            Recipe containsRec = new Recipe();
-            boolean contains = true;
-
-            for (int i = 0; i < recipes.size(); i++)
-            {
-                tempRec = recipes.get(i);
-                //Loops through passed ingredients list to see if recipe has all of ingredients
-                if (tempRec.numOfIngr != ingredientsList.size())
-                    contains = false;
-                else
-                {
-                    for (int j = 0; j < ingredientsList.size(); j++)
-                    {
-                        //check if recipe ingredients match the list of ingredient IDs
-                        if (!tempRec.recipeRequirements.toLowerCase().contains(ingredientsList.get(j).toLowerCase()))
-                        {
-                            contains = false;
-                        }
-                    }
-                }
-                //if the above loop is exited without finding a does not contain
-                //then the recipe contains all the ingredients and can be returned as such
-                if (contains == true)
-                {
-                    //System.out.println(tempRec.recipeName + " contains all ingredients");
-                    containsRec = tempRec;
-                }
-            }
-            if (!containsRec.recipeName.equals(""))
-                System.out.println(containsRec.recipeName + " contains the ingredients exactly.");
-            else
-                System.out.println("Nothing contained the ingredients exactly.");
-        }
-
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
+//        String ingredient = null;
+//        int ingredientID = 0;
+//        ArrayList<Recipe> recipes = new ArrayList<Recipe>();
+//        ArrayList<String> ingredientsList = new ArrayList<String>();
+//        ArrayList<Integer> ingredientsListID = new ArrayList<Integer>();
+//        try
+//        {
+//            ingredientsList = cleanedIngredients;
+//            ingredientsListID = getIngredientId(ingredientsList);
+//            recipes = getRecipeId(ingredientsListID);
+//            Recipe tempRec = new Recipe();
+//            Recipe containsRec = new Recipe();
+//            boolean contains = true;
+//
+//            for (int i = 0; i < recipes.size(); i++)
+//            {
+//                tempRec = recipes.get(i);
+//                //Loops through passed ingredients list to see if recipe has all of ingredients
+//                if (tempRec.numOfIngr != ingredientsList.size())
+//                    contains = false;
+//                else
+//                {
+//                    for (int j = 0; j < ingredientsList.size(); j++)
+//                    {
+//                        //check if recipe ingredients match the list of ingredient IDs
+//                        if (!tempRec.recipeRequirements.toLowerCase().contains(ingredientsList.get(j).toLowerCase()))
+//                        {
+//                            contains = false;
+//                        }
+//                    }
+//                }
+//                //if the above loop is exited without finding a does not contain
+//                //then the recipe contains all the ingredients and can be returned as such
+//                if (contains == true)
+//                {
+//                    //System.out.println(tempRec.recipeName + " contains all ingredients");
+//                    containsRec = tempRec;
+//                }
+//            }
+//            if (!containsRec.recipeName.equals(""))
+//                System.out.println(containsRec.recipeName + " contains the ingredients exactly.");
+//            else
+//                System.out.println("Nothing contained the ingredients exactly.");
+//        }
+//
+//        catch (Exception e)
+//        {
+//            e.printStackTrace();
+//        }
 
         return new Recipes();
 
