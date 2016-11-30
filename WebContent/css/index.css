@@ -93,10 +93,22 @@ ul.menuBar li.icon {display: none;}
 .ingredientsbox{
 	width: 95%;
 	margin: 0px auto;
+  align-items: center;
 }
   .myingredients{
 	  border: black solid;
 	  height: 200px;
 	  width: auto;
 	/*margin: 0px auto;*/
+  }
+  #foods
+  {
+    align-items: center;
+    width: 300px;
+    height: 35px;
+    font-size: 18px;
+    padding: 5px;
+    padding-right: 20px;
+    border-radius: 15px;
+    opacity: 0.8;
   }
