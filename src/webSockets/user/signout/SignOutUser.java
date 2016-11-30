@@ -61,7 +61,7 @@ public class SignOutUser extends PostWebSocket
             User user = WebSocketGlobalEnvironment.instance().getBackendController().signUserOut(request.username);
 
             Response response = new Response();
-            response.success = true;
+            response.success = !user.isSignedIn();
 
             Utilities.sendStandardWebSocketResponse(session, response);
             session.close();
@@ -80,7 +80,7 @@ public class SignOutUser extends PostWebSocket
 
         private class Response
         {
-            public Boolean success = true;
+            public Boolean success = false;
         }
     }
 
