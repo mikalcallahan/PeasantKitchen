@@ -24,6 +24,7 @@ public class BackendController
     public BackendController(DatabaseController databaseController)
     {
         this.initalize(databaseController);
+        this.databaseController.serverStartupTasks(null);
     }
 
     /**
