@@ -5,6 +5,7 @@
 	<title>Peasant Kitchen</title>
 	<link rel="stylesheet" type="text/css" href="../css/index.css" />
 	<script type="text/javascript" src="../js/index.js"></script>
+	<script src="../js/createaccount.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<meta charset="utf-8">
 
@@ -24,8 +25,11 @@
 			<li> <a href="aboutUs.html"> About Us </a> </li>
 			<li> <a href="contact.html"> Contact Us </a></li>
 			<li> <a href="logon.html"> login/Register </a></li>
+			<li id="signoutbutton">
+				<button onclick="signOutUser()">Sign Out</button>
+			</li>
 			<li class="icon">
-				<a href="javascript:void(0)" style="font-size:14px"</a>
+				<a href="javascript:void(0)" style="font-size:14px"></a>
 			</li>
 		</ul>
 	</div>
@@ -51,7 +55,10 @@
 				<!-- <datalist id="ingredients"></datalist>-->
 				<input name="generate" id="ingredientsAdd" type="button" value="Add Ingredient!" onclick="createTable()" />
 			</form>
-		</br></br> </br></br>
+			<br>
+			<br>
+			<br>
+			<br>
 			<div class='myingredients'>
 
 				<!--Prints users Input-->
