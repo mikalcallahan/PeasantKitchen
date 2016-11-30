@@ -35,30 +35,29 @@
 				  
 				  if (error == null || error == undefined)
 				  {
-					  if (responseObject.username == NULL)
+					  if (responseObject.success != true)
+					  {
+						  alert("Error: The user could not be signed in.");
+						  return;
+						  
+					  }
+					  else if (responseObject.success == true)
+					  {
+						  alert("Success: The user was signed in.");
+						  
+					  }
+				      else if (responseObject.username == NULL)
 	                  {
-	                     alert("Error: Username does not exist");
-	                  }
-	                  else if (responseObject.password == NULL)
-	                  {
-	                     alert ("Error: Password does not exist");
+	                     alert("Error: The system responded with a null username but a real username was expected. ");
+	                     return;
 	                  }
 	                  else if (responseObject.username != "mr user")
 	                  {
-	                	  alert ("Error: Users do not match.");
+	                	  alert ("Error: The system failed to reply with the expected user name: mr user");
+	                	  return;
 	                	  
 	                  }
-	                  else if (responseObject.password != "123")
-	                  {
-	                	  alert ("Error: Passwords do not match.");
-	                	  
-	                  }
-	                  else if (responseObject.email!= "mr@user")
-	                  {
-	                	  alert ("Error: Emails do not match.");
-	                	  
-	                  }
-	                
+	                 
 				  }
 				  else
 				  {

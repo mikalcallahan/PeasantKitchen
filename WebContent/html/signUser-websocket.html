@@ -14,7 +14,7 @@
                 // Web Socket is connected, send data using send()
                 alert("Message is sent...");
                 
-				  requestObject = {username: "mr user", email: "mr@user", password: "123", signedIn: "yes"}; //Changes when switching //This looks at Request/Request Parameters
+				requestObject = {username: "mr user", email: "mr@user", password: "123", signedIn: "yes"}; //Changes when switching //This looks at Request/Request Parameters
                 evenBetterRequestObject = {id: "user.create", payload: requestObject} //Doesn't change
                 
                 ws.send(JSON.stringify(evenBetterRequestObject));
@@ -32,27 +32,26 @@
 				  
 				  if (error == null || error == undefined)
 				  {
-					  if (responseObject.username == NULL)
+					  if (responseObject.success != true)
+					  {
+						  alert("Error: The user could not be signed in.");
+						  return;
+						  
+					  }
+					  else if (responseObject.success == true)
+					  {
+						  alert("Success: The user was signed in.");
+						  
+					  }
+				      else if (responseObject.username == NULL)
 	                  {
-	                     alert("Error: Username does not exist");
-	                  }
-	                  else if (responseObject.password == NULL)
-	                  {
-	                     alert ("Error: Password does not exist");
+	                     alert("Error: The system responded with a null username but a real username was expected. ");
+	                     return;
 	                  }
 	                  else if (responseObject.username != "mr user")
 	                  {
-	                	  alert ("Error: Users do not match.");
-	                	  
-	                  }
-	                  else if (responseObject.password != "123")
-	                  {
-	                	  alert ("Error: Passwords do not match.");
-	                	  
-	                  }
-	                  else if (responseObject.email!= "mr@user")
-	                  {
-	                	  alert ("Error: Emails do not match.");
+	                	  alert ("Error: The system failed to reply with the expected user name: mr user");
+	                	  return;
 	                	  
 	                  }
 	                
