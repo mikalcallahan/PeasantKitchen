@@ -16,7 +16,8 @@
 
 	 /* css the body if desired // centers form */
 	body{
-		background-color: darkGrey;
+		background-image: url("../images_folder/Food.jpg");
+		/*background-color: darkGrey;*/
 		margin: 0;
 		padding: 0;
 	}
@@ -45,5 +46,6 @@
 
 	/* container padding */
 	.container {
+		background-color: white;
 	    padding: 15px;
 	}
