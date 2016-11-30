@@ -74,6 +74,8 @@ function websockets(jsonobject) {
                 alert(JSON.stringify(error))
             }
 
+
+
             // var response = JSON.parse(evt.data);
             // var responseObject = response.response;
             //
