@@ -30,27 +30,77 @@ function tojson() {
 function websockets(jsonobject) {
     /* if websocket is supported */
     if ("WebSocket" in window) {
-        alert("WebSocket is supported by your Browser!"); // hurray its supported!
-        alert(jsonobject); // test to make sure jsonobject is passed
-        var ws = new WebSocket("ws://localhost:8080/Peasant_Kitchen/user/create"); // open websocket
-        alert("creating connection"); // creating connection
+    	
+    	
+    	
+    	// Let us open a web socket
+        var ws = new WebSocket("ws://localhost:8080/Peasant_Kitchen/user/create");
 
-        /* on websocket open */
-        ws.onopen = function() {
-            ws.send(jsonobject); // send jsonobject
-            alert("Message is sent..."); // json object sent
+        ws.onopen = function()
+        {
+           // Web Socket is connected, send data using send()
+           alert("Message is sent...");
+
+//           requestObject = {username: "mr user", email: "mr@user", password: "123"}
+//           evenBetterRequestObject = {id: "user.create", payload: requestObject}
+//           
+//           alert(JSON.stringify(evenBetterRequestObject));
+
+           //ws.send(JSON.stringify(evenBetterRequestObject));
+           ws.send(jsonobject);
         };
 
-        /* when backend receives data */
-        ws.onmessage = function(evt) {
-            var received_msg = evt.data; // received message is this
-            alert("Message is received..."); // we got the info
+        ws.onmessage = function (evt)
+        {
+          //fields: response, error
+
+          alert(evt.data);
+
+          var response = JSON.parse(evt.data);
+
+          var responseObject = response.response;
+          var error = response.error;
+
+          if(error === null || error === undefined)
+          {
+             //happy days
+             alert("Happy days")
+          }
+          else {
+            alert(JSON.stringify(error))
+          }
+
+  
         };
 
-        /* when websocket closes */
-        ws.onclose = function() {
-            alert("Connection is closed...");
+        ws.onclose = function()
+        {
+           // websocket is closed.
+           alert("Connection is closed...");
         };
+    	
+    	
+//        alert("WebSocket is supported by your Browser!"); // hurray its supported!
+//        alert(jsonobject); // test to make sure jsonobject is passed
+//        var ws = new WebSocket("ws://localhost:8080/Peasant_Kitchen/user/create"); // open websocket
+//        alert("creating connection"); // creating connection
+//
+//        /* on websocket open */
+//        ws.onopen = function() {
+//            alert("Message is sent..."); // json object sent
+//            ws.send(jsonobject); // send jsonobject
+//        };
+//
+//        /* when backend receives data */
+//        ws.onmessage = function(evt) {
+//        	alert("Message is received..."); // we got the info
+//            var received_msg = evt.data; // received message is this
+//        };
+//
+//        /* when websocket closes */
+//        ws.onclose = function() {
+//            alert("Connection is closed...");
+//        };
     } else { // browser doesn't support websockets
         alert("WebSocket NOT supported by your Browser!");
     }
