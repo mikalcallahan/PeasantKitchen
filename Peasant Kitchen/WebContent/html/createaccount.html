@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- This is the create account page of peasant kitchen -->
+
+	<head>
+		<meta charset="utf-8"> <!-- requirements -->
+		<title> createaccount </title> <!-- create account title -->
+		<link rel="stylesheet" href="../css/createaccount.css"> <!-- link css sheet -->
+		<script src="../js/createaccount.js"></script> <!-- link js script if necessary -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<!-- send to localhost:8080/user/create -->
+	</head>
+
+	<body>
+		<div class="imgcontainer"> <!-- div class for imgcontainer -->
+		  <img src="img_avatar2.png" alt="PKitchen" class="pkitchen"> <!-- source to image -->
+		</div>
+
+		<h3 id="title">Create Account </h3> <!--title -->
+
+		<form id="createaccount" onsubmit="return false;"> <!-- class="createaccount" onsubmit="return false;" method="post"> create form -->
+			<div class = "container"> <!-- create container class for container -->
+				<label><b> First Name </b></label> <!-- label first name and create input -->
+				<input type="text" placeholder="First Name" name="firstname" required>
+
+				<label><b> Last Name </b></label> <!-- label last and create input -->
+				<input type = "text" placeholder="Last Name" name ="lastname" required>
+
+				<label><b> Username </b></label> <!-- label username and create input -->
+				<input type = "text" placeholder="Username" name = "username" required>
+
+				<label><b> Password </b></label> <!-- label password and create input -->
+				<input type = "password" placeholder="Password" name = "password" required>
+			</div>
+
+			<div  class="container"> <!--create class for submitbutton and link to container -->
+				<!--<button id="testbutton" type="submit" onclick="tojson()"> Comfirm </button> < submit button -->
+				<button id="testbutton" type="submit" onclick="tojson()"> Comfirm </button>
+			</div>
+		</form>
+
+		<br><br><br>
+	</body>
+</html>
