@@ -67,6 +67,9 @@ function websockets(jsonobject) {
             var responseObject = response.response;
             var error = response.error;
 
+            var recipes = JSON.stringify(responseObject);
+            alert(reciples);
+
             if (error === null || error === undefined) {
                 //happy days
                 alert("Happy days")
