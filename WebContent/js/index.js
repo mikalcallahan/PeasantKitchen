@@ -49,7 +49,7 @@ function websockets(jsonobject) {
 
 
         // Let us open a web socket
-        var ws = new WebSocket("ws://localhost:8080/Peasant_Kitchen/user/signin");
+        var ws = new WebSocket("ws://localhost:8080/Peasant_Kitchen/recipes");
 
         ws.onopen = function() {
             // Web Socket is connected, send data using send()
@@ -68,7 +68,7 @@ function websockets(jsonobject) {
             var error = response.error;
 
             var recipes = JSON.stringify(responseObject);
-            alert(reciples);
+            alert(recipes);
 
             if (error === null || error === undefined) {
                 //happy days
