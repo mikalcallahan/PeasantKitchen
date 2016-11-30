@@ -11,6 +11,7 @@ import framework.Recipes;
 import framework.User;
 import utilities.CollectionUtils;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -26,7 +27,7 @@ import java.util.Set;
 
 public class ObjectDatabaseController extends DatabaseController
 {
-    protected ApplicationData applicationData;
+    protected ApplicationData applicationData = new ApplicationData(new File("/home/stoffel/Documents/School/Software Engineering/TestingOutput/"));
 
     public ObjectDatabaseController()
     {
