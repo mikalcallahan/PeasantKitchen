@@ -550,35 +550,33 @@ public class SQLDatabaseController extends DatabaseController
     @Override
     public void addObserver(Observer observer)
     {
-        // TODO Auto-generated method stub
-
+        this.observers.add(observer);
     }
 
     @Override
     public void removeObserver(Observer observer)
     {
-        // TODO Auto-generated method stub
-
+        this.observers.remove(observer);
     }
 
     @Override
     public LifecycleEvent serverStartupTasks(LifecycleEvent startupEvent)
     {
-        // TODO Auto-generated method stub
+        //Nothing to do
         return startupEvent;
     }
 
     @Override
     public LifecycleEvent serverShutdownTasks(LifecycleEvent shutdownEvent)
     {
-        // TODO Auto-generated method stub
+        //Nothing to do
         return shutdownEvent;
     }
 
 	@Override
 	public User removeUser(String username) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
+        //TODO: Implement me.
+        return new User(); //We can at least avoid gross null exceptions this way
+    }
 
 }
