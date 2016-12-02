@@ -4,22 +4,12 @@ import designPatterns.Visitor;
 
 import java.util.ArrayList;
 
-/*
- * Created for future flexibility
- */
-
-/**
- * The type Recipes.
- */
 public class Recipes extends ArrayList<Recipe>
 {
-    /**
-     *
-     */
     private static final long serialVersionUID = -136498257016695905L;
 
     /**
-     * Visit.
+     * Accepts a visitor
      *
      * @param visitor the visitor
      */
