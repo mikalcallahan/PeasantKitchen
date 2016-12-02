@@ -3,13 +3,13 @@ package framework;
 /**
  * The interface Parser.
  *
- * @param <Input>  the type parameter
- * @param <Result> the type parameter
+ * @param <Input>  The input type given to the parser
+ * @param <Result> The type of the parsed (result) object
  */
 public interface Parser<Input, Result>
 {
     /**
-     * Parse result.
+     * Parse the input object into the result object
      *
      * @param input the input
      * @return the result
