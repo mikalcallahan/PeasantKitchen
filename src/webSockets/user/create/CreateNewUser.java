@@ -29,7 +29,7 @@ public class CreateNewUser extends PostWebSocket
     @Override
     public boolean initialize()
     {
-        this.messageHandlers.put(Constants.MessageIDs.createNewUser, new CreateUserMessageHandler());
+        this.messageHandlers.put(Constants.MessageIDs.createNewUser, new HandleCreateNewUserMessage());
         return true;
     }
 
@@ -78,7 +78,7 @@ public class CreateNewUser extends PostWebSocket
         System.err.println(cause.getMessage());
     }
 
-    private class CreateUserMessageHandler extends WebSocketMessageHandler
+    private class HandleCreateNewUserMessage extends WebSocketMessageHandler
     {
         @Override
         public void handleMessage(JsonObject payload, Session session) throws Exception

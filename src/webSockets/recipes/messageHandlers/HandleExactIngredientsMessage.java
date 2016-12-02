@@ -53,13 +53,7 @@ public class HandleExactIngredientsMessage extends WebSocketMessageHandler
 
     private class Request
     {
-        /**
-         * The Username.
-         */
         public String username;
-        /**
-         * The Ingredients.
-         */
         public ArrayList<String> ingredients = new ArrayList<String>();
     }
 
