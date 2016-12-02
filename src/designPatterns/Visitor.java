@@ -1,14 +1,14 @@
 package designPatterns;
 
 /**
- * The interface Visitor.
+ * The Visitor interface.
  *
  * @param <T> the type parameter
  */
 public interface Visitor<T>
 {
     /**
-     * Visit.
+     * Visits each item, one at a time
      *
      * @param item the item
      */
