@@ -136,29 +136,14 @@ public class CreateNewUser extends PostWebSocket
 
     private class RequestParameters
     {
-        /**
-         * The Username.
-         */
         public String username;
-        /**
-         * The Email.
-         */
         public String email;
-        /**
-         * The Password.
-         */
         public String password;
     }
 
     private class Response
     {
-        /**
-         * The Username.
-         */
         public String username = "";
-        /**
-         * The Success.
-         */
         public Boolean success = true;
     }
 }
