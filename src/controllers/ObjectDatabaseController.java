@@ -25,21 +25,40 @@ import java.util.Set;
  */
 
 
+/**
+ * The type Object database controller.
+ */
 public class ObjectDatabaseController extends DatabaseController
 {
+    /**
+     * The Application data.
+     */
     protected ApplicationData applicationData = new ApplicationData(new File("/home/stoffel/Documents/School/Software Engineering/TestingOutput/"));
 
+    /**
+     * Instantiates a new Object database controller.
+     */
     public ObjectDatabaseController()
     {
 
     }
 
+    /**
+     * Instantiates a new Object database controller.
+     *
+     * @param applicationData the application data
+     */
     public ObjectDatabaseController(ApplicationData applicationData)
     {
         super();
         this.applicationData = applicationData;
     }
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args)
     {
 
