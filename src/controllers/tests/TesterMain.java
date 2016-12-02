@@ -10,9 +10,17 @@ import utilities.CollectionUtils;
 import java.io.File;
 import java.util.ArrayList;
 
+/**
+ * The type Tester main.
+ */
 public class TesterMain
 {
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args)
     {
         try

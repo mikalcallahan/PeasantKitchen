@@ -10,28 +10,57 @@ import java.util.Set;
  * and can perform actions upon this data, as appropriate.
  */
 
+/**
+ * The type Recipe.
+ */
 public class Recipe implements Serializable
 {
     /**
      *
      */
     private static final long serialVersionUID = -7015655411269528838L;
-    //protected ArrayList<IngredientQuantity> ingredients = new ArrayList<IngredientQuantity>();
+    /**
+     * The Recipe name.
+     */
+//protected ArrayList<IngredientQuantity> ingredients = new ArrayList<IngredientQuantity>();
     //protected String directions;
     //protected File image = null;
     public String recipeName = "";
+    /**
+     * The Recipe requirements.
+     */
     public String recipeRequirements = "";
+    /**
+     * The Recipe process.
+     */
     public String recipeProcess = "";
+    /**
+     * The Num of ingr.
+     */
     int numOfIngr;
+    /**
+     * The Ingredient quantities.
+     */
     public ArrayList<IngredientQuantity> ingredientQuantities = new ArrayList<IngredientQuantity>();
 
+    /**
+     * The Recipe id.
+     */
     public int recipeID;
 
+    /**
+     * Instantiates a new Recipe.
+     */
     public Recipe()
     {
 
     }
 
+    /**
+     * Gets unique ingredients.
+     *
+     * @return the unique ingredients
+     */
     public Set<String> getUniqueIngredients()
     {
         HashSet<String> uniqueRecipeIngredients = new HashSet<String>();

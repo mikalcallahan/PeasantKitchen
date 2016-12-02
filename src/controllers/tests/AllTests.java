@@ -11,6 +11,9 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.assertTrue;
 
+/**
+ * The type All tests.
+ */
 @RunWith(Suite.class)
 @SuiteClasses({BackendControllerTest.class})
 public class AllTests
@@ -18,7 +21,12 @@ public class AllTests
 
     //testing for each method in BackendController
 
-    //isUsernameTaken
+    /**
+     * Test 1.
+     *
+     * @throws Exception the exception
+     */
+//isUsernameTaken
     @Test
     public void test1() throws Exception
     {
@@ -30,7 +38,12 @@ public class AllTests
         assertTrue("Good!", true);
     }
 
-    //getUser
+    /**
+     * Test 2.
+     *
+     * @throws Exception the exception
+     */
+//getUser
     @Test
     public void test2() throws Exception
     {
@@ -42,7 +55,12 @@ public class AllTests
         assertTrue("Good!", true);
     }
 
-    //signUserIn
+    /**
+     * Test 3.
+     *
+     * @throws Exception the exception
+     */
+//signUserIn
     @Test
     public void test3() throws Exception
     {
@@ -54,7 +72,12 @@ public class AllTests
         assertTrue("Good!", true);
     }
 
-    //signUserOut
+    /**
+     * Test 4.
+     *
+     * @throws Exception the exception
+     */
+//signUserOut
     @Test
     public void test4() throws Exception
     {
@@ -66,7 +89,12 @@ public class AllTests
         assertTrue("Good!", true);
     }
 
-    //createUser
+    /**
+     * Test 5.
+     *
+     * @throws Exception the exception
+     */
+//createUser
     @Test
     public void test5() throws Exception
     {
@@ -78,7 +106,12 @@ public class AllTests
         assertTrue("Good!", true);
     }
 
-    //removeUser
+    /**
+     * Test 6.
+     *
+     * @throws Exception the exception
+     */
+//removeUser
     @Test
     public void test6() throws Exception
     {
@@ -89,7 +122,12 @@ public class AllTests
         assertTrue("Good!", true);
     }
 
-    //userLikesRecipe
+    /**
+     * Test 7.
+     *
+     * @throws Exception the exception
+     */
+//userLikesRecipe
     @Test
     public void test7() throws Exception
     {
@@ -100,7 +138,12 @@ public class AllTests
         assertTrue("Good!", true);
     }
 
-    //userLikesFoodCatagory
+    /**
+     * Test 8.
+     *
+     * @throws Exception the exception
+     */
+//userLikesFoodCatagory
     @Test
     public void test8() throws Exception
     {
@@ -111,7 +154,12 @@ public class AllTests
         assertTrue("Good!", true);
     }
 
-    //recommendRecipes
+    /**
+     * Test 9.
+     *
+     * @throws Exception the exception
+     */
+//recommendRecipes
     @Test
     public void test9() throws Exception
     {
@@ -122,7 +170,12 @@ public class AllTests
         assertTrue("Good!", true);
     }
 
-    //searchForReciepes
+    /**
+     * Test 10.
+     *
+     * @throws Exception the exception
+     */
+//searchForReciepes
     @Test
     public void test10() throws Exception
     {
@@ -133,7 +186,12 @@ public class AllTests
         assertTrue("Good!", true);
     }
 
-    //getRecipesContainingIngredients
+    /**
+     * Test 11.
+     *
+     * @throws Exception the exception
+     */
+//getRecipesContainingIngredients
     @Test
     public void test11() throws Exception
     {
@@ -145,7 +203,12 @@ public class AllTests
     }
 
 
-    //getRecipesWithOnlyTheseIngredients
+    /**
+     * Test 12.
+     *
+     * @throws Exception the exception
+     */
+//getRecipesWithOnlyTheseIngredients
     @Test
     public void test12() throws Exception
     {
@@ -156,7 +219,12 @@ public class AllTests
         assertTrue("Good!", true);
     }
 
-    //getDefaultHomepageRecipes
+    /**
+     * Test 13.
+     *
+     * @throws Exception the exception
+     */
+//getDefaultHomepageRecipes
     @Test
     public void test13() throws Exception
     {
@@ -167,7 +235,12 @@ public class AllTests
         assertTrue("Good!", true);
     }
 
-    //isUsernameTaken
+    /**
+     * Test 14.
+     *
+     * @throws Exception the exception
+     */
+//isUsernameTaken
     @Test
     public void test14() throws Exception
     {

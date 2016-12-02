@@ -4,6 +4,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import controllers.BackendController;
 
+/**
+ * The type Web socket global environment.
+ */
 public class WebSocketGlobalEnvironment
 {
     private static WebSocketGlobalEnvironment environment;
@@ -17,6 +20,11 @@ public class WebSocketGlobalEnvironment
         this.jsonConverter = new GsonBuilder().create();
     }
 
+    /**
+     * Instance web socket global environment.
+     *
+     * @return the web socket global environment
+     */
     public static WebSocketGlobalEnvironment instance()
     {
         if (WebSocketGlobalEnvironment.environment == null)
@@ -25,11 +33,21 @@ public class WebSocketGlobalEnvironment
         return WebSocketGlobalEnvironment.environment;
     }
 
+    /**
+     * Gets backend controller.
+     *
+     * @return the backend controller
+     */
     public BackendController getBackendController()
     {
         return this.backendController;
     }
 
+    /**
+     * Gets json converter.
+     *
+     * @return the json converter
+     */
     public Gson getJsonConverter()
     {
         return this.jsonConverter;

@@ -11,10 +11,19 @@ import javax.websocket.Session;
 import java.util.HashMap;
 
 
+/**
+ * The type Post web socket.
+ */
 public abstract class PostWebSocket
 {
+    /**
+     * The Message handlers.
+     */
     protected HashMap<String, WebSocketMessageHandler> messageHandlers = new HashMap<String, WebSocketMessageHandler>();
 
+    /**
+     * Instantiates a new Post web socket.
+     */
     public PostWebSocket()
     {
         this.initialize();
@@ -24,10 +33,21 @@ public abstract class PostWebSocket
 	 * abstract methods
 	 */
 
-    //Adds all of the message handler for this web socket
+    /**
+     * Initialize boolean.
+     *
+     * @return the boolean
+     */
+//Adds all of the message handler for this web socket
     public abstract boolean initialize();
 
 
+    /**
+     * Handle messages.
+     *
+     * @param messageJson the message json
+     * @param session     the session
+     */
     protected void handleMessages(String messageJson, Session session)
     {
         try
@@ -71,6 +91,12 @@ public abstract class PostWebSocket
         return new Request(id, payload);
     }
 
+    /**
+     * Payload contains required fields.
+     *
+     * @param payload the payload
+     * @param fields  the fields
+     */
     protected void payloadContainsRequiredFields(JsonObject payload, String... fields)
     {
         JsonElement fieldElement = null;
@@ -91,9 +117,21 @@ public abstract class PostWebSocket
 
     private class Request
     {
+        /**
+         * The Id.
+         */
         public String id;
+        /**
+         * The Payload.
+         */
         public JsonObject payload;
 
+        /**
+         * Instantiates a new Request.
+         *
+         * @param id      the id
+         * @param payload the payload
+         */
         public Request(String id, JsonObject payload)
         {
             super();

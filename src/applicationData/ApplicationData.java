@@ -13,19 +13,42 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * The type Application data.
+ */
 public class ApplicationData
 {
+    /**
+     * The Recipes.
+     */
     protected Recipes recipes = new Recipes();
+    /**
+     * The Concurrent recipes.
+     */
     protected List<Recipe> concurrentRecipes = Collections.synchronizedList(recipes);
+    /**
+     * The Users.
+     */
     protected ConcurrentHashMap<String, User> users = new ConcurrentHashMap<String, User>();
 
     private transient File parentDir;
 
+    /**
+     * Instantiates a new Application data.
+     *
+     * @param parentDir the parent dir
+     */
     public ApplicationData(File parentDir)
     {
         this.parentDir = parentDir;
     }
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     * @throws Exception the exception
+     */
     public static void main(String[] args) throws Exception
     {
         File parentDir = new File("/home/stoffel/Documents/School/Software Engineering/TestingOutput/");
@@ -78,6 +101,11 @@ public class ApplicationData
         System.out.println(test.toString());
     }
 
+    /**
+     * Load from disk.
+     *
+     * @throws Exception the exception
+     */
     public void loadFromDisk() throws Exception
     {
         File storedRecipes = this.getStoredRecipesObject();
@@ -96,6 +124,11 @@ public class ApplicationData
             this.users = loadObjectFromDisk(storedUsers, users.getClass());
     }
 
+    /**
+     * Save to disk.
+     *
+     * @throws Exception the exception
+     */
     public void saveToDisk() throws Exception
     {
         prepareDestinationFolder();
@@ -118,6 +151,11 @@ public class ApplicationData
      * Getters
 	 */
 
+    /**
+     * Visit recipes.
+     *
+     * @param visitor the visitor
+     */
     public void visitRecipes(Visitor<Recipe> visitor)
     {
         synchronized (this.concurrentRecipes)
@@ -127,6 +165,11 @@ public class ApplicationData
         }
     }
 
+    /**
+     * Visit users.
+     *
+     * @param visitor the visitor
+     */
     public void visitUsers(Visitor<User> visitor)
     {
         for (Entry<String, User> entry : this.users.entrySet())
@@ -138,11 +181,21 @@ public class ApplicationData
      * Helper methods
 	 */
 
+    /**
+     * Gets recipes.
+     *
+     * @return the recipes
+     */
     public List<Recipe> getRecipes()
     {
         return this.concurrentRecipes;
     }
 
+    /**
+     * Gets users.
+     *
+     * @return the users
+     */
     public Map<String, User> getUsers()
     {
         return this.users;
@@ -206,11 +259,21 @@ public class ApplicationData
         return new File(this.getStoredObjectsFolder(), Constants.storedRecipesObjectFileName);
     }
 
+    /**
+     * Gets dabase cs vs folder.
+     *
+     * @return the dabase cs vs folder
+     */
     public File getDabaseCSVsFolder()
     {
         return new File(this.parentDir, Constants.databaseCSVFolder);
     }
 
+    /**
+     * Gets recipes csv.
+     *
+     * @return the recipes csv
+     */
     public File getRecipesCSV()
     {
         return new File(this.getDabaseCSVsFolder(), Constants.recipesCSV);

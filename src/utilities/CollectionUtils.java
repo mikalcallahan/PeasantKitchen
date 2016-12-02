@@ -5,8 +5,18 @@ import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+/**
+ * The type Collection utils.
+ */
 public class CollectionUtils
 {
+    /**
+     * Array list array list.
+     *
+     * @param <T>   the type parameter
+     * @param items the items
+     * @return the array list
+     */
     public static <T> ArrayList<T> arrayList(T... items)
     {
         ArrayList<T> arrList = new ArrayList<T>();
@@ -17,6 +27,13 @@ public class CollectionUtils
         return arrList;
     }
 
+    /**
+     * Hash set hash set.
+     *
+     * @param <T>   the type parameter
+     * @param items the items
+     * @return the hash set
+     */
     public static <T> HashSet<T> hashSet(Iterable<T> items)
     {
         if (items == null)
@@ -30,6 +47,13 @@ public class CollectionUtils
         return set;
     }
 
+    /**
+     * Linked hash set linked hash set.
+     *
+     * @param <T>   the type parameter
+     * @param items the items
+     * @return the linked hash set
+     */
     public static <T> LinkedHashSet<T> linkedHashSet(Iterable<T> items)
     {
         if (items == null)
@@ -43,6 +67,14 @@ public class CollectionUtils
         return set;
     }
 
+    /**
+     * Equal sets boolean.
+     *
+     * @param <T> the type parameter
+     * @param a   the a
+     * @param b   the b
+     * @return the boolean
+     */
     public static <T> boolean equalSets(Set<T> a, Set<T> b)
     {
         if (a == null && b == null)

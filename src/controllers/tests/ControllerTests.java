@@ -12,12 +12,18 @@ import static org.junit.Assert.*;
 import java.io.File;
 import java.util.ArrayList;
 
+/**
+ * The type Controller tests.
+ */
 @RunWith(Suite.class)
 @SuiteClasses({ AllTests.class, BackendControllerTest.class })
 public class ControllerTests {
 
     private final File parentDir = new File("/Users/SamDoroudi/Documents/TestingOutput/");
 
+    /**
+     * Test creating user.
+     */
     @Test
     public void testCreatingUser()
     {
@@ -40,8 +46,13 @@ public class ControllerTests {
         }
 
     }
-    
-    //test for creatingUser by creating the same user twice
+
+    /**
+     * Test same user creating user.
+     *
+     * @throws Exception the exception
+     */
+//test for creatingUser by creating the same user twice
     @Test (expected = NullPointerException.class) 
     public void testSameUserCreatingUser() throws Exception
     {
@@ -55,8 +66,13 @@ public class ControllerTests {
             createdUser = testingController.createUser(newUser);
 
     }
-    
-    //test for creatingUser with space in username/pass
+
+    /**
+     * Break test space values creating user.
+     *
+     * @throws Exception the exception
+     */
+//test for creatingUser with space in username/pass
     @Test (expected = NullPointerException.class)
     public void breakTestSpaceValuesCreatingUser() throws Exception
     {
@@ -69,8 +85,11 @@ public class ControllerTests {
             User createdUser = testingController.createUser(newUser);
 
     }
-    
-    //test for creatingUser with nulls in user/pass
+
+    /**
+     * Break test null values creating user.
+     */
+//test for creatingUser with nulls in user/pass
     @Test (expected = NullPointerException.class)
     public void breakTestNullValuesCreatingUser()
     {
@@ -94,7 +113,11 @@ public class ControllerTests {
         }
 
     }
-    //test for creatingUser with empty string in user/pass
+
+    /**
+     * Break test no values creating user.
+     */
+//test for creatingUser with empty string in user/pass
     @Test (expected = NullPointerException.class)
     public void breakTestNoValuesCreatingUser()
     {
@@ -120,8 +143,11 @@ public class ControllerTests {
         }
 
     }
-    
-    
+
+
+    /**
+     * Test signing in user.
+     */
     @Test
     public void testSigningInUser()
     {
@@ -145,7 +171,10 @@ public class ControllerTests {
         }
 
     }
-    
+
+    /**
+     * Test signing out user.
+     */
     @Test
     public void testSigningOutUser()
     {
@@ -173,7 +202,10 @@ public class ControllerTests {
         }
 
     }
-    
+
+    /**
+     * Test is username taken.
+     */
     @Test
     public void testIsUsernameTaken()
     {
@@ -196,7 +228,10 @@ public class ControllerTests {
             e.printStackTrace();
         }
     }
-    
+
+    /**
+     * Test removing user.
+     */
     @Test
     public void testRemovingUser()
     {
@@ -217,8 +252,10 @@ public class ControllerTests {
         }
     }
 
-    
-   
+
+    /**
+     * Test recommend recipes.
+     */
     public void testRecommendRecipes()
     {
         try
@@ -234,6 +271,9 @@ public class ControllerTests {
 
     }
 
+    /**
+     * Test get recipes containing ingredients.
+     */
     @Test
     public void testGetRecipesContainingIngredients()
     {
@@ -263,7 +303,10 @@ public class ControllerTests {
         }
 
     }
-    
+
+    /**
+     * Test get recipes with only these ingredients.
+     */
     @Test
     public void TestGetRecipesWithOnlyTheseIngredients()
     {

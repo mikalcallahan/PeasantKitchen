@@ -9,11 +9,17 @@ import java.io.File;
 import static org.junit.Assert.assertTrue;
 
 
+/**
+ * The type Backend controller test.
+ */
 public class BackendControllerTest
 {
 
     private final File parentDir = new File("/home/stoffel/Documents/School/Software Engineering/TestingOutput/");
 
+    /**
+     * Test creating user.
+     */
     @Test
     public void testCreatingUser()
     {
@@ -36,7 +42,10 @@ public class BackendControllerTest
         }
 
     }
-    
+
+    /**
+     * Test signing in user.
+     */
     @Test
     public void testSigningInUser()
     {

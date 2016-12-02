@@ -10,6 +10,9 @@ import utilities.Utilities;
 import javax.websocket.Session;
 import java.util.ArrayList;
 
+/**
+ * The type Handle containing ingredients message.
+ */
 public class HandleContainingIngredientsMessage extends WebSocketMessageHandler
 {
     @Override
@@ -51,12 +54,21 @@ public class HandleContainingIngredientsMessage extends WebSocketMessageHandler
 
     private class Request
     {
+        /**
+         * The Ingredients.
+         */
         public ArrayList<String> ingredients = new ArrayList<String>();
+        /**
+         * The Username.
+         */
         public String username;
     }
 
     private class Response
     {
+        /**
+         * The Recipes.
+         */
         public Recipes recipes = new Recipes();
     }
 
