@@ -73,15 +73,12 @@ public class ObjectDatabaseController extends DatabaseController
     {
         Recipes results = new Recipes();
 
-        this.applicationData.visitRecipes(new Visitor<Recipe>()
-        {
-            @Override
-            public void visit(Recipe recipe)
-            {
-                if (recipeContainsIngredients(recipe, cleanedIngredients))
-                    results.add(recipe);
-            }
-        });
+        this.applicationData.visitRecipes(
+                (Recipe recipe) -> {
+                    if (recipeContainsIngredients(recipe, cleanedIngredients))
+                        results.add(recipe);
+                }
+        );
 
         return results;
     }
@@ -102,15 +99,12 @@ public class ObjectDatabaseController extends DatabaseController
     {
         Recipes results = new Recipes();
 
-        this.applicationData.visitRecipes(new Visitor<Recipe>()
-        {
-            @Override
-            public void visit(Recipe recipe)
-            {
-                if (recipeContainsExactIngredients(recipe, cleanedIngredients))
-                    results.add(recipe);
-            }
-        });
+        this.applicationData.visitRecipes(
+                (Recipe recipe) -> {
+                    if (recipeContainsExactIngredients(recipe, cleanedIngredients))
+                        results.add(recipe);
+                }
+        );
 
         return results;
     }
