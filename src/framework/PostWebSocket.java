@@ -16,37 +16,30 @@ import java.util.HashMap;
  */
 public abstract class PostWebSocket
 {
-    /**
-     * The Message handlers.
-     */
     protected HashMap<String, WebSocketMessageHandler> messageHandlers = new HashMap<String, WebSocketMessageHandler>();
 
-    /**
-     * Instantiates a new Post web socket.
-     */
     public PostWebSocket()
     {
         this.initialize();
     }
 
 	/*
-	 * abstract methods
+	 * Abstract methods
 	 */
 
     /**
-     * Initialize boolean.
+     * Adds all of the message handler for this web socket
      *
      * @return the boolean
      */
-//Adds all of the message handler for this web socket
     public abstract boolean initialize();
 
 
     /**
      * Handle messages.
      *
-     * @param messageJson the message json
-     * @param session     the session
+     * @param messageJson the json of the message
+     * @param session     the web socket session
      */
     protected void handleMessages(String messageJson, Session session)
     {
@@ -92,7 +85,7 @@ public abstract class PostWebSocket
     }
 
     /**
-     * Payload contains required fields.
+     * Verifies that the payload contains the required fields 'payload' and 'id' (the ID of the message handler to use)
      *
      * @param payload the payload
      * @param fields  the fields
@@ -107,7 +100,7 @@ public abstract class PostWebSocket
 
             if (fieldElement == null)
             {
-                throw new NullPointerException("ERROR: The required parameter [" + field + "] was not recieved by the backend!");
+                throw new NullPointerException("ERROR: The required parameter [" + field + "] was not received by the backend!");
             }
 
             if (StringUtilites.isVoidString(fieldElement.getAsString()))
@@ -117,13 +110,7 @@ public abstract class PostWebSocket
 
     private class Request
     {
-        /**
-         * The Id.
-         */
         public String id;
-        /**
-         * The Payload.
-         */
         public JsonObject payload;
 
         /**

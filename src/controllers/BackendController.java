@@ -16,13 +16,7 @@ import java.util.ArrayList;
  */
 public class BackendController
 {
-    /**
-     * The Database controller.
-     */
     protected DatabaseController databaseController;
-    /**
-     * The Recomendation controller.
-     */
     protected RecomendationController recomendationController;
 
     /**
