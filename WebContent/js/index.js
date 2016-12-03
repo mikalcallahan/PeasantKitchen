@@ -37,7 +37,7 @@ function submitIngredients() {
     };
     requestObject = JSON.stringify(requestObject);
     alert(requestObject);
-    websockets(requestObject);
+    var recipes = websockets(requestObject);
 }
 
 /* web socket stuff */
@@ -59,9 +59,6 @@ function websockets(jsonobject) {
 
         ws.onmessage = function(evt) {
             //fields: response, error
-
-            alert(evt.data);
-
             var response = JSON.parse(evt.data);
 
             var responseObject = response.response;
@@ -71,16 +68,11 @@ function websockets(jsonobject) {
             alert(recipes);
 
             if (error === null || error === undefined) {
-                //happy days
-                alert("Happy days")
-            } else {
-                alert(JSON.stringify(error))
+                return responseObject.recipes;
             }
 
-            // var response = JSON.parse(evt.data);
-            // var responseObject = response.response;
-            //
-            // alert(JSON.stringify(responseObject));
+            alert(JSON.stringify(error));
+            return "";
         };
 
         ws.onclose = function() {
@@ -92,6 +84,49 @@ function websockets(jsonobject) {
     } else { // browser doesn't support websockets
         alert("WebSocket NOT supported by your Browser!");
     }
+}
+
+function displayRecipes(recipes) {
+    var recipesDiv = $(".recipes");
+
+    var recipesPerRow = chunk(recipes, 4);
+
+
+
+
+    function chunk(array, chunkSize) {
+        var totalChunks = Math.ceil(array.length / chunkSize);
+        var chunks = new Array(totalChunks);
+        var beginningOfChunk = 0;
+        var endOfChunk = chunkSize;
+        var chunkCount = 0;
+
+        while(endOfChunk <= array.length) {
+            chunks.add(array.slice(beginningOfChunk, endOfChunk));
+
+            beginningOfChunk = endOfChunk;
+            endOfChunk = endOfChunk + chunkSize;
+            chunkCount = chunkCount + 1;
+        }
+
+        if(chunkCount < totalChunks)
+            chunks.add(array.slice(beginningOfChunk, array.length))
+    }
+
+
+    function buildRecipeTable(recipesPerRow) {
+        var tableElement = $("<div></div>");
+
+        for(var rowRecipes in recipesPerRow) {
+            makeRow(rowRecipes)
+        }
+
+        function makeRow(rowRecipes) {
+
+        }
+    }
+
+
 }
 
 function enterButton(e) {
