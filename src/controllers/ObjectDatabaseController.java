@@ -4,7 +4,6 @@ import applicationData.ApplicationData;
 import com.sun.appserv.server.LifecycleEvent;
 import constants.Constants;
 import designPatterns.Observer;
-import designPatterns.Visitor;
 import framework.DatabaseController;
 import framework.Recipe;
 import framework.Recipes;
@@ -13,7 +12,6 @@ import utilities.CollectionUtils;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -64,57 +62,37 @@ public class ObjectDatabaseController extends DatabaseController
 
     }
 
-    //This method may not work so well in practice
-    //Couple issues: 1) This assumes that the user is typing in ingredients in the same way that we have them
-    //stored in our database
 
     @Override
     public Recipes getRecipesContainingIngredients(ArrayList<String> cleanedIngredients)
     {
-        Recipes results = new Recipes();
-
-        this.applicationData.visitRecipes(
+        return
+                this.applicationData.filterRecipes(
                 (Recipe recipe) -> {
-                    if (recipeContainsIngredients(recipe, cleanedIngredients))
-                        results.add(recipe);
+                    Set<String> uniqueRecipeIngredients = recipe.getUniqueIngredients();
+
+                    for (String ingredient : cleanedIngredients)
+                        if (!uniqueRecipeIngredients.contains(ingredient))
+                            return false;
+
+                    return true;
                 }
-        );
-
-        return results;
-    }
-
-    private boolean recipeContainsIngredients(Recipe recipe, Collection<String> ingredients)
-    {
-        Set<String> uniqueRecipeIngredients = recipe.getUniqueIngredients();
-
-        for (String ingredient : ingredients)
-            if (!uniqueRecipeIngredients.contains(ingredient))
-                return false;
-
-        return true;
+                )
     }
 
     @Override
     public Recipes getRecipesWithOnlyTheseIngredients(ArrayList<String> cleanedIngredients)
     {
-        Recipes results = new Recipes();
+        HashSet<String> uniqueCleanIngredients = CollectionUtils.hashSet(cleanedIngredients);
 
-        this.applicationData.visitRecipes(
-                (Recipe recipe) -> {
-                    if (recipeContainsExactIngredients(recipe, cleanedIngredients))
-                        results.add(recipe);
-                }
-        );
-
-        return results;
-    }
-
-    private boolean recipeContainsExactIngredients(Recipe recipe, Collection<String> ingredients)
-    {
-        Set<String> uniqueRecipeIngredients = recipe.getUniqueIngredients();
-        HashSet<String> uniqueIngredients = CollectionUtils.hashSet(ingredients);
-
-        return CollectionUtils.equalSets(uniqueIngredients, uniqueRecipeIngredients);
+        return
+                this.applicationData.filterRecipes(
+                        (Recipe recipe) ->
+                        {
+                            Set<String> uniqueRecipeIngredients = recipe.getUniqueIngredients();
+                            return CollectionUtils.equalSets(uniqueCleanIngredients, uniqueRecipeIngredients);
+                        }
+                );
     }
 
     @Override

@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Predicate;
 
 /**
  * The type Application data.
@@ -162,6 +163,21 @@ public class ApplicationData
             for (Recipe recipe : this.concurrentRecipes)
                 visitor.visit(recipe);
         }
+    }
+
+    public Recipes filterRecipes(Predicate<Recipe> predicate)
+    {
+        Recipes results = new Recipes();
+
+        this.visitRecipes(
+                (Recipe recipe) ->
+                {
+                    if (predicate.test(recipe))
+                        results.add(recipe);
+                }
+        );
+
+        return results;
     }
 
     /**
