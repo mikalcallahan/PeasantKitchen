@@ -22,9 +22,6 @@ public class Recipe implements Serializable
     /**
      * The Recipe name.
      */
-//protected ArrayList<IngredientQuantity> ingredients = new ArrayList<IngredientQuantity>();
-    //protected String directions;
-    //protected File image = null;
     public String recipeName = "";
     /**
      * The Recipe requirements.
@@ -37,7 +34,7 @@ public class Recipe implements Serializable
     /**
      * The Num of ingr.
      */
-    int numOfIngr;
+    public int numOfIngr;
     /**
      * The Ingredient quantities.
      */
