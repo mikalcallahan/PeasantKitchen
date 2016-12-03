@@ -68,16 +68,17 @@ public class ObjectDatabaseController extends DatabaseController
     {
         return
                 this.applicationData.filterRecipes(
-                (Recipe recipe) -> {
-                    Set<String> uniqueRecipeIngredients = recipe.getUniqueIngredients();
+                        (Recipe recipe) ->
+                        {
+                            Set<String> uniqueRecipeIngredients = recipe.getUniqueIngredients();
 
-                    for (String ingredient : cleanedIngredients)
-                        if (!uniqueRecipeIngredients.contains(ingredient))
-                            return false;
+                            for (String ingredient : cleanedIngredients)
+                                if (!uniqueRecipeIngredients.contains(ingredient))
+                                    return false;
 
-                    return true;
-                }
-                )
+                            return true;
+                        }
+                );
     }
 
     @Override
