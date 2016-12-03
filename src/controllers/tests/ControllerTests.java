@@ -241,10 +241,10 @@ public class ControllerTests {
             
             User newUser = new User();
             newUser.username = null;
-            
+
             User removedUser = testingController.removeUser(newUser);
 
-            assertTrue("Removing user failure", removedUser.removeUser(newUser));
+            assertTrue("Removing user failure", removedUser == null);
         }
          catch (Exception e)
         {

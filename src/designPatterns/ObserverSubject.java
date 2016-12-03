@@ -17,7 +17,7 @@ public abstract class ObserverSubject
      *
      * @param observer the observer
      */
-//abstract methods
+
     public abstract void addObserver(Observer observer);
 
     /**

@@ -68,8 +68,7 @@ public class ObjectDatabaseController extends DatabaseController
     {
         return
                 this.applicationData.filterRecipes(
-                        (Recipe recipe) ->
-                        {
+                        (Recipe recipe) -> {
                             Set<String> uniqueRecipeIngredients = recipe.getUniqueIngredients();
 
                             for (String ingredient : cleanedIngredients)
@@ -88,8 +87,7 @@ public class ObjectDatabaseController extends DatabaseController
 
         return
                 this.applicationData.filterRecipes(
-                        (Recipe recipe) ->
-                        {
+                        (Recipe recipe) -> {
                             Set<String> uniqueRecipeIngredients = recipe.getUniqueIngredients();
                             return CollectionUtils.equalSets(uniqueCleanIngredients, uniqueRecipeIngredients);
                         }
@@ -99,23 +97,15 @@ public class ObjectDatabaseController extends DatabaseController
     @Override
     public User getUser(String username) throws Exception
     {
-        return applicationData.getUsers().get(username);
+        return
+                this.applicationData.getUser(username);
     }
 
     @Override
     public User createUser(User tempUserObject)
     {
-        User newUser = new User(tempUserObject);
-
-        //Successfully handles the case where multiple threads are trying to add the same user (hence, same key)
-        //at the same time.
-        //I'll let the Java API decide which thread wins
-        User storedUser = applicationData.getUsers().putIfAbsent(tempUserObject.username, newUser);
-
-        if (storedUser != null)
-            throw new RuntimeException("The requested username [" + tempUserObject.username + "] is already taken. Please select another");
-
-        return newUser;
+        return
+                this.applicationData.addUser(tempUserObject);
     }
 
     @Override
@@ -186,7 +176,8 @@ public class ObjectDatabaseController extends DatabaseController
 	@Override
 	public User removeUser(String username) throws Exception 
 	{
-		return this.applicationData.getUsers().remove(username);
+		return
+                this.applicationData.removeUser(username);
 	}
 
 

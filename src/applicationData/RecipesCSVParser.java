@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * The type Recipes parser.
  */
-public class RecipesParser implements Parser<File, Recipes>
+public class RecipesCSVParser implements Parser<File, Recipes>
 {
     @Override
     public Recipes parse(File input) throws Exception
