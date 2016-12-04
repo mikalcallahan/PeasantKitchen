@@ -71,6 +71,8 @@ function websockets(jsonobject) {
                 return responseObject.recipes;
             }
 
+
+
             alert(JSON.stringify(error));
             return "";
         };
@@ -114,14 +116,13 @@ function displayRecipes(recipes) {
     }
 
 
+
     function buildRecipeTable(recipesPerRow) {
         var tableElement = $("<div></div>");
 
-        for(var rowRecipes in recipesPerRow) {
-            makeRow(rowRecipes)
-        }
 
-        function makeRow(rowRecipes) {
+
+        for (var recipe in recipesPerRow) {
 
         }
     }
