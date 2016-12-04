@@ -45,6 +45,9 @@ public class Recipe implements Serializable
      */
     public int recipeID;
 
+    public String recipeImageFilename = "";
+    public String recipeThumbnailFilename = "";
+
     /**
      * Instantiates a new Recipe.
      */
