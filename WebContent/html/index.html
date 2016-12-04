@@ -3,7 +3,11 @@
 
 <head>
     <title>Peasant Kitchen</title>
+
     <link rel="stylesheet" type="text/css" href="../css/index.css"/>
+    <link rel="stylesheet" href="../css/foundation.css">
+    <link rel="stylesheet" href="../css/app.css">
+
     <script type="text/javascript" src="../js/index.js"></script>
     <script src="../js/createaccount.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -78,9 +82,8 @@
     </div>
 </div>
 
-<div class="recipes" style="display: none;">
-
-</div>
+<!-- Initially, hide this element -->
+<div id="recipesGrid" style="display:none;"></div>
 
 <!-- Dropdown Boxes-->
 <div>
@@ -106,6 +109,10 @@
     </dl>
     <button> Filter</button>
 </div>
+
+<script src="../js/vendor/what-input.js"></script>
+<script src="../js/vendor/foundation.js"></script>
+<script src="../js/app.js"></script>
 </body>
 
 </html>

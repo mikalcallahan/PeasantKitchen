@@ -38,6 +38,7 @@ function submitIngredients() {
     requestObject = JSON.stringify(requestObject);
     alert(requestObject);
     var recipes = websockets(requestObject);
+    displayRecipes(recipes);
 }
 
 /* web socket stuff */
@@ -51,14 +52,17 @@ function websockets(jsonobject) {
         // Let us open a web socket
         var ws = new WebSocket("ws://localhost:8080/Peasant_Kitchen/recipes");
 
-        ws.onopen = function() {
+        ws.onopen = function () {
             // Web Socket is connected, send data using send()
             alert("Message is sent...");
             ws.send(jsonobject);
         };
 
-        ws.onmessage = function(evt) {
+        ws.onmessage = function (evt) {
             //fields: response, error
+            alert("Response");
+            alert(evt.data);
+
             var response = JSON.parse(evt.data);
 
             var responseObject = response.response;
@@ -68,16 +72,17 @@ function websockets(jsonobject) {
             alert(recipes);
 
             if (error === null || error === undefined) {
+                alert("Happy days");
+                alert("Recipes: " + JSON.stringify(responseObject.recipes));
                 return responseObject.recipes;
             }
-
 
 
             alert(JSON.stringify(error));
             return "";
         };
 
-        ws.onclose = function() {
+        ws.onclose = function () {
             // websocket is closed.
             alert("Connection is closed...");
         };
@@ -89,12 +94,18 @@ function websockets(jsonobject) {
 }
 
 function displayRecipes(recipes) {
-    var recipesDiv = $(".recipes");
+    alert(JSON.stringify(recipes));
 
-    var recipesPerRow = chunk(recipes, 4);
+    if(recipes === null || recipes === undefined)
+        return;
 
+    var recipesPerRow = chunk(recipes, 8);
+    alert(JSON.stringify(recipesPerRow));
 
+    populateRecipeGrid(recipesPerRow);
 
+    //display the recipes
+    recipesPerRow.setAttribute("style", "");
 
     function chunk(array, chunkSize) {
         var totalChunks = Math.ceil(array.length / chunkSize);
@@ -103,7 +114,7 @@ function displayRecipes(recipes) {
         var endOfChunk = chunkSize;
         var chunkCount = 0;
 
-        while(endOfChunk <= array.length) {
+        while (endOfChunk <= array.length) {
             chunks.add(array.slice(beginningOfChunk, endOfChunk));
 
             beginningOfChunk = endOfChunk;
@@ -111,23 +122,60 @@ function displayRecipes(recipes) {
             chunkCount = chunkCount + 1;
         }
 
-        if(chunkCount < totalChunks)
+        if (chunkCount < totalChunks)
             chunks.add(array.slice(beginningOfChunk, array.length))
     }
 
+    function populateRecipeGrid(recipesPerRow) {
+        var recipesGridDiv = document.getElementById("recipesGrid");
+        var rowDivElement;
+
+        for (var rowRecipes in recipesPerRow) {
+            rowDivElement = attachDiv("row small-up-" + rowRecipes.length, recipesGridDiv);
+
+            for (var rowRecipe in rowRecipes) {
+                attachColumn(rowRecipe, rowDivElement);
+            }
+        }
 
 
-    function buildRecipeTable(recipesPerRow) {
-        var tableElement = $("<div></div>");
+        function attachDiv(className, parentElement) {
+            var div = document.createElement("div");
+            div.className = className;
 
+            parentElement.appendChild(div);
+            return div;
+        }
 
+        function attachColumn(recipe, parentElement) {
+            var column = attachDiv("div", "column", parentElement);
 
-        for (var recipe in recipesPerRow) {
+            attachPElement(recipe.recipeName, column);
+            attachImageElement(recipe.recipeThumbnailFilename, column);
 
+            return column;
+        }
+
+        function attachPElement(text, parentElement) {
+            var pElement = document.createElement("p")
+            var textNode = document.createTextNode(text);
+            pElement.appendChild(textNode);
+
+            parentElement.append(pElement);
+            return pElement;
+        }
+
+        function attachImageElement(imageLocation, parentElement) {
+            var imgElement = document.createElement("img");
+
+            imgElement.src = imageLocation;
+            imgElement.alt = "";
+            imgElement.className = "thumbnail";
+
+            parentElement.appendChild(imgElement);
+            return imgElement;
         }
     }
-
-
 }
 
 function enterButton(e) {
@@ -154,13 +202,13 @@ if ("WebSocket" in window) {
     // Let us open a web socket
     var ws = new WebSocket("ws://localhost:8080/Peasant_Kitchen/user/signout");
 
-    ws.onopen = function() {
+    ws.onopen = function () {
         // Web Socket is connected, send data using send()
         alert("Message is sent...");
         ws.send(jsonobject);
     };
 
-    ws.onmessage = function(evt) {
+    ws.onmessage = function (evt) {
         //fields: response, error
 
         alert(evt.data);
@@ -186,7 +234,7 @@ if ("WebSocket" in window) {
         // alert(JSON.stringify(responseObject));
     };
 
-    ws.onclose = function() {
+    ws.onclose = function () {
         // websocket is closed.
         alert("Connection is closed...");
     };
@@ -198,17 +246,17 @@ if ("WebSocket" in window) {
 
 
 /*
-function Menu()
-{
-  var nav = document.getElementById('myMenuBar');
-  if (nav.className === "menuBar")
-  {
-    nav.className +=  " responsive";
-  }
-  else
-    {
-      nav.className = "menuBar";
-    }
-  }
+ function Menu()
+ {
+ var nav = document.getElementById('myMenuBar');
+ if (nav.className === "menuBar")
+ {
+ nav.className +=  " responsive";
  }
-*/
+ else
+ {
+ nav.className = "menuBar";
+ }
+ }
+ }
+ */
