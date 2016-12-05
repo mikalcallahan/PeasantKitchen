@@ -11,6 +11,9 @@ import javax.websocket.Session;
 import java.util.HashMap;
 
 
+/**
+ * The type Post web socket.
+ */
 public abstract class PostWebSocket
 {
     protected HashMap<String, WebSocketMessageHandler> messageHandlers = new HashMap<String, WebSocketMessageHandler>();
@@ -21,13 +24,23 @@ public abstract class PostWebSocket
     }
 
 	/*
-	 * abstract methods
+	 * Abstract methods
 	 */
 
-    //Adds all of the message handler for this web socket
+    /**
+     * Adds all of the message handler for this web socket
+     *
+     * @return the boolean
+     */
     public abstract boolean initialize();
 
 
+    /**
+     * Handle messages.
+     *
+     * @param messageJson the json of the message
+     * @param session     the web socket session
+     */
     protected void handleMessages(String messageJson, Session session)
     {
         try
@@ -71,6 +84,12 @@ public abstract class PostWebSocket
         return new Request(id, payload);
     }
 
+    /**
+     * Verifies that the payload contains the required fields 'payload' and 'id' (the ID of the message handler to use)
+     *
+     * @param payload the payload
+     * @param fields  the fields
+     */
     protected void payloadContainsRequiredFields(JsonObject payload, String... fields)
     {
         JsonElement fieldElement = null;
@@ -81,7 +100,7 @@ public abstract class PostWebSocket
 
             if (fieldElement == null)
             {
-                throw new NullPointerException("ERROR: The required parameter [" + field + "] was not recieved by the backend!");
+                throw new NullPointerException("ERROR: The required parameter [" + field + "] was not received by the backend!");
             }
 
             if (StringUtilites.isVoidString(fieldElement.getAsString()))
@@ -94,6 +113,12 @@ public abstract class PostWebSocket
         public String id;
         public JsonObject payload;
 
+        /**
+         * Instantiates a new Request.
+         *
+         * @param id      the id
+         * @param payload the payload
+         */
         public Request(String id, JsonObject payload)
         {
             super();

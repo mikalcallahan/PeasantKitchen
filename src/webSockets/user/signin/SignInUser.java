@@ -20,9 +20,15 @@ import javax.websocket.server.ServerEndpoint;
  * moving foward.
  */
 
+/**
+ * The type Sign in user.
+ */
 @ServerEndpoint("/user/signin")
 public class SignInUser extends PostWebSocket
 {
+    /**
+     * Instantiates a new Sign in user.
+     */
     public SignInUser()
     {
 
@@ -37,24 +43,45 @@ public class SignInUser extends PostWebSocket
     }
 
 
+    /**
+     * Open connection.
+     *
+     * @param session the session
+     */
     @OnOpen
     public void openConnection(Session session)
     {
 
     }
 
+    /**
+     * Handle message.
+     *
+     * @param messageJson the message json
+     * @param session     the session
+     */
     @OnMessage
     public void handleMessage(String messageJson, Session session)
     {
         super.handleMessages(messageJson, session);
     }
 
+    /**
+     * Close connection.
+     *
+     * @param reason the reason
+     */
     @OnClose
     public void closeConnection(CloseReason reason)
     {
 
     }
 
+    /**
+     * Error.
+     *
+     * @param cause the cause
+     */
     @OnError
     public void error(Throwable cause)
     {
@@ -84,15 +111,33 @@ public class SignInUser extends PostWebSocket
 
         private class Request
         {
+            /**
+             * The Firstname.
+             */
             public String firstname;
+            /**
+             * The Lastname.
+             */
             public String lastname;
+            /**
+             * The Username.
+             */
             public String username;
+            /**
+             * The Password.
+             */
             public String password;
         }
 
         private class Response
         {
+            /**
+             * The Success.
+             */
             public Boolean success = false;
+            /**
+             * The Username.
+             */
             public String username = "";
         }
     }

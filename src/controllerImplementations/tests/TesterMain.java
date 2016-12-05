@@ -1,6 +1,6 @@
-package controllers.tests;
+package controllerImplementations.tests;
 
-import controllers.BackendController;
+import controllerImplementations.BackendControllerImpl;
 import designPatterns.Visitor;
 import framework.Recipe;
 import framework.Recipes;
@@ -10,15 +10,23 @@ import utilities.CollectionUtils;
 import java.io.File;
 import java.util.ArrayList;
 
+/**
+ * The type Tester main.
+ */
 public class TesterMain
 {
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args)
     {
         try
         {
             File parentDir = new File("/home/stoffel/Documents/School/Software Engineering/TestingOutput/");
-            BackendController testingController = BackendController.makeTestingBackendController(parentDir);
+            BackendControllerImpl testingController = BackendControllerImpl.makeTestingBackendControllerImpl(parentDir);
 
             User newUser = new User();
             newUser.username = "MAH USER";

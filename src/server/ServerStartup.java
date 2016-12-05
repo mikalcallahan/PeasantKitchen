@@ -5,6 +5,9 @@ import com.sun.appserv.server.LifecycleListener;
 import com.sun.appserv.server.ServerLifecycleException;
 import framework.WebSocketGlobalEnvironment;
 
+/**
+ * The type Server startup.
+ */
 public class ServerStartup implements LifecycleListener
 {
     @Override

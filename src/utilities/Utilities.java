@@ -7,13 +7,29 @@ import framework.WebSocketGlobalEnvironment;
 import javax.websocket.Session;
 import java.util.LinkedHashMap;
 
+/**
+ * The type Utilities.
+ */
 public class Utilities
 {
+    /**
+     * Send standard web socket response.
+     *
+     * @param session        the session
+     * @param responseObject the response object
+     */
     public static void sendStandardWebSocketResponse(Session session, Object responseObject)
     {
         sendStandardWebSocketResponse(session, responseObject, null);
     }
 
+    /**
+     * Send standard web socket response.
+     *
+     * @param session        the session
+     * @param responseObject the response object
+     * @param errorObject    the error object
+     */
     public static void sendStandardWebSocketResponse(Session session, Object responseObject, Object errorObject)
     {
         if (responseObject == null)
@@ -34,6 +50,12 @@ public class Utilities
         Utilities.sendJsonMessageToClient(session, json);
     }
 
+    /**
+     * Send exception details to client.
+     *
+     * @param session the session
+     * @param e       the e
+     */
     public static void sendExceptionDetailsToClient(Session session, Exception e)
     {
         LinkedHashMap<String, String> errorObject = new LinkedHashMap<String, String>();
@@ -45,6 +67,12 @@ public class Utilities
         Utilities.sendStandardWebSocketResponse(session, null, errorObject);
     }
 
+    /**
+     * Stack trace to string string.
+     *
+     * @param stackTrace the stack trace
+     * @return the string
+     */
     public static String stackTraceToString(StackTraceElement[] stackTrace)
     {
         if (stackTrace.length == 0)
@@ -59,6 +87,12 @@ public class Utilities
         return stackTraceStr.toString();
     }
 
+    /**
+     * Send json message to client.
+     *
+     * @param session     the session
+     * @param jsonMessage the json message
+     */
     public static void sendJsonMessageToClient(Session session, String jsonMessage)
     {
         try

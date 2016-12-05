@@ -37,7 +37,8 @@ function submitIngredients() {
     };
     requestObject = JSON.stringify(requestObject);
     alert(requestObject);
-    websockets(requestObject);
+    var recipes = websockets(requestObject);
+    displayRecipes(recipes);
 }
 
 /* web socket stuff */
@@ -49,7 +50,7 @@ function websockets(jsonobject) {
 
 
         // Let us open a web socket
-        var ws = new WebSocket("ws://localhost:8080/Peasant_Kitchen/user/signin");
+        var ws = new WebSocket("ws://localhost:8080/Peasant_Kitchen/recipes");
 
         ws.onopen = function() {
             // Web Socket is connected, send data using send()
@@ -59,7 +60,7 @@ function websockets(jsonobject) {
 
         ws.onmessage = function(evt) {
             //fields: response, error
-
+            alert("Response");
             alert(evt.data);
 
             var response = JSON.parse(evt.data);
@@ -68,21 +69,18 @@ function websockets(jsonobject) {
             var error = response.error;
 
             var recipes = JSON.stringify(responseObject);
-            alert(reciples);
+
+            alert(recipes);
 
             if (error === null || error === undefined) {
-                //happy days
-                alert("Happy days")
-            } else {
-                alert(JSON.stringify(error))
+                alert("Happy days");
+                alert("Recipes: " + JSON.stringify(responseObject.recipes));
+                return responseObject.recipes;
             }
 
 
-
-            // var response = JSON.parse(evt.data);
-            // var responseObject = response.response;
-            //
-            // alert(JSON.stringify(responseObject));
+            alert(JSON.stringify(error));
+            return "";
         };
 
         ws.onclose = function() {
@@ -93,6 +91,91 @@ function websockets(jsonobject) {
 
     } else { // browser doesn't support websockets
         alert("WebSocket NOT supported by your Browser!");
+    }
+}
+
+function displayRecipes(recipes) {
+    alert(JSON.stringify(recipes));
+
+    if (recipes === null || recipes === undefined)
+        return;
+
+    var recipesPerRow = chunk(recipes, 8);
+    alert(JSON.stringify(recipesPerRow));
+
+    populateRecipeGrid(recipesPerRow);
+
+    //display the recipes
+    recipesPerRow.setAttribute("style", "");
+
+    function chunk(array, chunkSize) {
+        var totalChunks = Math.ceil(array.length / chunkSize);
+        var chunks = new Array(totalChunks);
+        var beginningOfChunk = 0;
+        var endOfChunk = chunkSize;
+        var chunkCount = 0;
+
+        while (endOfChunk <= array.length) {
+            chunks.add(array.slice(beginningOfChunk, endOfChunk));
+
+            beginningOfChunk = endOfChunk;
+            endOfChunk = endOfChunk + chunkSize;
+            chunkCount = chunkCount + 1;
+        }
+
+        if (chunkCount < totalChunks)
+            chunks.add(array.slice(beginningOfChunk, array.length))
+    }
+
+    function populateRecipeGrid(recipesPerRow) {
+        var recipesGridDiv = document.getElementById("recipesGrid");
+        var rowDivElement;
+
+        for (var rowRecipes in recipesPerRow) {
+            rowDivElement = attachDiv("row small-up-" + rowRecipes.length, recipesGridDiv);
+
+            for (var rowRecipe in rowRecipes) {
+                attachColumn(rowRecipe, rowDivElement);
+            }
+        }
+
+
+        function attachDiv(className, parentElement) {
+            var div = document.createElement("div");
+            div.className = className;
+
+            parentElement.appendChild(div);
+            return div;
+        }
+
+        function attachColumn(recipe, parentElement) {
+            var column = attachDiv("div", "column", parentElement);
+
+            attachPElement(recipe.recipeName, column);
+            attachImageElement(recipe.recipeThumbnailFilename, column);
+
+            return column;
+        }
+
+        function attachPElement(text, parentElement) {
+            var pElement = document.createElement("p")
+            var textNode = document.createTextNode(text);
+            pElement.appendChild(textNode);
+
+            parentElement.append(pElement);
+            return pElement;
+        }
+
+        function attachImageElement(imageLocation, parentElement) {
+            var imgElement = document.createElement("img");
+
+            imgElement.src = imageLocation;
+            imgElement.alt = "";
+            imgElement.className = "thumbnail";
+
+            parentElement.appendChild(imgElement);
+            return imgElement;
+        }
     }
 }
 
@@ -164,17 +247,17 @@ if ("WebSocket" in window) {
 
 
 /*
-function Menu()
-{
-  var nav = document.getElementById('myMenuBar');
-  if (nav.className === "menuBar")
-  {
-    nav.className +=  " responsive";
-  }
-  else
-    {
-      nav.className = "menuBar";
-    }
-  }
+ function Menu()
+ {
+ var nav = document.getElementById('myMenuBar');
+ if (nav.className === "menuBar")
+ {
+ nav.className +=  " responsive";
  }
-*/
+ else
+ {
+ nav.className = "menuBar";
+ }
+ }
+ }
+ */

@@ -18,7 +18,10 @@ import java.util.List;
  * Created to help organize the code
  */
 
-public class RecipesParser implements Parser<File, Recipes>
+/**
+ * The type Recipes parser.
+ */
+public class RecipesCSVParser implements Parser<File, Recipes>
 {
     @Override
     public Recipes parse(File input) throws Exception
@@ -77,6 +80,12 @@ public class RecipesParser implements Parser<File, Recipes>
             return Integer.parseInt(rawRecipeID.trim());
     }
 
+    /**
+     * Parse ingredient quantities array list.
+     *
+     * @param ingredientProcess the ingredient process
+     * @return the array list
+     */
     public ArrayList<IngredientQuantity> parseIngredientQuantities(String ingredientProcess)
     {
         ArrayList<IngredientQuantity> ingredientQuantities = new ArrayList<IngredientQuantity>();

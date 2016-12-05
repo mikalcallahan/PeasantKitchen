@@ -1,15 +1,18 @@
-package controllers;
+package controllerImplementations;
 
 import com.sun.appserv.server.LifecycleEvent;
 import designPatterns.Observer;
-import framework.DatabaseController;
 import framework.Recipe;
 import framework.Recipes;
 import framework.User;
+import framework.controllers.DatabaseController;
 
 import java.sql.*;
 import java.util.ArrayList;
 
+/**
+ * The type Sql database controller.
+ */
 public class SQLDatabaseController extends DatabaseController
 {
     //private static final String DB_CONNECTION = "jdbc:sqlserver://RYAN\\SQLEXPRESS:50977;databseName=PK";
@@ -19,6 +22,9 @@ public class SQLDatabaseController extends DatabaseController
     private static final String DB_PASSWORD = "peasantkitchen";
 
 
+    /**
+     * Instantiates a new Sql database controller.
+     */
     public SQLDatabaseController()
     {
 
@@ -62,6 +68,13 @@ public class SQLDatabaseController extends DatabaseController
     }
 
 
+    /**
+     * Gets recipe info.
+     *
+     * @param tempRecipe the temp recipe
+     * @return the recipe info
+     * @throws SQLException the sql exception
+     */
     public Recipes getRecipeInfo(Recipes tempRecipe) throws SQLException
     {
         Connection dbConnection = null;
@@ -116,6 +129,13 @@ public class SQLDatabaseController extends DatabaseController
         return tempRecipe;
     }
 
+    /**
+     * Gets recipe id.
+     *
+     * @param ingredientID the ingredient id
+     * @return the recipe id
+     * @throws SQLException the sql exception
+     */
     public Recipes getRecipeId(ArrayList<Integer> ingredientID) throws SQLException
     {
         Connection dbConnection = null;
@@ -169,6 +189,13 @@ public class SQLDatabaseController extends DatabaseController
         return getRecipeInfo(recipeResults);
     }
 
+    /**
+     * Gets ingredient id.
+     *
+     * @param ingredientsList the ingredients list
+     * @return the ingredient id
+     * @throws SQLException the sql exception
+     */
     public ArrayList<Integer> getIngredientId(ArrayList<String> ingredientsList) throws SQLException
     {
         Connection dbConnection = null;
@@ -417,6 +444,13 @@ public class SQLDatabaseController extends DatabaseController
         return new User();
     }
 
+    /**
+     * Select user diets user.
+     *
+     * @param tempUserObject the temp user object
+     * @return the user
+     * @throws SQLException the sql exception
+     */
     public User selectUserDiets(User tempUserObject) throws SQLException
     {
         Connection dbConnection = null;
@@ -550,35 +584,33 @@ public class SQLDatabaseController extends DatabaseController
     @Override
     public void addObserver(Observer observer)
     {
-        // TODO Auto-generated method stub
-
+        this.observers.add(observer);
     }
 
     @Override
     public void removeObserver(Observer observer)
     {
-        // TODO Auto-generated method stub
-
+        this.observers.remove(observer);
     }
 
     @Override
     public LifecycleEvent serverStartupTasks(LifecycleEvent startupEvent)
     {
-        // TODO Auto-generated method stub
+        //Nothing to do
         return startupEvent;
     }
 
     @Override
     public LifecycleEvent serverShutdownTasks(LifecycleEvent shutdownEvent)
     {
-        // TODO Auto-generated method stub
+        //Nothing to do
         return shutdownEvent;
     }
 
 	@Override
 	public User removeUser(String username) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
+        //TODO: Implement me.
+        return new User(); //We can at least avoid gross null exceptions this way
+    }
 
 }
