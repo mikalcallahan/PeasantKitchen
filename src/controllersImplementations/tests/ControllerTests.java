@@ -286,14 +286,13 @@ public class ControllerTests {
             User newUser = new User();
             newUser.username = "MAH USER";
 
-            ArrayList<String> list = new ArrayList<String>(){{
-                add("Butter");
-                add("Olive Oil");
-                add("Ground Beef");
-            }};
-            
-            ArrayList<String> mahList = new ArrayList<String>();
-            mahList.add("Butter");
+            ArrayList<String> ingredients = new ArrayList<String>();
+            ingredients.add("butter");
+            ingredients.add("olive oil");
+            ingredients.add("ground beef");
+
+
+
             
             //assertTrue(true);
                        
