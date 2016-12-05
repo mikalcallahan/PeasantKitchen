@@ -116,7 +116,7 @@ public class BackendController
      */
     public User getUser(String username) throws Exception
     {
-        return this.databaseController.getUser(username);
+        return databaseController.getUser(username);
     }
 
     /**
@@ -164,14 +164,14 @@ public class BackendController
     }
 
     /**
-     * Create user user.
+     * The temp user object is created by the route calling this method, and populated with the information
+       that the route was given
      *
      * @param tempUserObject the temp user object
      * @return the user
      * @throws Exception the exception
      */
-//The temp user object is created by the route calling this method, and populated with the information
-    //that the route was given
+
     public User createUser(User tempUserObject) throws Exception
     {
         if (this.isUsernameTaken(tempUserObject.username))
@@ -259,11 +259,8 @@ public class BackendController
      */
     public Recipes getRecipesContainingIngredients(ArrayList<String> ingredients, String username)
     {
-        //The username is given to this method in case the recomender system is going to be involved in this method. I dunno if
-        //this is going to be the case, now that I think about it.
-
         ArrayList<String> cleanedIngredients = StringUtilites.cleanIngredients(ingredients);
-        return this.databaseController.getRecipesContainingIngredients(cleanedIngredients);
+        return databaseController.getRecipesContainingIngredients(cleanedIngredients);
     }
 
     /**
@@ -277,7 +274,7 @@ public class BackendController
     public Recipes getRecipesWithOnlyTheseIngredients(ArrayList<String> ingredients, String username) throws Exception
     {
         ArrayList<String> cleanedIngredients = StringUtilites.cleanIngredients(ingredients);
-        return this.databaseController.getRecipesWithOnlyTheseIngredients(cleanedIngredients);
+        return databaseController.getRecipesWithOnlyTheseIngredients(cleanedIngredients);
     }
 
     /**
@@ -291,5 +288,10 @@ public class BackendController
     public Recipes getDefaultHomepageRecipes()
     {
         return null;
+    }
+
+    public static void main(String[] args)
+    {
+
     }
 }
