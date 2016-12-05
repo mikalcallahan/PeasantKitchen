@@ -129,7 +129,7 @@ public class CreateNewUser extends PostWebSocket
 
 	
 	/*
-	 * Note: the selected user name may already exist. There should be a method on the BackendController
+     * Note: the selected user name may already exist. There should be a method on the BackendControllerImpl
 	 * that can detect if a user with the given username already exists
 	 * -Futher note: Each user's username must be unique
 	 */

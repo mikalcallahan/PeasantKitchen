@@ -1,18 +1,20 @@
 package controllerImplementations.tests;
 
 import controllerImplementations.BackendControllerImpl;
-import framework.controllers.BackendController;
 import framework.User;
+import framework.controllers.BackendController;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
+import utilities.CollectionUtils;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
 
 
+import static controllerImplementations.BackendControllerImpl.makeTestingBackendControllerImpl;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -22,10 +24,10 @@ import static org.junit.Assert.assertTrue;
  *
  */
 @RunWith(Suite.class)
-@SuiteClasses({ AllTests.class, BackendControllerTest.class })
+@SuiteClasses({ AllTests.class, controllerImplementations.tests.BackendControllerImplTest.class })
 public class ControllerTests {
 
-    private final File parentDir = new File("/Users/SamDoroudi/Documents/TestingOutput/");
+    private final File samParentDir = new File("/home/stoffel/Documents/School/Software Engineering/TestingOutput/");
 
     /*
      *Test for creatingUser method.
@@ -37,7 +39,7 @@ public class ControllerTests {
     {
         try
         {
-            BackendController testingController = BackendControllerImpl.makeTestingBackendController(parentDir);
+            BackendController testingController = makeTestingBackendControllerImpl(samParentDir);
 
             //Creating legitimate username and password and passing it to controller
             User newUser = new User();
@@ -66,7 +68,7 @@ public class ControllerTests {
     @Test (expected = NullPointerException.class) 
     public void testSameUserCreatingUser() throws Exception
     {
-            BackendController testingController = BackendControllerImpl.makeTestingBackendController(parentDir);
+            BackendController testingController = makeTestingBackendControllerImpl(samParentDir);
 
             //Creating the same user twice. Passing it to controller
             User newUser = new User();
@@ -87,7 +89,7 @@ public class ControllerTests {
     @Test (expected = NullPointerException.class)
     public void breakTestSpaceValuesCreatingUser() throws Exception
     {
-            BackendController testingController = BackendControllerImpl.makeTestingBackendController(parentDir);
+            BackendController testingController = makeTestingBackendControllerImpl(samParentDir);
             
             //Creating username and password with only space, and passing it to controller
             User newUser = new User();
@@ -108,7 +110,7 @@ public class ControllerTests {
     {
         try
         {
-            BackendController testingController = BackendControllerImpl.makeTestingBackendController(parentDir);
+            BackendController testingController = makeTestingBackendControllerImpl(samParentDir);
 
             //creating username and password with NULL and passing it to controller
             //Will expect NULL
@@ -137,7 +139,7 @@ public class ControllerTests {
     {
         try
         {
-            BackendController testingController = BackendControllerImpl.makeTestingBackendController(parentDir);
+            BackendController testingController = makeTestingBackendControllerImpl(samParentDir);
 
             //Creating new username and password with an empty string and passing it to controller
             //Will expect NULL
@@ -171,7 +173,7 @@ public class ControllerTests {
     {
         try
         {
-            BackendController testingController = BackendControllerImpl.makeTestingBackendController(parentDir);
+            BackendController testingController = makeTestingBackendControllerImpl(samParentDir);
 
             //Creating new user with given username/password and passing it to controller
             //This should be able to sign in, if not, failure message will show
@@ -202,7 +204,7 @@ public class ControllerTests {
     {
         try
         {
-            BackendController testingController = BackendControllerImpl.makeTestingBackendController(parentDir);
+            BackendController testingController = makeTestingBackendControllerImpl(samParentDir);
             //Creating new user with given username/password and passing it to the controller
             User newUser = new User();
             User newPass = new User();
@@ -234,7 +236,7 @@ public class ControllerTests {
     {
         try
         {
-            BackendController testingController = BackendControllerImpl.makeTestingBackendController(parentDir);
+            BackendController testingController = makeTestingBackendControllerImpl(samParentDir);
             
             //Creating the same user twice. Passing it to the controller
             //Displays failure message if username is taken
@@ -263,7 +265,7 @@ public class ControllerTests {
     {
         try
         {
-            BackendController testingController = BackendControllerImpl.makeTestingBackendController(parentDir);
+            BackendController testingController = makeTestingBackendControllerImpl(samParentDir);
             
             User newUser = new User();
             newUser.username = null;
@@ -288,7 +290,7 @@ public class ControllerTests {
     {
         try
         {
-            BackendController testingController = BackendControllerImpl.makeTestingBackendController(parentDir);
+            BackendController testingController = makeTestingBackendControllerImpl(samParentDir);
 
             assertTrue(true);
         }
@@ -310,7 +312,7 @@ public class ControllerTests {
         //may contain others; if you pass egg but they may contain other things
         try
         {
-            BackendController testingController = BackendControllerImpl.makeTestingBackendController(parentDir);
+            BackendController testingController = makeTestingBackendControllerImpl(samParentDir);
 
             User newUser = new User();
             newUser.username = "MAH USER";
@@ -320,21 +322,12 @@ public class ControllerTests {
             ingredients.add("olive oil");
             ingredients.add("ground beef");
 
-           /*
-            *HashSet<String> ingredientsRequested;
-            *ingredientsRequested = new HashSet<String>();
-            *ingredientsRequested.add("Eggs");
-            *
-            *HashSet<String> returnedRecipes;
-            *returnedRecipes = new HashSet<String>();
-            *returnedRecipes.add("Eggs");
-            */
-            
-            
-            /*
-            ArrayList<String> mahList = new ArrayList<String>();
-            mahList.add("Butter");
-            */
+            Recipes results = testingController.getRecipesContainingIngredients(ingredients, newUser.username);
+
+            HashSet<String> uniqueRequestedIngredients = CollectionUtils.hashSet(ingredients);
+
+
+
                                    
         }
         catch (Exception e)
@@ -355,7 +348,7 @@ public class ControllerTests {
     	//if you pass eggs, it's gonna return only eggs.
         try
         {
-            BackendController testingController = BackendControllerImpl.makeTestingBackendController(parentDir);
+            BackendController testingController = makeTestingBackendControllerImpl(samParentDir);
 
             User newUser = new User();
             newUser.username = "MAH USER";
@@ -380,21 +373,28 @@ public class ControllerTests {
     @Test
     public void testSigningInAlot()
     {
-        BackendController testingController = BackendControllerImpl.makeTestingBackendController(parentDir);
+        try
+        {
+            BackendController testingController = makeTestingBackendControllerImpl(samParentDir);
 
-        User testUser = new User();
-        testUser.username = "my new user";
-        testUser.password = "password";
+            User testUser = new User();
+            testUser.username = "my new user";
+            testUser.password = "password";
 
-        testingController.createUser(testUser);
+            testingController.createUser(testUser);
 
-        //Attempt to sign in a bunch of times
-        testingController.signUserIn(testUser.username);
-        testingController.signUserIn(testUser.username);
-        testingController.signUserIn(testUser.username);
-        User lastSigninAttemptUser = testingController.signUserIn(testUser.username);
+            //Attempt to sign in a bunch of times
+            testingController.signUserIn(testUser.username);
+            testingController.signUserIn(testUser.username);
+            testingController.signUserIn(testUser.username);
+            User lastSigninAttemptUser = testingController.signUserIn(testUser.username);
 
-        assertTrue("Repeatily signing in resulted in the user being signed out!", lastSigninAttemptUser.isSignedIn());
+            assertTrue("Repeatily signing in resulted in the user being signed out!", lastSigninAttemptUser.isSignedIn());
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
     
 }

@@ -1,6 +1,5 @@
 package controllerImplementations.tests;
 
-import framework.controllers.BackendController;
 import controllerImplementations.BackendControllerImpl;
 import framework.User;
 import org.junit.Test;
@@ -16,11 +15,11 @@ import static org.junit.Assert.assertTrue;
  * The type All tests.
  */
 @RunWith(Suite.class)
-@SuiteClasses({BackendControllerTest.class})
+@SuiteClasses({controllerImplementations.tests.BackendControllerImplTest.class})
 public class AllTests
 {
 
-    //testing for each method in BackendController
+    //testing for each method in BackendControllerImpl
 
     /**
      * Test 1.
@@ -32,7 +31,7 @@ public class AllTests
     public void test1() throws Exception
     {
 
-        BackendController test1 = new BackendControllerImpl();
+        framework.controllers.BackendController test1 = new BackendControllerImpl();
 
         test1.isUsernameTaken(new String());
 
@@ -49,7 +48,7 @@ public class AllTests
     public void test2() throws Exception
     {
 
-        BackendController test2 = new BackendControllerImpl();
+        framework.controllers.BackendController test2 = new BackendControllerImpl();
 
         test2.getUser(new String());
 
@@ -66,7 +65,7 @@ public class AllTests
     public void test3() throws Exception
     {
 
-        BackendController test3 = new BackendControllerImpl();
+        framework.controllers.BackendController test3 = new BackendControllerImpl();
 
         test3.signUserIn(new String());
 
@@ -83,7 +82,7 @@ public class AllTests
     public void test4() throws Exception
     {
 
-        BackendController test4 = new BackendControllerImpl();
+        framework.controllers.BackendController test4 = new BackendControllerImpl();
 
         test4.signUserOut(new String());
 
@@ -100,7 +99,7 @@ public class AllTests
     public void test5() throws Exception
     {
         //fail("Not yet implemented");
-        BackendController test5 = new BackendControllerImpl();
+        framework.controllers.BackendController test5 = new BackendControllerImpl();
 
         test5.createUser(new User());
 
@@ -116,7 +115,7 @@ public class AllTests
     @Test
     public void test6() throws Exception
     {
-        BackendController test6 = new BackendControllerImpl();
+        framework.controllers.BackendController test6 = new BackendControllerImpl();
 
         test6.removeUser(new User());
 
@@ -132,7 +131,7 @@ public class AllTests
     @Test
     public void test7() throws Exception
     {
-        BackendController test7 = new BackendControllerImpl();
+        framework.controllers.BackendController test7 = new BackendControllerImpl();
 
         test7.userLikesRecipe(new User(), new String());
 
@@ -148,7 +147,7 @@ public class AllTests
     @Test
     public void test8() throws Exception
     {
-        BackendController test8 = new BackendControllerImpl();
+        framework.controllers.BackendController test8 = new BackendControllerImpl();
 
         test8.userLikesFoodCatagory(new User(), new String());
 
@@ -164,7 +163,7 @@ public class AllTests
     @Test
     public void test9() throws Exception
     {
-        BackendController test9 = new BackendControllerImpl();
+        framework.controllers.BackendController test9 = new BackendControllerImpl();
 
         test9.recommendRecipes(new User());
 
@@ -229,7 +228,7 @@ public class AllTests
     @Test
     public void test13() throws Exception
     {
-        BackendController test13 = new BackendControllerImpl();
+        framework.controllers.BackendController test13 = new BackendControllerImpl();
 
         //Recipes rec1 = test13.getDefaultHomepageRecipes();
 
@@ -245,7 +244,7 @@ public class AllTests
     @Test
     public void test14() throws Exception
     {
-        BackendController test14 = new BackendControllerImpl();
+        framework.controllers.BackendController test14 = new BackendControllerImpl();
 
         test14.isUsernameTaken(new String());
 

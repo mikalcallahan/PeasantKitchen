@@ -76,7 +76,7 @@ public class WebSocketTemplate extends PostWebSocket
 
             verify(request);
 
-            //Call some method(s) from the BackendController
+            //Call some method(s) from the BackendControllerImpl
 
             //Response response = createResponse(object);
             //Utilities.sendStandardWebSocketResponse(session, response);

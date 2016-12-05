@@ -4,6 +4,8 @@ import com.sun.appserv.server.LifecycleEvent;
 import framework.Recipes;
 import framework.User;
 
+import java.util.ArrayList;
+
 public interface BackendController
 {
     LifecycleEvent serverStartupTasks(LifecycleEvent startupEvent);
@@ -29,4 +31,10 @@ public interface BackendController
     User userLikesFoodCatagory(User user, String catagoryName);
 
     Recipes recommendRecipes(User user);
+
+    Recipes getRecipesContainingIngredients(ArrayList<String> ingredients, String username);
+
+    Recipes getRecipesWithOnlyTheseIngredients(ArrayList<String> ingredients, String username) throws Exception;
+
+    Recipes getDefaultHomepageRecipes();
 }

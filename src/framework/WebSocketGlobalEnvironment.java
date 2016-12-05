@@ -3,7 +3,6 @@ package framework;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import controllerImplementations.BackendControllerImpl;
-import framework.controllers.BackendController;
 
 /**
  * The type Web socket global environment.
@@ -13,7 +12,7 @@ public class WebSocketGlobalEnvironment
     private static WebSocketGlobalEnvironment environment;
 
     private Gson jsonConverter;
-    private BackendController backendController;
+    private framework.controllers.BackendController backendController;
 
     private WebSocketGlobalEnvironment()
     {
@@ -39,7 +38,7 @@ public class WebSocketGlobalEnvironment
      *
      * @return the backend controller
      */
-    public BackendController getBackendController()
+    public framework.controllers.BackendController getBackendController()
     {
         return this.backendController;
     }

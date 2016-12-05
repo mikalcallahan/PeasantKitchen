@@ -1,8 +1,8 @@
 package controllerImplementations.tests;
 
 import controllerImplementations.BackendControllerImpl;
-import framework.controllers.BackendController;
 import framework.User;
+import framework.controllers.BackendController;
 import org.junit.Test;
 
 import java.io.File;
@@ -13,7 +13,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * The type Backend controller test.
  */
-public class BackendControllerTest
+public class BackendControllerImplTest
 {
 
     private final File parentDir = new File("/home/stoffel/Documents/School/Software Engineering/TestingOutput/");
@@ -26,7 +26,7 @@ public class BackendControllerTest
     {
         try
         {
-            BackendController testingController = BackendControllerImpl.makeTestingBackendController(parentDir);
+            BackendController testingController = BackendControllerImpl.makeTestingBackendControllerImpl(parentDir);
 
             User newUser = new User();
             newUser.username = "MAH USER";
@@ -52,7 +52,7 @@ public class BackendControllerTest
     {
     	try
         {
-            BackendController testingController = BackendControllerImpl.makeTestingBackendController(parentDir);
+            BackendController testingController = BackendControllerImpl.makeTestingBackendControllerImpl(parentDir);
 
             User newUser = new User();
             newUser.username = "MAH USER";

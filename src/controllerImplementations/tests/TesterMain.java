@@ -26,7 +26,7 @@ public class TesterMain
         try
         {
             File parentDir = new File("/home/stoffel/Documents/School/Software Engineering/TestingOutput/");
-            BackendControllerImpl testingController = BackendControllerImpl.makeTestingBackendController(parentDir);
+            BackendControllerImpl testingController = BackendControllerImpl.makeTestingBackendControllerImpl(parentDir);
 
             User newUser = new User();
             newUser.username = "MAH USER";

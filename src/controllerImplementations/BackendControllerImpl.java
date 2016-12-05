@@ -4,7 +4,6 @@ import applicationData.ApplicationData;
 import com.sun.appserv.server.LifecycleEvent;
 import framework.Recipes;
 import framework.User;
-import framework.controllers.BackendController;
 import framework.controllers.DatabaseController;
 import framework.controllers.RecommendationController;
 import utilities.StringUtilites;
@@ -16,7 +15,7 @@ import java.util.ArrayList;
 /**
  * The type Backend controller.
  */
-public class BackendControllerImpl implements BackendController
+public class BackendControllerImpl implements framework.controllers.BackendController
 {
     protected DatabaseController databaseController;
     protected RecommendationController recommendationController;
@@ -47,7 +46,7 @@ public class BackendControllerImpl implements BackendController
      * @return backend controller
      * @throws Exception the exception
      */
-    public static BackendController makeTestingBackendController(File parentDir) throws Exception
+    public static BackendControllerImpl makeTestingBackendControllerImpl(File parentDir) throws Exception
     {
         ApplicationData appData = new ApplicationData(parentDir);
         appData.loadFromDisk();

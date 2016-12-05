@@ -1,14 +1,13 @@
 package testing;
-import framework.Recipe;
-import org.junit.Test;
-import static org.junit.Assert.*;
 
+import framework.Recipe;
 
 /**
  *
  * @author Rodge
  */
 public class TestingSQLDatabase {
+    /*
     
     @Test
     public void testConnection() {
@@ -73,5 +72,6 @@ public class TestingSQLDatabase {
         String result = myUnit.getUser("JimmyBuffet");
 
         assertEquals("JimmyBuffet", result);
-    }     
+    }
+         */
 }

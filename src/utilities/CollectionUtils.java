@@ -93,4 +93,19 @@ public class CollectionUtils
         return true;
     }
 
+
+    public static <SourceObject, Result> HashSet<Result> hashSet(Iterable<SourceObject> container, FieldSelectionFunction<SourceObject, Result> fieldSelector)
+    {
+        HashSet<Result> results = new HashSet<Result>();
+
+        for (SourceObject obj : container)
+        {
+
+        }
+    }
+
+    public interface FieldSelectionFunction<SourceObject, Result>
+    {
+        Result selectFrom(SourceObject obj);
+    }
 }
