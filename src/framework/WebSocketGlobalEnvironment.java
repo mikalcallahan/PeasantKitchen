@@ -2,7 +2,7 @@ package framework;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import controllers.BackendController;
+import controllersImplementations.BackendControllerImpl;
 
 /**
  * The type Web socket global environment.
@@ -16,7 +16,7 @@ public class WebSocketGlobalEnvironment
 
     private WebSocketGlobalEnvironment()
     {
-        this.backendController = new BackendController();
+        this.backendController = new BackendControllerImpl();
         this.jsonConverter = new GsonBuilder().create();
     }
 

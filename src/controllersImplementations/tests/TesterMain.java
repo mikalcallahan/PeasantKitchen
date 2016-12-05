@@ -1,6 +1,6 @@
-package controllers.tests;
+package controllersImplementations.tests;
 
-import controllers.BackendController;
+import controllersImplementations.BackendControllerImpl;
 import designPatterns.Visitor;
 import framework.Recipe;
 import framework.Recipes;
@@ -26,7 +26,7 @@ public class TesterMain
         try
         {
             File parentDir = new File("/home/stoffel/Documents/School/Software Engineering/TestingOutput/");
-            BackendController testingController = BackendController.makeTestingBackendController(parentDir);
+            BackendControllerImpl testingController = BackendControllerImpl.makeTestingBackendController(parentDir);
 
             User newUser = new User();
             newUser.username = "MAH USER";

@@ -1,6 +1,7 @@
-package controllers.tests;
+package controllersImplementations.tests;
 
-import controllers.BackendController;
+import controllersImplementations.BackendControllerImpl;
+import framework.BackendController;
 import framework.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,7 +30,7 @@ public class ControllerTests {
     {
         try
         {
-            BackendController testingController = BackendController.makeTestingBackendController(parentDir);
+            BackendController testingController = BackendControllerImpl.makeTestingBackendController(parentDir);
 
             User newUser = new User();
             newUser.username = "MAH USER";
@@ -56,7 +57,7 @@ public class ControllerTests {
     @Test (expected = NullPointerException.class) 
     public void testSameUserCreatingUser() throws Exception
     {
-            BackendController testingController = BackendController.makeTestingBackendController(parentDir);
+            BackendController testingController = BackendControllerImpl.makeTestingBackendController(parentDir);
 
             User newUser = new User();
             newUser.username = "MAH USER";
@@ -76,7 +77,7 @@ public class ControllerTests {
     @Test (expected = NullPointerException.class)
     public void breakTestSpaceValuesCreatingUser() throws Exception
     {
-            BackendController testingController = BackendController.makeTestingBackendController(parentDir);
+            BackendController testingController = BackendControllerImpl.makeTestingBackendController(parentDir);
 
             User newUser = new User();
             newUser.username = " ";
@@ -95,7 +96,7 @@ public class ControllerTests {
     {
         try
         {
-            BackendController testingController = BackendController.makeTestingBackendController(parentDir);
+            BackendController testingController = BackendControllerImpl.makeTestingBackendController(parentDir);
 
             User newUser = new User();
             newUser.username = null;
@@ -123,7 +124,7 @@ public class ControllerTests {
     {
         try
         {
-            BackendController testingController = BackendController.makeTestingBackendController(parentDir);
+            BackendController testingController = BackendControllerImpl.makeTestingBackendController(parentDir);
 
             User newUser = new User();
             newUser.username = "";
@@ -153,7 +154,7 @@ public class ControllerTests {
     {
         try
         {
-            BackendController testingController = BackendController.makeTestingBackendController(parentDir);
+            BackendController testingController = BackendControllerImpl.makeTestingBackendController(parentDir);
 
             User newUser = new User();
             newUser.username = "MAH USER";
@@ -180,7 +181,7 @@ public class ControllerTests {
     {
         try
         {
-            BackendController testingController = BackendController.makeTestingBackendController(parentDir);
+            BackendController testingController = BackendControllerImpl.makeTestingBackendController(parentDir);
 
             User newUser = new User();
             User newPass = new User();
@@ -211,7 +212,7 @@ public class ControllerTests {
     {
         try
         {
-            BackendController testingController = BackendController.makeTestingBackendController(parentDir);
+            BackendController testingController = BackendControllerImpl.makeTestingBackendController(parentDir);
             
             User newUser = new User();
             newUser.username = "MAH USER";  //first user
@@ -237,7 +238,7 @@ public class ControllerTests {
     {
         try
         {
-            BackendController testingController = BackendController.makeTestingBackendController(parentDir);
+            BackendController testingController = BackendControllerImpl.makeTestingBackendController(parentDir);
             
             User newUser = new User();
             newUser.username = null;
@@ -260,7 +261,7 @@ public class ControllerTests {
     {
         try
         {
-            BackendController testingController = BackendController.makeTestingBackendController(parentDir);
+            BackendController testingController = BackendControllerImpl.makeTestingBackendController(parentDir);
 
             assertTrue(true);
         }
@@ -280,7 +281,7 @@ public class ControllerTests {
         //contains if you pass egg but they may contain other things
         try
         {
-            BackendController testingController = BackendController.makeTestingBackendController(parentDir);
+            BackendController testingController = BackendControllerImpl.makeTestingBackendController(parentDir);
 
             User newUser = new User();
             newUser.username = "MAH USER";
@@ -313,7 +314,7 @@ public class ControllerTests {
     	//if you pass eggs, it's gonna return only eggs.
         try
         {
-            BackendController testingController = BackendController.makeTestingBackendController(parentDir);
+            BackendController testingController = BackendControllerImpl.makeTestingBackendController(parentDir);
 
             User newUser = new User();
             newUser.username = "MAH USER";

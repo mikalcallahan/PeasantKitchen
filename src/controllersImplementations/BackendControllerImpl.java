@@ -1,7 +1,8 @@
-package controllers;
+package controllersImplementations;
 
 import applicationData.ApplicationData;
 import com.sun.appserv.server.LifecycleEvent;
+import framework.BackendController;
 import framework.DatabaseController;
 import framework.Recipes;
 import framework.User;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 /**
  * The type Backend controller.
  */
-public class BackendController
+public class BackendControllerImpl implements BackendController
 {
     protected DatabaseController databaseController;
     protected RecomendationController recomendationController;
@@ -22,7 +23,7 @@ public class BackendController
     /**
      * Instantiates a new Backend controller.
      */
-    public BackendController()
+    public BackendControllerImpl()
     {
         this.initalize(new ObjectDatabaseController());
     }
@@ -32,7 +33,7 @@ public class BackendController
      *
      * @param databaseController the database controller
      */
-    public BackendController(DatabaseController databaseController)
+    public BackendControllerImpl(DatabaseController databaseController)
     {
         this.initalize(databaseController);
         this.databaseController.serverStartupTasks(null);
@@ -51,9 +52,7 @@ public class BackendController
         appData.loadFromDisk();
 
         ObjectDatabaseController testingDatabase = new ObjectDatabaseController(appData);
-        BackendController testingBackendController = new BackendController(testingDatabase);
-
-        return testingBackendController;
+        return new BackendControllerImpl(testingDatabase);
     }
 
     private void initalize(DatabaseController databaseController)
@@ -71,6 +70,7 @@ public class BackendController
      * @param startupEvent the startup event
      * @return the lifecycle event
      */
+    @Override
     public LifecycleEvent serverStartupTasks(LifecycleEvent startupEvent)
     {
         return this.databaseController.serverStartupTasks(startupEvent);
@@ -87,6 +87,7 @@ public class BackendController
      * @param shutdownEvent the shutdown event
      * @return the lifecycle event
      */
+    @Override
     public LifecycleEvent serverShutdownTasks(LifecycleEvent shutdownEvent)
     {
         return this.databaseController.serverShutdownTasks(shutdownEvent);
@@ -99,6 +100,7 @@ public class BackendController
      * @return the boolean
      * @throws Exception the exception
      */
+    @Override
     public boolean isUsernameTaken(String username) throws Exception
     {
         User user = this.databaseController.getUser(username);
@@ -114,6 +116,7 @@ public class BackendController
      * @return the user
      * @throws Exception the exception
      */
+    @Override
     public User getUser(String username) throws Exception
     {
         return this.databaseController.getUser(username);
@@ -126,6 +129,7 @@ public class BackendController
      * @return the user
      * @throws Exception the exception
      */
+    @Override
     public User signUserIn(String username) throws Exception
     {
         User user = this.getUser(username);
@@ -148,6 +152,7 @@ public class BackendController
      * @return the user
      * @throws Exception the exception
      */
+    @Override
     public User signUserOut(String username) throws Exception
     {
         User user = this.getUser(username);
@@ -172,6 +177,7 @@ public class BackendController
      */
 //The temp user object is created by the route calling this method, and populated with the information
     //that the route was given
+    @Override
     public User createUser(User tempUserObject) throws Exception
     {
         if (this.isUsernameTaken(tempUserObject.username))
@@ -187,6 +193,7 @@ public class BackendController
      * @return the user
      * @throws Exception the exception
      */
+    @Override
     public User removeUser(User user) throws Exception
     {
         return this.databaseController.removeUser(user.username);
@@ -199,6 +206,7 @@ public class BackendController
      * @param recipeName the recipe name
      * @return the user
      */
+    @Override
     public User userLikesRecipe(User user, String recipeName)
     {
         return null;
@@ -218,6 +226,7 @@ public class BackendController
      * @param catagoryName the catagory name
      * @return the user
      */
+    @Override
     public User userLikesFoodCatagory(User user, String catagoryName)
     {
         return null;
@@ -235,6 +244,7 @@ public class BackendController
      * @param user the user
      * @return the recipes
      */
+    @Override
     public Recipes recommendRecipes(User user)
     {
         return null;
@@ -292,4 +302,5 @@ public class BackendController
     {
         return null;
     }
+
 }

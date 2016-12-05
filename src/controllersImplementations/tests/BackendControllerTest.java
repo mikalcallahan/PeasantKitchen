@@ -1,6 +1,7 @@
-package controllers.tests;
+package controllersImplementations.tests;
 
-import controllers.BackendController;
+import controllersImplementations.BackendControllerImpl;
+import framework.BackendController;
 import framework.User;
 import org.junit.Test;
 
@@ -25,7 +26,7 @@ public class BackendControllerTest
     {
         try
         {
-            BackendController testingController = BackendController.makeTestingBackendController(parentDir);
+            BackendController testingController = BackendControllerImpl.makeTestingBackendController(parentDir);
 
             User newUser = new User();
             newUser.username = "MAH USER";
@@ -51,7 +52,7 @@ public class BackendControllerTest
     {
     	try
         {
-            BackendController testingController = BackendController.makeTestingBackendController(parentDir);
+            BackendController testingController = BackendControllerImpl.makeTestingBackendController(parentDir);
 
             User newUser = new User();
             newUser.username = "MAH USER";
