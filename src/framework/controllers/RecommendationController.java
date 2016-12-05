@@ -5,7 +5,7 @@ import framework.Recipes;
 import framework.User;
 
 
-public interface RecomendationController extends Observer
+public interface RecommendationController extends Observer
 {
     Recipes recommend(User user);
 

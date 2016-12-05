@@ -1,14 +1,13 @@
 package controllersImplementations;
 
-import designPatterns.Observer;
 import framework.Recipes;
 import framework.User;
-import framework.controllers.RecomendationController;
+import framework.controllers.RecommendationController;
 
 /**
  * The type Recomendation controller.
  */
-public class RecommendationControllerImpl implements RecomendationController
+public class RecommendationControllerImpl implements RecommendationController
 {
     /**
      * Instantiates a new Recomendation controller.

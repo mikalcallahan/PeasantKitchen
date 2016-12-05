@@ -2,11 +2,11 @@ package controllersImplementations;
 
 import applicationData.ApplicationData;
 import com.sun.appserv.server.LifecycleEvent;
-import framework.controllers.BackendController;
-import framework.controllers.DatabaseController;
-import framework.controllers.RecomendationController;
 import framework.Recipes;
 import framework.User;
+import framework.controllers.BackendController;
+import framework.controllers.DatabaseController;
+import framework.controllers.RecommendationController;
 import utilities.StringUtilites;
 
 import java.io.File;
@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class BackendControllerImpl implements BackendController
 {
     protected DatabaseController databaseController;
-    protected RecomendationController recommendationController;
+    protected RecommendationController recommendationController;
 
     /**
      * Instantiates a new Backend controller.
