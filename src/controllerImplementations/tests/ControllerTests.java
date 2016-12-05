@@ -331,5 +331,31 @@ public class ControllerTests {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Try creating a new user, and then try signing that same user in alot. This is meeant to test
+     * that the system can correctly detect when a user is already logged in, and hence ignore subsequent sign
+     * in requests.
+     */
+
+    @Test
+    public void testSigningInAlot()
+    {
+        BackendController testingController = BackendControllerImpl.makeTestingBackendController(parentDir);
+
+        User testUser = new User();
+        testUser.username = "my new user";
+        testUser.password = "password";
+
+        testingController.createUser(testUser);
+
+        //Attempt to sign in a bunch of times
+        testingController.signUserIn(testUser.username);
+        testingController.signUserIn(testUser.username);
+        testingController.signUserIn(testUser.username);
+        User lastSigninAttemptUser = testingController.signUserIn(testUser.username);
+
+        assertTrue("Repeatily signing in resulted in the user being signed out!", lastSigninAttemptUser.isSignedIn());
+    }
     
 }
