@@ -9,6 +9,10 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 import utilities.CollectionUtils;
 import utilities.StringUtilites;
+import java.util.HashSet;
+import framework.Recipes;
+import framework.Recipe;
+import java.util.Set;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -23,8 +27,6 @@ import static org.junit.Assert.assertTrue;
  *
  *
  */
-@RunWith(Suite.class)
-@SuiteClasses({ AllTests.class, controllerImplementations.tests.BackendControllerImplTest.class })
 public class ControllerTests {
 
     private final File samParentDir = new File("/home/stoffel/Documents/School/Software Engineering/TestingOutput/");
@@ -317,17 +319,19 @@ public class ControllerTests {
             User newUser = new User();
             newUser.username = "MAH USER";
 
-            HashSet<String> expectedRecipeNames = CollectionUtils.set("recipeName1", "recipeName2");
+            HashSet<String> expectedRecipeNames = new HashSet<String>();
+            expectedRecipeNames.add("recipeName1");
+            expectedRecipeNames.add("recipeName2");
 
             ArrayList<String> ingredients = new ArrayList<String>();
             ingredients.add("eggs");
             ingredients.add("butter");
 
             Recipes results = testingController.getRecipesContainingIngredients(ingredients, newUser.username);
-            Set<String> uniqueRecipeNames = CollectionUtils.set(results, (Recipe recipe) -> {return  recipe.recipeName});
+            Set<String> uniqueRecipeNames = CollectionUtils.set(results, (Recipe recipe) -> {return  recipe.recipeName; });
 
             assertTrue("The system could not find all of the recipes we expected it to locate (expected were: " + StringUtilites.join(expectedRecipeNames) + ")",
-                    CollectionUtils.equalSets(uniqueRecipeNames, uniqueRequestedIngredients));
+                    CollectionUtils.equalSets(uniqueRecipeNames, expectedRecipeNames));
         }
         catch (Exception e)
         {

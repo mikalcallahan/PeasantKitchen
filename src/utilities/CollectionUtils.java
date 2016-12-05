@@ -10,6 +10,7 @@ import java.util.Set;
  */
 public class CollectionUtils
 {
+    @SafeVarargs
     public static <T> Set<T> set(T... items)
     {
         HashSet<T> set = new HashSet<T>();
