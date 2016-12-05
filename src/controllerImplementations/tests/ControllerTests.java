@@ -1,6 +1,6 @@
 package controllerImplementations.tests;
 
-import controllerImplementations.BackendControllerImpl;
+import framework.Recipe;
 import framework.User;
 import framework.controllers.BackendController;
 import org.junit.Test;
@@ -8,10 +8,10 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 import utilities.CollectionUtils;
+import utilities.StringUtilites;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashSet;
 
 
 import static controllerImplementations.BackendControllerImpl.makeTestingBackendControllerImpl;
@@ -317,18 +317,17 @@ public class ControllerTests {
             User newUser = new User();
             newUser.username = "MAH USER";
 
+            HashSet<String> expectedRecipeNames = CollectionUtils.set("recipeName1", "recipeName2");
+
             ArrayList<String> ingredients = new ArrayList<String>();
+            ingredients.add("eggs");
             ingredients.add("butter");
-            ingredients.add("olive oil");
-            ingredients.add("ground beef");
 
             Recipes results = testingController.getRecipesContainingIngredients(ingredients, newUser.username);
+            Set<String> uniqueRecipeNames = CollectionUtils.set(results, (Recipe recipe) -> {return  recipe.recipeName});
 
-            HashSet<String> uniqueRequestedIngredients = CollectionUtils.hashSet(ingredients);
-
-
-
-                                   
+            assertTrue("The system could not find all of the recipes we expected it to locate (expected were: " + StringUtilites.join(expectedRecipeNames) + ")",
+                    CollectionUtils.equalSets(uniqueRecipeNames, uniqueRequestedIngredients));
         }
         catch (Exception e)
         {

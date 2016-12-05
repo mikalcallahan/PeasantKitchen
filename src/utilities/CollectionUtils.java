@@ -10,6 +10,17 @@ import java.util.Set;
  */
 public class CollectionUtils
 {
+    public static <T> Set<T> set(T... items)
+    {
+        HashSet<T> set = new HashSet<T>();
+
+        for (T item : items)
+            set.add(item);
+
+        return set;
+    }
+
+
     /**
      * Array list array list.
      *
@@ -94,14 +105,14 @@ public class CollectionUtils
     }
 
 
-    public static <SourceObject, Result> HashSet<Result> hashSet(Iterable<SourceObject> container, FieldSelectionFunction<SourceObject, Result> fieldSelector)
+    public static <SourceObject, Result> Set<Result> set(Iterable<SourceObject> container, FieldSelectionFunction<SourceObject, Result> fieldSelector)
     {
         HashSet<Result> results = new HashSet<Result>();
 
         for (SourceObject obj : container)
-        {
+            results.add(fieldSelector.selectFrom(obj));
 
-        }
+        return results;
     }
 
     public interface FieldSelectionFunction<SourceObject, Result>
