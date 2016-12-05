@@ -1,6 +1,6 @@
-package controllersImplementations.tests;
+package controllerImplementations.tests;
 
-import controllersImplementations.BackendControllerImpl;
+import controllerImplementations.BackendControllerImpl;
 import designPatterns.Visitor;
 import framework.Recipe;
 import framework.Recipes;

@@ -1,7 +1,7 @@
-package controllersImplementations.tests;
+package controllerImplementations.tests;
 
 import framework.controllers.BackendController;
-import controllersImplementations.BackendControllerImpl;
+import controllerImplementations.BackendControllerImpl;
 import framework.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;

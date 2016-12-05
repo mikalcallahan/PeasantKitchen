@@ -1,4 +1,4 @@
-package controllersImplementations;
+package controllerImplementations;
 
 import framework.Recipes;
 import framework.User;
