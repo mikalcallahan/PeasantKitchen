@@ -4,6 +4,7 @@ import applicationData.ApplicationData;
 import com.sun.appserv.server.LifecycleEvent;
 import framework.controllers.BackendController;
 import framework.controllers.DatabaseController;
+import framework.controllers.RecomendationController;
 import framework.Recipes;
 import framework.User;
 import utilities.StringUtilites;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 public class BackendControllerImpl implements BackendController
 {
     protected DatabaseController databaseController;
-    protected RecomendationController recomendationController;
+    protected RecomendationController recommendationController;
 
     /**
      * Instantiates a new Backend controller.
@@ -58,10 +59,10 @@ public class BackendControllerImpl implements BackendController
     private void initalize(DatabaseController databaseController)
     {
         this.databaseController = databaseController;
-        this.recomendationController = new RecomendationController();
+        this.recommendationController = new RecommendationControllerImpl();
 
         //Set the recommendation controller as an observer of the database controller
-        this.databaseController.addObserver(this.recomendationController);
+        this.databaseController.addObserver(this.recommendationController);
     }
 
     /**

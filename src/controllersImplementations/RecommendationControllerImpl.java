@@ -3,16 +3,17 @@ package controllersImplementations;
 import designPatterns.Observer;
 import framework.Recipes;
 import framework.User;
+import framework.controllers.RecomendationController;
 
 /**
  * The type Recomendation controller.
  */
-public class RecomendationController implements Observer
+public class RecommendationControllerImpl implements framework.controllers.RecomendationController
 {
     /**
      * Instantiates a new Recomendation controller.
      */
-    public RecomendationController()
+    public RecommendationControllerImpl()
     {
 
     }
@@ -23,6 +24,7 @@ public class RecomendationController implements Observer
      * @param user the user
      * @return the recipes
      */
+    @Override
     public Recipes recommend(User user)
     {
         return null;

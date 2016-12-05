@@ -1,6 +1,7 @@
 package designPatterns;
 
 import java.util.HashSet;
+import java.util.Set;
 
 /**
  * The type Observer subject.
@@ -10,7 +11,7 @@ public abstract class ObserverSubject
     /**
      * The Observers.
      */
-    protected HashSet<Observer> observers = new HashSet<Observer>();
+    protected Set<Observer> observers = new HashSet<Observer>();
 
     /**
      * Add observer.
