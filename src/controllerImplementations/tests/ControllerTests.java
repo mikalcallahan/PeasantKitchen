@@ -10,6 +10,8 @@ import org.junit.runners.Suite.SuiteClasses;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashSet;
+
 
 import static org.junit.Assert.assertTrue;
 
@@ -25,8 +27,10 @@ public class ControllerTests {
 
     private final File parentDir = new File("/Users/SamDoroudi/Documents/TestingOutput/");
 
-    /**
-     * Test creating user.
+    /*
+     *Test for creatingUser method.
+     *Tests to make sure backend can successfully create a user.
+     *given username and password.
      */
     @Test
     public void testCreatingUser()
@@ -35,6 +39,7 @@ public class ControllerTests {
         {
             BackendController testingController = BackendControllerImpl.makeTestingBackendController(parentDir);
 
+            //Creating legitimate username and password and passing it to controller
             User newUser = new User();
             newUser.username = "MAH USER";
             newUser.password = "password";
@@ -52,8 +57,9 @@ public class ControllerTests {
     }
 
     /**
-     * Test same user creating user.
-     *
+     *Test for creatingUser method.
+     *Tests same user creating user.
+     *Testing to make sure the backend doesn't create the same user.
      * @throws Exception the exception
      */
 //test for creatingUser by creating the same user twice
@@ -62,6 +68,7 @@ public class ControllerTests {
     {
             BackendController testingController = BackendControllerImpl.makeTestingBackendController(parentDir);
 
+            //Creating the same user twice. Passing it to controller
             User newUser = new User();
             newUser.username = "MAH USER";
             newUser.username = "MAH USER";
@@ -72,16 +79,17 @@ public class ControllerTests {
     }
 
     /**
-     * Break test space values creating user.
-     *
+     *Test for creatingUser method.
+     *Break test space values creating user.
+     *Testing to make sure the backend doesn't create empty username/password.
      * @throws Exception the exception
      */
-//test for creatingUser with space in username/pass
     @Test (expected = NullPointerException.class)
     public void breakTestSpaceValuesCreatingUser() throws Exception
     {
             BackendController testingController = BackendControllerImpl.makeTestingBackendController(parentDir);
-
+            
+            //Creating username and password with only space, and passing it to controller
             User newUser = new User();
             newUser.username = " ";
             newUser.password = " ";
@@ -91,9 +99,10 @@ public class ControllerTests {
     }
 
     /**
-     * Break test null values creating user.
+     *Test for creatingUser method.
+     *Break test null values creating user.
+     *Test for creatingUser with null in username/password.
      */
-//test for creatingUser with nulls in user/pass
     @Test (expected = NullPointerException.class)
     public void breakTestNullValuesCreatingUser()
     {
@@ -101,6 +110,8 @@ public class ControllerTests {
         {
             BackendController testingController = BackendControllerImpl.makeTestingBackendController(parentDir);
 
+            //creating username and password with NULL and passing it to controller
+            //Will expect NULL
             User newUser = new User();
             newUser.username = null;
             newUser.password = null;
@@ -108,8 +119,6 @@ public class ControllerTests {
             User createdUser = testingController.createUser(newUser);
 
             assertTrue("Exception was expected but we recieved a user object instead.", createdUser == null);
-            //assertNull("Username is null.", newUser.username);
-            //assertNull("Password is null.", newUser.password);
         }
         catch (Exception e)
         {
@@ -119,9 +128,10 @@ public class ControllerTests {
     }
 
     /**
-     * Break test no values creating user.
+     *Test for creatingUser method.
+     *Break test no values creating user.
+     *Testing to make sure the backend doesn't create empty username/password.
      */
-//test for creatingUser with empty string in user/pass
     @Test (expected = NullPointerException.class)
     public void breakTestNoValuesCreatingUser()
     {
@@ -129,6 +139,8 @@ public class ControllerTests {
         {
             BackendController testingController = BackendControllerImpl.makeTestingBackendController(parentDir);
 
+            //Creating new username and password with an empty string and passing it to controller
+            //Will expect NULL
             User newUser = new User();
             newUser.username = "";
             newUser.password = "";
@@ -150,7 +162,9 @@ public class ControllerTests {
 
 
     /**
-     * Test signing in user.
+     *Test for signingInUser method.
+     *Tests signing in user.
+     *Testing to make sure the backend signs in user using given parameters.
      */
     @Test
     public void testSigningInUser()
@@ -159,6 +173,8 @@ public class ControllerTests {
         {
             BackendController testingController = BackendControllerImpl.makeTestingBackendController(parentDir);
 
+            //Creating new user with given username/password and passing it to controller
+            //This should be able to sign in, if not, failure message will show
             User newUser = new User();
             newUser.username = "MAH USER";
             newUser.password = "password";
@@ -177,7 +193,9 @@ public class ControllerTests {
     }
 
     /**
-     * Test signing out user.
+     * Test for signingOutUser method.
+     * Tests signing out user.
+     * Testing to make sure the backend signs out user using given parameters.
      */
     @Test
     public void testSigningOutUser()
@@ -185,7 +203,7 @@ public class ControllerTests {
         try
         {
             BackendController testingController = BackendControllerImpl.makeTestingBackendController(parentDir);
-
+            //Creating new user with given username/password and passing it to the controller
             User newUser = new User();
             User newPass = new User();
             newUser.username = "MAH USER";
@@ -193,8 +211,7 @@ public class ControllerTests {
             
             User signedOutUser = testingController.signUserOut(newUser.username);
             
-           //make sure they have the same username and password
-           //assertEquals(, newUser);
+           //Make sure they have the same username and password
             assertTrue("Sign out failure", !signedOutUser.isSignedIn());
             assertTrue("Error: Different username", newUser.username.equals(signedOutUser.username));
             assertTrue("Error: Different password", newPass.password.equals(signedOutUser.username));
@@ -208,7 +225,9 @@ public class ControllerTests {
     }
 
     /**
-     * Test is username taken.
+     * Test for isUsernameTaken method.
+     * Tests whether is username taken.
+     * Testing to make sure the backend checks for username's existence to avoid creating the same one.
      */
     @Test
     public void testIsUsernameTaken()
@@ -217,6 +236,8 @@ public class ControllerTests {
         {
             BackendController testingController = BackendControllerImpl.makeTestingBackendController(parentDir);
             
+            //Creating the same user twice. Passing it to the controller
+            //Displays failure message if username is taken
             User newUser = new User();
             newUser.username = "MAH USER";  //first user
             newUser.username = "MAH USER";  //second user
@@ -225,7 +246,6 @@ public class ControllerTests {
             boolean takenUsername = testingController.isUsernameTaken(newUser.username);
             
             assertTrue("The system failed to reserve the username [" + newUser.username + "]", takenUsername);
-            //assertTrue(true);
         }
         catch (Exception e)
         {
@@ -234,7 +254,9 @@ public class ControllerTests {
     }
 
     /**
-     * Test removing user.
+     * Test for removingUser method.
+     * Tests removing user.
+     * Testing to make sure the backend could remove a user.
      */
     @Test
     public void testRemovingUser()
@@ -258,7 +280,9 @@ public class ControllerTests {
 
 
     /**
+     * Test for recommendRecipes method.
      * Test recommend recipes.
+     * This method isn't implemented yet.
      */
     public void testRecommendRecipes()
     {
@@ -276,12 +300,14 @@ public class ControllerTests {
     }
 
     /**
-     * Test get recipes containing ingredients.
+     * Test for getRecipesContainingIngredients method.
+     * Tests getting recipes containing ingredients.
+     * 
      */
     @Test
     public void testGetRecipesContainingIngredients()
     {
-        //contains if you pass egg but they may contain other things
+        //may contain others; if you pass egg but they may contain other things
         try
         {
             BackendController testingController = BackendControllerImpl.makeTestingBackendController(parentDir);
@@ -294,11 +320,22 @@ public class ControllerTests {
             ingredients.add("olive oil");
             ingredients.add("ground beef");
 
-
-
+           /*
+            *HashSet<String> ingredientsRequested;
+            *ingredientsRequested = new HashSet<String>();
+            *ingredientsRequested.add("Eggs");
+            *
+            *HashSet<String> returnedRecipes;
+            *returnedRecipes = new HashSet<String>();
+            *returnedRecipes.add("Eggs");
+            */
             
-            //assertTrue(true);
-                       
+            
+            /*
+            ArrayList<String> mahList = new ArrayList<String>();
+            mahList.add("Butter");
+            */
+                                   
         }
         catch (Exception e)
         {
@@ -308,7 +345,9 @@ public class ControllerTests {
     }
 
     /**
-     * Test get recipes with only these ingredients.
+     * Test for getRecipesWithOnlyTheseIngredients method.
+     * Tests getting recipes with only these ingredients.
+     *
      */
     @Test
     public void TestGetRecipesWithOnlyTheseIngredients()
