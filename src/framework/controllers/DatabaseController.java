@@ -1,7 +1,9 @@
-package framework;
+package framework.controllers;
 
 import com.sun.appserv.server.LifecycleEvent;
 import designPatterns.ObserverSubject;
+import framework.Recipes;
+import framework.User;
 
 import java.util.ArrayList;
 

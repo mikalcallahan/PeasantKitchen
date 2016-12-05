@@ -4,7 +4,7 @@ import applicationData.ApplicationData;
 import com.sun.appserv.server.LifecycleEvent;
 import constants.Constants;
 import designPatterns.Observer;
-import framework.DatabaseController;
+import framework.controllers.DatabaseController;
 import framework.Recipe;
 import framework.Recipes;
 import framework.User;

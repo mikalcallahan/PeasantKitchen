@@ -3,6 +3,7 @@ package framework;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import controllersImplementations.BackendControllerImpl;
+import framework.controllers.BackendController;
 
 /**
  * The type Web socket global environment.

@@ -2,8 +2,8 @@ package controllersImplementations;
 
 import applicationData.ApplicationData;
 import com.sun.appserv.server.LifecycleEvent;
-import framework.BackendController;
-import framework.DatabaseController;
+import framework.controllers.BackendController;
+import framework.controllers.DatabaseController;
 import framework.Recipes;
 import framework.User;
 import utilities.StringUtilites;

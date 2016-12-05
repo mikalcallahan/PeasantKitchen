@@ -1,8 +1,5 @@
 package testing;
-import framework.DatabaseController;
 import framework.Recipe;
-import framework.Recipes;
-import framework.User;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

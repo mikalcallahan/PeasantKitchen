@@ -1,6 +1,6 @@
 package controllersImplementations.tests;
 
-import framework.BackendController;
+import framework.controllers.BackendController;
 import controllersImplementations.BackendControllerImpl;
 import framework.User;
 import org.junit.Test;
