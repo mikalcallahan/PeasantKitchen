@@ -8,7 +8,7 @@ import framework.controllers.RecomendationController;
 /**
  * The type Recomendation controller.
  */
-public class RecommendationControllerImpl implements framework.controllers.RecomendationController
+public class RecommendationControllerImpl implements RecomendationController
 {
     /**
      * Instantiates a new Recomendation controller.
