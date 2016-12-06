@@ -1,5 +1,6 @@
 ingredientsArray = [];
 ingredientsAmount = [];
+currentRecipes = {};
 
 function createTable() {
     var ingredientstable = document.getElementById("ingrTable");
@@ -39,6 +40,7 @@ function submitIngredients() {
     alert(requestObject);
     var recipes = websockets(requestObject);
     displayRecipes(recipes);
+    populateCurrentRecipesObject();
 }
 
 /* web socket stuff */
@@ -136,6 +138,7 @@ function displayRecipes(recipes) {
             for (var rowRecipe in rowRecipes) {
                 attachColumn(rowRecipe, rowDivElement);
             }
+
         }
 
 
@@ -153,11 +156,13 @@ function displayRecipes(recipes) {
             attachPElement(recipe.recipeName, column);
             attachImageElement(recipe.recipeThumbnailFilename, column);
 
+            column.id = recipe.recipeID;
+
             return column;
         }
 
         function attachPElement(text, parentElement) {
-            var pElement = document.createElement("p")
+            var pElement = document.createElement("p");
             var textNode = document.createTextNode(text);
             pElement.appendChild(textNode);
 
@@ -175,6 +180,19 @@ function displayRecipes(recipes) {
             parentElement.appendChild(imgElement);
             return imgElement;
         }
+    }
+}
+
+function populateCurrentRecipesObject(recipes) {
+    //clear the 'old' recipes
+    currentRecipes = {};
+    var key;
+
+    //add all of the new recipes
+
+    for (var recipe in recipes) {
+        key = recipe.recipeID;
+        currentRecipes.key = recipe;
     }
 }
 
