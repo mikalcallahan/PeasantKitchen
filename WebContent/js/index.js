@@ -1,6 +1,6 @@
 ingredientsArray = [];
 ingredientsAmount = [];
-currentRecipes = {};
+window.currentRecipes = {};
 
 function createTable() {
     var ingredientstable = document.getElementById("ingrTable");
@@ -38,9 +38,18 @@ function submitIngredients() {
     };
     requestObject = JSON.stringify(requestObject);
     alert(requestObject);
+
+    //Get the recipes which match the user's request
     var recipes = websockets(requestObject);
-    displayRecipes(recipes);
+
+    //Store each recipe in a object, where the key is the recipe's ID
+    //and the value is the recipe object
     populateCurrentRecipesObject();
+
+    //Show the user the results of their query
+    displayRecipes(recipes);
+
+
 }
 
 /* web socket stuff */
@@ -185,14 +194,13 @@ function displayRecipes(recipes) {
 
 function populateCurrentRecipesObject(recipes) {
     //clear the 'old' recipes
-    currentRecipes = {};
+    window.currentRecipes = {};
     var key;
 
     //add all of the new recipes
-
     for (var recipe in recipes) {
         key = recipe.recipeID;
-        currentRecipes.key = recipe;
+        window.currentRecipes.key = recipe;
     }
 }
 
