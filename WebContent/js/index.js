@@ -1,46 +1,3 @@
-ingredientsArray = [];
-ingredientsAmount = [];
-
-function createTable() {
-    var ingredientstable = document.getElementById("ingrTable");
-    var row1 = ingredientstable.insertRow(0);
-    var cell1 = row1.insertCell(0);
-    var entry = document.getElementById("foods").value;
-    cell1.innerHTML = entry;
-    ingredientsArray.push(entry);
-    document.getElementById("foods").value = ""; // clears out input field on enter
-    alert(ingredientsstr);
-}
-
-function createTable1() {
-    var ingredientsamt = document.getElementById("amtTable");
-    var row1 = ingredientsamt.insertRow(0);
-    var cell1 = row1.insertCell(0);
-    var entry = document.getElementById("numberof").value;
-    cell1.innerHTML = entry;
-    ingredientsAmount.push(entry);
-}
-
-
-function submitIngredients() {
-    ingredientsText = ingredientsArray.toString();
-    alert(ingredientsText); // test output
-
-    var requestParameters = {
-        ingredients: ingredientsArray,
-        username: currentUsername
-    };
-
-    var requestObject = {
-        id: "contains",
-        payload: requestParameters
-    };
-    requestObject = JSON.stringify(requestObject);
-    alert(requestObject);
-    var recipes = websockets(requestObject);
-    displayRecipes(recipes);
-}
-
 /* web socket stuff */
 function websockets(jsonobject) {
     /* if websocket is supported */
@@ -179,13 +136,6 @@ function displayRecipes(recipes) {
     }
 }
 
-function enterButton(e) {
-    if (e.keyCode === 13) {
-        e.preventDefault(); // Ensure it is only this code that rusn
-        createTable();
-    }
-}
-
 function signOutUser() {
     var request = currentUsername;
     var jsonobject = JSON.stringify({
@@ -262,6 +212,9 @@ if ("WebSocket" in window) {
  }
  }
  */
+
 }
 }
+}
+
 }
