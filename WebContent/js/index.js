@@ -1,6 +1,7 @@
 window.currentRecipes = {};
 ingredientsArray = [];
 ingredientsAmount = [];
+window.currentUsername = "";
 
 /* add to the table when food is entered */
 function createTable() {
@@ -11,7 +12,7 @@ function createTable() {
     cell1.innerHTML = entry;
     ingredientsArray.push(entry);
     document.getElementById("foods").value = ""; // clears out input field on enter
-    alert(ingredientsstr);
+    //alert(ingredientsstr);
 }
 
 /* add to the table when a quantity is entered */
