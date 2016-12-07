@@ -60,7 +60,7 @@ function websockets(jsonobject) {
 
 
         // Let us open a web socket
-        var ws = new WebSocket("ws://localhost:8080/Peasant_Kitchen/recipes");
+        var ws = new WebSocket("ws://localhost:8080/PeasantKitchen/recipes");
 
         ws.onopen = function() {
             // Web Socket is connected, send data using send()
@@ -147,13 +147,14 @@ function displayRecipes(recipes) {
             for (var rowRecipe in rowRecipes) {
                 attachColumn(rowRecipe, rowDivElement);
             }
-
         }
 
 
         function attachDiv(className, parentElement) {
             var div = document.createElement("div");
-            div.className = className;
+            //div.className = className;
+
+            div.setAttribute("className", className);
 
             parentElement.appendChild(div);
             return div;
@@ -165,7 +166,9 @@ function displayRecipes(recipes) {
             attachPElement(recipe.recipeName, column);
             attachImageElement(recipe.recipeThumbnailFilename, column);
 
-            column.id = recipe.recipeID;
+            //column.id = recipe.recipeID;
+
+            column.setAttribute("id", recipe.recipeID);
 
             return column;
         }
@@ -182,9 +185,13 @@ function displayRecipes(recipes) {
         function attachImageElement(imageLocation, parentElement) {
             var imgElement = document.createElement("img");
 
-            imgElement.src = imageLocation;
-            imgElement.alt = "";
-            imgElement.className = "thumbnail";
+            // imgElement.src = imageLocation;
+            // imgElement.alt = "";
+            // imgElement.className = "thumbnail";
+
+            imgElement.setAttribute("src", imageLocation);
+            imgElement.setAttribute("alt", "");
+            imgElement.setAttribute("className", "thumbnail");
 
             parentElement.appendChild(imgElement);
             return imgElement;
@@ -206,13 +213,77 @@ function populateCurrentRecipesObject(recipes) {
 
 
 function signOutUser() {
-    var request = currentUsername;
+
+    var request = {
+        username: currentUsername
+    };
+
     var jsonobject = JSON.stringify({
         id: "user.signout",
         payload: request
     });
+
+    signOutWebSocket(jsonobject);
+
     //alert(request);
 }
+
+
+function signOutWebSocket(jsonobject) {
+    /* if websocket is supported */
+    if ("WebSocket" in window) {
+        //    alert("WebSocket is supported by your Browser!"); // hurray its supported!
+        //    alert(jsonobject); // test to make sure jsonobject is passed
+
+
+        // Let us open a web socket
+        var ws = new WebSocket("ws://localhost:8080/PeasantKitchen/user/signout");
+
+        ws.onopen = function() {
+            // Web Socket is connected, send data using send()
+            alert("Message is sent...");
+            ws.send(jsonobject);
+        };
+
+        //MORE CHANGES
+
+        ws.onmessage = function(evt) {
+            //fields: response, error
+            //    alert("Response");
+            //        alert(evt.data);
+
+            var response = JSON.parse(evt.data);
+
+            var responseObject = response.response;
+            var error = response.error;
+
+            var recipes = JSON.stringify(responseObject);
+
+            alert(recipes);
+
+            if (error === null || error === undefined) {
+                alert("Happy days");
+                alert("Recipes: " + JSON.stringify(responseObject.recipes));
+            }
+
+
+            alert(JSON.stringify(error));
+            return "";
+        };
+
+        ws.onclose = function() {
+            // websocket is closed.
+            //        alert("Connection is closed...");
+        };
+
+
+    } else { // browser doesn't support websockets
+        //alert("WebSocket NOT supported by your Browser!");
+    }
+}
+
+
+
 
 
 //var recipetitle = "This is the recipe title";
