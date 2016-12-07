@@ -1,8 +1,0 @@
-{id: "123"
-payload:{
-	"firstname": "john"
-	"lastname": "smith"
-	"username": "jsmith2"
-	"password": "12345"
-}
-}

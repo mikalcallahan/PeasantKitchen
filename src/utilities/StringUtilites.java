@@ -2,8 +2,18 @@ package utilities;
 
 import java.util.ArrayList;
 
+/**
+ * The type String utilites.
+ */
 public class StringUtilites
 {
+    /**
+     * Remove ending characters string.
+     *
+     * @param string                     the string
+     * @param numberOfCharactersToRemove the number of characters to remove
+     * @return the string
+     */
     public static String removeEndingCharacters(String string, int numberOfCharactersToRemove)
     {
         if (numberOfCharactersToRemove >= string.length())
@@ -12,6 +22,12 @@ public class StringUtilites
         return string.substring(0, string.length() - numberOfCharactersToRemove);
     }
 
+    /**
+     * Join string.
+     *
+     * @param strings the strings
+     * @return the string
+     */
     public static String join(Iterable<String> strings)
     {
         if (strings == null)
@@ -25,6 +41,12 @@ public class StringUtilites
         return joined.toString();
     }
 
+    /**
+     * Clean ingredients array list.
+     *
+     * @param ingredients the ingredients
+     * @return the array list
+     */
     public static ArrayList<String> cleanIngredients(ArrayList<String> ingredients)
     {
         ArrayList<String> cleaned = new ArrayList<String>();
@@ -35,6 +57,12 @@ public class StringUtilites
         return cleaned;
     }
 
+    /**
+     * Clean ingredient string.
+     *
+     * @param ingredient the ingredient
+     * @return the string
+     */
     public static String cleanIngredient(String ingredient)
     {
         if (StringUtilites.isVoidString(ingredient))
@@ -43,6 +71,12 @@ public class StringUtilites
         return ingredient.trim().toLowerCase();
     }
 
+    /**
+     * Is only whitespace boolean.
+     *
+     * @param str the str
+     * @return the boolean
+     */
     public static boolean isOnlyWhitespace(String str)
     {
         if (str == null || str.isEmpty())
@@ -67,10 +101,9 @@ public class StringUtilites
      * 2) empty or
      * 3) only contains whitespace (as defined by Character.isWhitespace(ch))
      *
-     * @param str
-     * @return boolean
+     * @param str the str
+     * @return boolean boolean
      */
-
     public static boolean isVoidString(String str)
     {
         if (str == null ||

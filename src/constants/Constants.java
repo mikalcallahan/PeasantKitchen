@@ -48,17 +48,6 @@ public class Constants
             public static final String signOut = all.put(user + "/signout");
             public static final String create = all.put(user + "/create");
         }
-
-
-//		private String descendingContextPath(ArrayList<String> contexts)
-//		{
-//			StringBuilder absolutePath = new StringBuilder();
-//
-//			for(String uri : contexts)
-//				absolutePath.append("/" + uri);
-//
-//			return absolutePath.toString();
-//		}
     }
 
     public static class PostWebSocketRequestKeys

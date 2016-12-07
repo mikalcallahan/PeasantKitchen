@@ -12,9 +12,15 @@ import utilities.Utilities;
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 
+/**
+ * The type Create new user.
+ */
 @ServerEndpoint("/user/create")
 public class CreateNewUser extends PostWebSocket
 {
+    /**
+     * Instantiates a new Create new user.
+     */
     public CreateNewUser()
     {
         super();
@@ -23,35 +29,56 @@ public class CreateNewUser extends PostWebSocket
     @Override
     public boolean initialize()
     {
-        this.messageHandlers.put(Constants.MessageIDs.createNewUser, new CreateUserMessageHandler());
+        this.messageHandlers.put(Constants.MessageIDs.createNewUser, new HandleCreateNewUserMessage());
         return true;
     }
 
+    /**
+     * Open connection.
+     *
+     * @param session the session
+     */
     @OnOpen
     public void openConnection(Session session)
     {
 
     }
 
+    /**
+     * Handle message.
+     *
+     * @param messageJson the message json
+     * @param session     the session
+     */
     @OnMessage
     public void handleMessage(String messageJson, Session session)
     {
         super.handleMessages(messageJson, session);
     }
 
+    /**
+     * Close connection.
+     *
+     * @param reason the reason
+     */
     @OnClose
     public void closeConnection(CloseReason reason)
     {
 
     }
 
+    /**
+     * Error.
+     *
+     * @param cause the cause
+     */
     @OnError
     public void error(Throwable cause)
     {
         System.err.println(cause.getMessage());
     }
 
-    private class CreateUserMessageHandler extends WebSocketMessageHandler
+    private class HandleCreateNewUserMessage extends WebSocketMessageHandler
     {
         @Override
         public void handleMessage(JsonObject payload, Session session) throws Exception
@@ -102,7 +129,7 @@ public class CreateNewUser extends PostWebSocket
 
 	
 	/*
-	 * Note: the selected user name may already exist. There should be a method on the BackendController
+     * Note: the selected user name may already exist. There should be a method on the BackendControllerImpl
 	 * that can detect if a user with the given username already exists
 	 * -Futher note: Each user's username must be unique
 	 */

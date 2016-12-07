@@ -111,7 +111,7 @@ ul.menuBar.responsive li a {
 .myingredients {
     border: black solid;
     height: 200px;
-    width: auto;
+    width: 50%;
     /*margin: 0px auto;*/
 }
 
