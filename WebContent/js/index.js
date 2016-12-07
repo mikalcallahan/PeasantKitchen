@@ -1,9 +1,42 @@
+window.currentRecipes = {};
+
+
+function submitIngredients() {
+    ingredientsText = ingredientsArray.toString();
+    alert(ingredientsText); // test output
+
+    var requestParameters = {
+        ingredients: ingredientsArray,
+        username: currentUsername
+    };
+
+    var requestObject = {
+        id: "contains",
+        payload: requestParameters
+    };
+    requestObject = JSON.stringify(requestObject);
+    alert(requestObject);
+
+    //Get the recipes which match the user's request
+    var recipes = websockets(requestObject);
+
+    //Store each recipe in a object, where the key is the recipe's ID
+    //and the value is the recipe object
+    populateCurrentRecipesObject();
+
+    //Show the user the results of their query
+    displayRecipes(recipes);
+
+
+}
+
+
 /* web socket stuff */
 function websockets(jsonobject) {
     /* if websocket is supported */
     if ("WebSocket" in window) {
-        alert("WebSocket is supported by your Browser!"); // hurray its supported!
-        alert(jsonobject); // test to make sure jsonobject is passed
+        //    alert("WebSocket is supported by your Browser!"); // hurray its supported!
+        //    alert(jsonobject); // test to make sure jsonobject is passed
 
 
         // Let us open a web socket
@@ -17,8 +50,8 @@ function websockets(jsonobject) {
 
         ws.onmessage = function(evt) {
             //fields: response, error
-            alert("Response");
-            alert(evt.data);
+            //    alert("Response");
+            //        alert(evt.data);
 
             var response = JSON.parse(evt.data);
 
@@ -42,23 +75,23 @@ function websockets(jsonobject) {
 
         ws.onclose = function() {
             // websocket is closed.
-            alert("Connection is closed...");
+            //        alert("Connection is closed...");
         };
 
 
     } else { // browser doesn't support websockets
-        alert("WebSocket NOT supported by your Browser!");
+        //alert("WebSocket NOT supported by your Browser!");
     }
 }
 
 function displayRecipes(recipes) {
-    alert(JSON.stringify(recipes));
+    //    alert(JSON.stringify(recipes));
 
     if (recipes === null || recipes === undefined)
         return;
 
     var recipesPerRow = chunk(recipes, 8);
-    alert(JSON.stringify(recipesPerRow));
+    //    alert(JSON.stringify(recipesPerRow));
 
     populateRecipeGrid(recipesPerRow);
 
@@ -94,6 +127,7 @@ function displayRecipes(recipes) {
             for (var rowRecipe in rowRecipes) {
                 attachColumn(rowRecipe, rowDivElement);
             }
+
         }
 
 
@@ -111,11 +145,13 @@ function displayRecipes(recipes) {
             attachPElement(recipe.recipeName, column);
             attachImageElement(recipe.recipeThumbnailFilename, column);
 
+            column.id = recipe.recipeID;
+
             return column;
         }
 
         function attachPElement(text, parentElement) {
-            var pElement = document.createElement("p")
+            var pElement = document.createElement("p");
             var textNode = document.createTextNode(text);
             pElement.appendChild(textNode);
 
@@ -136,64 +172,28 @@ function displayRecipes(recipes) {
     }
 }
 
+function populateCurrentRecipesObject(recipes) {
+    //clear the 'old' recipes
+    window.currentRecipes = {};
+    var key;
+
+    //add all of the new recipes
+    for (var recipe in recipes) {
+        key = recipe.recipeID;
+        window.currentRecipes.key = recipe;
+    }
+}
+
+
 function signOutUser() {
     var request = currentUsername;
     var jsonobject = JSON.stringify({
         id: "user.signout",
         payload: request
     });
-    alert(request);
+    //alert(request);
 }
-/* if websocket is supported */
-if ("WebSocket" in window) {
-    //alert("WebSocket is supported by your Browser!"); // hurray its supported!
-    //alert(jsonobject); // test to make sure jsonobject is passed
 
-
-    // Let us open a web socket
-    var ws = new WebSocket("ws://localhost:8080/Peasant_Kitchen/user/signout");
-
-    ws.onopen = function() {
-        // Web Socket is connected, send data using send()
-        alert("Message is sent...");
-        ws.send(jsonobject);
-    };
-
-    ws.onmessage = function(evt) {
-        //fields: response, error
-
-        alert(evt.data);
-
-        var response = JSON.parse(evt.data);
-
-        var responseObject = response.response;
-        var error = response.error;
-
-        var reciple = JSON.stringify(responseObject);
-        alert(reciple);
-
-        if (error === null || error === undefined) {
-            //happy days
-            alert("Happy days")
-        } else {
-            alert(JSON.stringify(error))
-        }
-
-        // var response = JSON.parse(evt.data);
-        // var responseObject = response.response;
-        //
-        // alert(JSON.stringify(responseObject));
-    };
-
-    ws.onclose = function() {
-        // websocket is closed.
-        //    alert("Connection is closed...");
-    };
-
-
-} else { // browser doesn't support websockets
-    alert("WebSocket NOT supported by your Browser!");
-}
 
 //var recipetitle = "This is the recipe title";
 //document.getElementById('recipetitle').innerHTML = "recipetitle";
