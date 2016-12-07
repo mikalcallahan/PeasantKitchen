@@ -196,8 +196,8 @@ function signOutUser() {
 }
 /* if websocket is supported */
 if ("WebSocket" in window) {
-    alert("WebSocket is supported by your Browser!"); // hurray its supported!
-    alert(jsonobject); // test to make sure jsonobject is passed
+    //alert("WebSocket is supported by your Browser!"); // hurray its supported!
+    //alert(jsonobject); // test to make sure jsonobject is passed
 
 
     // Let us open a web socket
@@ -237,7 +237,7 @@ if ("WebSocket" in window) {
 
     ws.onclose = function() {
         // websocket is closed.
-        alert("Connection is closed...");
+        //    alert("Connection is closed...");
     };
 
 
@@ -245,7 +245,8 @@ if ("WebSocket" in window) {
     alert("WebSocket NOT supported by your Browser!");
 }
 
-
+//var recipetitle = "This is the recipe title";
+//document.getElementById('recipetitle').innerHTML = "recipetitle";
 /*
  function Menu()
  {
@@ -261,3 +262,6 @@ if ("WebSocket" in window) {
  }
  }
  */
+}
+}
+}
