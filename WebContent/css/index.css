@@ -89,6 +89,10 @@ ul.menuBar.responsive li a {
     text-align: left;
 }
 
+#ingredientsAdd {
+    display: inline-block;
+}
+
 #enteringredients {
     float: left;
     width: 100%;

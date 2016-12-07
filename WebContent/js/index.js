@@ -137,12 +137,15 @@ function displayRecipes(recipes) {
 }
 
 function signOutUser() {
-    var request = currentUsername;
-    var jsonobject = JSON.stringify({
-        id: "user.signout",
-        payload: request
-    });
-    alert(request);
+    username: currentUsername
+
+};
+var jsonobject = JSON.stringify({
+    id: "user.signout",
+    payload: request
+});
+
+alert(request);
 }
 /* if websocket is supported */
 if ("WebSocket" in window) {
