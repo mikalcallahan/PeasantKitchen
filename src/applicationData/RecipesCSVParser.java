@@ -14,8 +14,9 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
- * Created to help organize the code
+/**
+ * Parses the RECIPES.csv file into a list of string arrays. Each row in this list represents a row, and each string array
+ * represents column values. This is essentially a 2-d array representation of a CSV file.
  */
 
 /**
@@ -32,7 +33,7 @@ public class RecipesCSVParser implements Parser<File, Recipes>
 
     private List<String[]> parseCSV(File csvFile) throws Exception
     {
-        CSVReader reader = new CSVReader(new FileReader(csvFile.getAbsolutePath()));
+        CSVReader reader = new CSVReader(new FileReader(csvFile.getCanonicalPath()));
         List<String[]> csvEntries = reader.readAll();
 
         reader.close();

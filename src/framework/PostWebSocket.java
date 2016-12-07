@@ -36,7 +36,9 @@ public abstract class PostWebSocket
 
 
     /**
-     * Handle messages.
+     * In each reqest, the user must specify which message handler they would like to use. This method
+     * extracts the message handler ID, and uses that as a key into a hashmap to find the appropriate handler.
+     * Uses the command design pattern.
      *
      * @param messageJson the json of the message
      * @param session     the web socket session
@@ -53,6 +55,13 @@ public abstract class PostWebSocket
         }
     }
 
+    /**
+     * Delegates this request to the requested message handler.
+     * @param messageJson
+     * @param session
+     * @throws Exception
+     */
+
     private void handleCurrentMessage(String messageJson, Session session) throws Exception
     {
         Request request = parseRequestJson(messageJson);
@@ -64,6 +73,12 @@ public abstract class PostWebSocket
 
         messageHandler.handleMessage(request.payload, session);
     }
+
+    /**
+     * Extracts the message ID and the request object.
+     * @param messageJson
+     * @return
+     */
 
     private Request parseRequestJson(String messageJson)
     {
@@ -107,6 +122,10 @@ public abstract class PostWebSocket
                 throw new NullPointerException("ERROR: Please supply a value for the parameter [" + field + "]");
         }
     }
+
+    /**
+     * Models the request object's form. Needed for GSON.
+     */
 
     private class Request
     {

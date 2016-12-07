@@ -7,7 +7,7 @@ import controllerImplementations.BackendControllerImpl;
 /**
  * The type Web socket global environment.
  */
-public class WebSocketGlobalEnvironment
+public final class WebSocketGlobalEnvironment
 {
     private static WebSocketGlobalEnvironment environment;
 

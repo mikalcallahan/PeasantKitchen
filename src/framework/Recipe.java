@@ -1,5 +1,7 @@
 package framework;
 
+import utilities.StringUtilites;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -66,7 +68,7 @@ public class Recipe implements Serializable
         HashSet<String> uniqueRecipeIngredients = new HashSet<String>();
 
         for (IngredientQuantity ingredient : this.ingredientQuantities)
-            uniqueRecipeIngredients.add(ingredient.ingredient);
+            uniqueRecipeIngredients.add(StringUtilites.cleanIngredient(ingredient.ingredient));
 
         return uniqueRecipeIngredients;
     }
