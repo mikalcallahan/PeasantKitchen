@@ -96,7 +96,6 @@
 		<div class='myingredients'>
 
 			<!--Prints users Input-->
-
 			<table id="amtTable">
 				<tr>
 					<td></td>
@@ -110,15 +109,16 @@
 		</div>
 		<input name="generate" id="ingredientsSubmit" type="button" value="Submit Ingredients!" onclick="submitIngredients()" />
 	</div>
-	</div>
 
 	<!-- Initially, hide this element -->
 	<div id="recipesGrid" style="display:none;"></div>
 
 	<br><br><br>
-	<p id="tet">This is test data</p>
+	<div class="openmodalbutton">
+		<p id="modalswitch"><a data-open="myModal">Click me for a modal</a></p>
+	</div>
 	<br><br><br>
-	<p id="modalswitch"><a data-open="myModal">Click me for a modal</a></p>
+
 
 	<div class="small reveal" id="myModal" data-reveal data-animation-in="fade-in" data-animation-out="fade-out">
 		<h2 id="recipetitle">INSERT TITLE</h2>

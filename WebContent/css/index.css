@@ -127,3 +127,9 @@ ul.menuBar.responsive li a {
     border-radius: 15px;
     opacity: 0.8;
 }
+
+.openmodalbutton {
+    display: block;
+    align-items: center;
+    width: 80%;
+}
