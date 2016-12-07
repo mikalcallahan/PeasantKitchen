@@ -225,6 +225,8 @@ function signOutWebSocket(jsonobject) {
             ws.send(jsonobject);
         };
 
+        //MORE CHANGES
+
         ws.onmessage = function(evt) {
             //fields: response, error
             //    alert("Response");
