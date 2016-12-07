@@ -1,6 +1,7 @@
 window.currentRecipes = {};
 ingredientsArray = [];
 ingredientsAmount = [];
+window.currentUsername = "";
 
 /* add to the table when food is entered */
 function createTable() {
@@ -11,7 +12,7 @@ function createTable() {
     cell1.innerHTML = entry;
     ingredientsArray.push(entry);
     document.getElementById("foods").value = ""; // clears out input field on enter
-    alert(ingredientsstr);
+    //alert(ingredientsstr);
 }
 
 /* add to the table when a quantity is entered */
@@ -239,7 +240,7 @@ function signOutWebSocket(jsonobject) {
         // Let us open a web socket
         var ws = new WebSocket("ws://localhost:8080/PeasantKitchen/user/signout");
 
-        ws.onopen = function() {
+        ws.onopen = function () {
             // Web Socket is connected, send data using send()
             alert("Message is sent...");
             ws.send(jsonobject);
@@ -247,7 +248,7 @@ function signOutWebSocket(jsonobject) {
 
         //MORE CHANGES
 
-        ws.onmessage = function(evt) {
+        ws.onmessage = function (evt) {
             //fields: response, error
             //    alert("Response");
             //        alert(evt.data);
@@ -271,41 +272,9 @@ function signOutWebSocket(jsonobject) {
             return "";
         };
 
-        ws.onclose = function() {
+        ws.onclose = function () {
             // websocket is closed.
             //        alert("Connection is closed...");
         };
-
-
-    } else { // browser doesn't support websockets
-        //alert("WebSocket NOT supported by your Browser!");
     }
-}
-
-
-
-
-
-//var recipetitle = "This is the recipe title";
-//document.getElementById('recipetitle').innerHTML = "recipetitle";
-/*
- function Menu()
- {
- var nav = document.getElementById('myMenuBar');
- if (nav.className === "menuBar")
- {
- nav.className +=  " responsive";
- }
- else
- {
- nav.className = "menuBar";
- }
- }
- }
- */
-
-}
-}
-}
-
 }
