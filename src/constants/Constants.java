@@ -17,12 +17,14 @@ public class Constants
 
     private static File getApplicationDataFolder()
     {
-        String glassfishDomainConfigFolder = System.getProperty("com.sun.aas.instanceRoot");
+//        String glassfishDomainConfigFolder = System.getProperty("com.sun.aas.instanceRoot");
+//
+//        if (glassfishDomainConfigFolder == null)
+//            return new File(".");
+//        else
+//            return new File(glassfishDomainConfigFolder).getParentFile();
 
-        if (glassfishDomainConfigFolder == null)
-            return new File(".");
-        else
-            return new File(glassfishDomainConfigFolder).getParentFile();
+        return new File(".");
     }
 
     public static class ApplicationData

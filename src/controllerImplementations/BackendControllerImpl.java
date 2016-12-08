@@ -25,7 +25,7 @@ public class BackendControllerImpl implements framework.controllers.BackendContr
      */
     public BackendControllerImpl()
     {
-        this.initalize(new ObjectDatabaseController());
+        this(new ObjectDatabaseController());
     }
 
     /**
