@@ -252,17 +252,13 @@ function signOutWebSocket(jsonobject) {
             var responseObject = response.response;
             var error = response.error;
 
-            var recipes = JSON.stringify(responseObject);
-
-            alert(recipes);
 
             if (error === null || error === undefined) {
-                alert("Happy days");
-                alert("Recipes: " + JSON.stringify(responseObject.recipes));
+
             }
+            else
+                alert(error);
 
-
-            alert(JSON.stringify(error));
             return "";
         };
 
