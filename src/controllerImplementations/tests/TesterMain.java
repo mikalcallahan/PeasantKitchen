@@ -11,7 +11,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 /**
- * The type Tester main.
+ * Used for testing random things; this is not a formal test method in any way
  */
 public class TesterMain
 {
