@@ -2,23 +2,6 @@
 
 #banner {}
 
-body {
-    background-color: darkGrey;
-    color: inherit;
-    /* min-width: 1800px;*/
-    width: 100%;
-}
-
-form {
-    display: table;
-    margin: 0 auto;
-    align-items: center;
-}
-
-td {
-    border: 1px solid black;
-}
-
 ul.menuBar {
     list-style-type: none;
     margin: 0;
@@ -59,25 +42,25 @@ ul.menuBar li a {
 
 
 /*
-ul.menuBar li a:hover {background-color: #555;}
+	ul.menuBar li a:hover {background-color: #555;}
 
-ul.menuBar li.icon {display: none;}
-@media screen and (max-width:680px) {
-  ul.topnav li:not(:first-child) {display: none;}
-  ul.topnav li.icon {
-    float: right;
-    display: inline-block;
-  }
-}
+	ul.menuBar li.icon {display: none;}
+	@media screen and (max-width:680px) {
+	  ul.topnav li:not(:first-child) {display: none;}
+	  ul.topnav li.icon {
+	    float: right;
+	    display: inline-block;
+	  }
+	}
 
-@media screen and (max-width:680px) {
-  ul.menuBar.responsive {position: relative;}
-  ul.menuBar.responsive li.icon {
-    position: absolute;
-    right: 0;
-    top: 0;
-  }
-	*/
+	@media screen and (max-width:680px) {
+	  ul.menuBar.responsive {position: relative;}
+	  ul.menuBar.responsive li.icon {
+	    position: absolute;
+	    right: 0;
+	    top: 0;
+	  }
+		*/
 
 ul.menuBar.responsive li {
     float: none;
@@ -89,11 +72,32 @@ ul.menuBar.responsive li a {
     text-align: left;
 }
 
+body {
+    background-color: darkGrey;
+    color: inherit;
+    /* min-width: 1800px;*/
+    width: 100%;
+}
+
+form {
+    display: table;
+    margin: 0 auto;
+    align-items: center;
+}
+
+td {
+    /*border: 1px solid black;*/
+    word-wrap: break-word;
+    width: 100%;
+}
+
 .ingredientsbox {
+    display: table;
     width: 95%;
     margin: 0px auto;
     /*align-items: center;*/
     /*display: inline-block;*/
+    vertical-align: top;
 }
 
 #enteringredients {
@@ -111,9 +115,17 @@ ul.menuBar.responsive li a {
 
 .myingredients {
     border: black solid;
+    /*display: table;*/
     height: 200px;
     width: 50%;
+    vertical-align: top;
     /*margin: 0px auto;*/
+}
+
+#ingrTable {
+    display: inline;
+    table-layout: fixed;
+    word-wrap: break-word;
 }
 
 .ingredeientsinsert {
@@ -153,4 +165,6 @@ ul.menuBar.responsive li a {
 a[data-reveal-id] h3 {
     color: black;
 }
+*/
+
 */

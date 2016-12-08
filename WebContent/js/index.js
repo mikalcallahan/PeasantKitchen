@@ -240,7 +240,7 @@ function signOutWebSocket(jsonobject) {
         // Let us open a web socket
         var ws = new WebSocket("ws://localhost:8080/PeasantKitchen/user/signout");
 
-        ws.onopen = function () {
+        ws.onopen = function() {
             // Web Socket is connected, send data using send()
             alert("Message is sent...");
             ws.send(jsonobject);
@@ -248,7 +248,7 @@ function signOutWebSocket(jsonobject) {
 
         //MORE CHANGES
 
-        ws.onmessage = function (evt) {
+        ws.onmessage = function(evt) {
             //fields: response, error
             //    alert("Response");
             //        alert(evt.data);
@@ -272,7 +272,7 @@ function signOutWebSocket(jsonobject) {
             return "";
         };
 
-        ws.onclose = function () {
+        ws.onclose = function() {
             // websocket is closed.
             //        alert("Connection is closed...");
         };
