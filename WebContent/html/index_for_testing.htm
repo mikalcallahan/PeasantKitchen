@@ -10,15 +10,18 @@
                alert("WebSocket is supported by your Browser!");
 
                // Let us open a web socket
-               var ws = new WebSocket("ws://localhost:8080/Peasant_Kitchen/user/create");
+               var ws = new WebSocket("ws://localhost:8080/Peasant_Kitchen/recipes");
 
                ws.onopen = function()
                {
                   // Web Socket is connected, send data using send()
                   alert("Message is sent...");
 
-                  requestObject = {username: "mr user", email: "mr@user", password: "123"}
-                  evenBetterRequestObject = {id: "user.create", payload: requestObject}
+                  var ingredients = ["Ground Beef"];
+                  var requestObject = {username: "mr user", ingredients: ingredients};
+                  var evenBetterRequestObject = {id: "contains", payload: requestObject};
+
+                  alert(JSON.stringify(evenBetterRequestObject));
 
                   ws.send(JSON.stringify(evenBetterRequestObject));
                };

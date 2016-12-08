@@ -40,8 +40,7 @@ function submitIngredients() {
     };
     requestObject = JSON.stringify(requestObject);
     alert(requestObject);
-    var recipes = websockets(requestObject);
-    displayRecipes(recipes);
+    websockets(requestObject);
 }
 
 /* submit ingredients with enter */
@@ -63,13 +62,13 @@ function websockets(jsonobject) {
         // Let us open a web socket
         var ws = new WebSocket("ws://localhost:8080/PeasantKitchen/recipes");
 
-        ws.onopen = function() {
+        ws.onopen = function () {
             // Web Socket is connected, send data using send()
             alert("Message is sent...");
             ws.send(jsonobject);
         };
 
-        ws.onmessage = function(evt) {
+        ws.onmessage = function (evt) {
             //fields: response, error
             //    alert("Response");
             //        alert(evt.data);
@@ -79,45 +78,44 @@ function websockets(jsonobject) {
             var responseObject = response.response;
             var error = response.error;
 
-            var recipes = JSON.stringify(responseObject);
+            alert(JSON.stringify(response));
 
-            alert(recipes);
-
-            if (error === null || error === undefined) {
-                alert("Happy days");
-                alert("Recipes: " + JSON.stringify(responseObject.recipes));
-                return responseObject.recipes;
+            if (error === null || error === undefined || error === "" || error === "\"\"") {
+                populateCurrentRecipesObject(responseObject);
+                displayRecipes(responseObject);
             }
+            else
+                alert(error);
 
-
-            alert(JSON.stringify(error));
-            return "";
         };
 
-        ws.onclose = function() {
+        ws.onclose = function () {
             // websocket is closed.
             //        alert("Connection is closed...");
         };
 
 
-    } else { // browser doesn't support websockets
-        //alert("WebSocket NOT supported by your Browser!");
     }
 }
 
 function displayRecipes(recipes) {
-    //    alert(JSON.stringify(recipes));
-
-    if (recipes === null || recipes === undefined)
+    if (recipes === null || recipes === undefined) {
+        alert("No recipes to display!");
         return;
+    }
+
+    var recipesGrid = document.getElementById("recipesGrid");
+
+    if(recipesGrid === null || recipesGrid === undefined)
+        alert("Failed to located the recipesGrid div!");
 
     var recipesPerRow = chunk(recipes, 8);
-    //    alert(JSON.stringify(recipesPerRow));
 
-    populateRecipeGrid(recipesPerRow);
+    populateRecipeGrid(recipesPerRow, recipesGrid);
 
     //display the recipes
-    recipesPerRow.setAttribute("style", "");
+    recipesGrid.setAttribute("style", "");
+
 
     function chunk(array, chunkSize) {
         var totalChunks = Math.ceil(array.length / chunkSize);
@@ -138,12 +136,11 @@ function displayRecipes(recipes) {
             chunks.add(array.slice(beginningOfChunk, array.length))
     }
 
-    function populateRecipeGrid(recipesPerRow) {
-        var recipesGridDiv = document.getElementById("recipesGrid");
+    function populateRecipeGrid(recipesPerRow, recipesGrid) {
         var rowDivElement;
 
         for (var rowRecipes in recipesPerRow) {
-            rowDivElement = attachDiv("row small-up-" + rowRecipes.length, recipesGridDiv);
+            rowDivElement = attachDiv("row small-up-" + rowRecipes.length, recipesGrid);
 
             for (var rowRecipe in rowRecipes) {
                 attachColumn(rowRecipe, rowDivElement);
@@ -167,8 +164,6 @@ function displayRecipes(recipes) {
             attachPElement(recipe.recipeName, column);
             attachImageElement(recipe.recipeThumbnailFilename, column);
 
-            //column.id = recipe.recipeID;
-
             column.setAttribute("id", recipe.recipeID);
 
             return column;
@@ -185,10 +180,6 @@ function displayRecipes(recipes) {
 
         function attachImageElement(imageLocation, parentElement) {
             var imgElement = document.createElement("img");
-
-            // imgElement.src = imageLocation;
-            // imgElement.alt = "";
-            // imgElement.className = "thumbnail";
 
             imgElement.setAttribute("src", imageLocation);
             imgElement.setAttribute("alt", "");
