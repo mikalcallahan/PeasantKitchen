@@ -89,23 +89,24 @@ ul.menuBar.responsive li a {
     text-align: left;
 }
 
-#enteringredients {
-    float: left;
-    width: 100%;
-}
-
-#amtTable {
-    float: left;
-}
-
-#ingrTable {
-    float: left;
-}
-
 .ingredientsbox {
     width: 95%;
     margin: 0px auto;
-    align-items: center;
+    /*align-items: center;*/
+    /*display: inline-block;*/
+}
+
+#enteringredients {
+    display: inline-block;
+    width: 100%;
+}
+
+.filter {
+    display: inline-block;
+    float: right;
+    padding-left: 20%;
+    padding-right: 30%;
+    padding-top: 3.5%;
 }
 
 .myingredients {
@@ -115,7 +116,13 @@ ul.menuBar.responsive li a {
     /*margin: 0px auto;*/
 }
 
+.ingredeientsinsert {
+    display: inline-block;
+    padding-right: 10px;
+}
+
 #foods {
+    display: inline-block;
     align-items: center;
     width: 300px;
     height: 35px;
@@ -123,13 +130,20 @@ ul.menuBar.responsive li a {
     padding-left: 5px;
     padding-top: 5px;
     padding-bottom: 5px;
-    padding-right: 20px;
+    padding-right: 10px;
     border-radius: 15px;
     opacity: 0.8;
 }
+
+#ingredientsAdd {}
 
 .openmodalbutton {
     display: block;
     align-items: center;
     width: 80%;
+}
+
+#modalswitch {
+    padding-left: 20%;
+    text-align: center;
 }
