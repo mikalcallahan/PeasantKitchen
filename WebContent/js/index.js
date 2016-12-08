@@ -81,6 +81,9 @@ function websockets(jsonobject) {
             alert(JSON.stringify(response));
 
             if (error === null || error === undefined || error === "" || error === "\"\"") {
+                alert(JSON.stringify(responseObject));
+                alert(JSON.stringify(responseObject.recipes));
+
                 populateCurrentRecipesObject(responseObject);
                 displayRecipes(responseObject);
             }
@@ -125,7 +128,7 @@ function displayRecipes(recipes) {
         var chunkCount = 0;
 
         while (endOfChunk <= array.length) {
-            chunks.add(array.slice(beginningOfChunk, endOfChunk));
+            chunks.push(array.slice(beginningOfChunk, endOfChunk));
 
             beginningOfChunk = endOfChunk;
             endOfChunk = endOfChunk + chunkSize;
@@ -133,7 +136,7 @@ function displayRecipes(recipes) {
         }
 
         if (chunkCount < totalChunks)
-            chunks.add(array.slice(beginningOfChunk, array.length))
+            chunks.push(array.slice(beginningOfChunk, array.length))
     }
 
     function populateRecipeGrid(recipesPerRow, recipesGrid) {
