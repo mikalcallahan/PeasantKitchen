@@ -89,7 +89,7 @@ public class BackendControllerImplTest
     {
         try
         {
-            BackendController testingController = makeTestingBackendControllerImpl(samParentDir);
+            BackendController testingController = makeTestingBackendControllerImpl(parentDir);
 
             //Creating legitimate username and password and passing it to controller
             User newUser = new User();
@@ -109,16 +109,15 @@ public class BackendControllerImplTest
     }
 
     /**
-     *Test for creatingUser method.
+     *test for creatingUser by creating the same user twice
      *Tests same user creating user.
      *Testing to make sure the backend doesn't create the same user.
      * @throws Exception the exception
      */
-//test for creatingUser by creating the same user twice
     @Test (expected = NullPointerException.class)
     public void testSameUserCreatingUser() throws Exception
     {
-        BackendController testingController = makeTestingBackendControllerImpl(samParentDir);
+        BackendController testingController = makeTestingBackendControllerImpl(parentDir);
 
         //Creating the same user twice. Passing it to controller
         User newUser = new User();
@@ -138,7 +137,7 @@ public class BackendControllerImplTest
     @Test (expected = NullPointerException.class)
     public void breakTestSpaceValuesCreatingUser() throws Exception
     {
-        BackendController testingController = makeTestingBackendControllerImpl(samParentDir);
+        BackendController testingController = makeTestingBackendControllerImpl(parentDir);
 
         //Creating username and password with only space, and passing it to controller
         User newUser = new User();
@@ -159,7 +158,7 @@ public class BackendControllerImplTest
     {
         try
         {
-            BackendController testingController = makeTestingBackendControllerImpl(samParentDir);
+            BackendController testingController = makeTestingBackendControllerImpl(parentDir);
 
             //creating username and password with NULL and passing it to controller
             //Will expect NULL
@@ -188,7 +187,7 @@ public class BackendControllerImplTest
     {
         try
         {
-            BackendController testingController = makeTestingBackendControllerImpl(samParentDir);
+            BackendController testingController = makeTestingBackendControllerImpl(parentDir);
 
             //Creating new username and password with an empty string and passing it to controller
             //Will expect NULL
@@ -219,7 +218,7 @@ public class BackendControllerImplTest
     {
         try
         {
-            BackendController testingController = makeTestingBackendControllerImpl(samParentDir);
+            BackendController testingController = makeTestingBackendControllerImpl(parentDir);
 
             //Creating new user with given username/password and passing it to controller
             //This should be able to sign in, if not, failure message will show
@@ -250,7 +249,7 @@ public class BackendControllerImplTest
     {
         try
         {
-            BackendController testingController = makeTestingBackendControllerImpl(samParentDir);
+            BackendController testingController = makeTestingBackendControllerImpl(parentDir);
             //Creating new user with given username/password and passing it to the controller
             User newUser = new User();
             User newPass = new User();
@@ -282,7 +281,7 @@ public class BackendControllerImplTest
     {
         try
         {
-            BackendController testingController = makeTestingBackendControllerImpl(samParentDir);
+            BackendController testingController = makeTestingBackendControllerImpl(parentDir);
 
             //Creating the same user twice. Passing it to the controller
             //Displays failure message if username is taken
@@ -310,7 +309,7 @@ public class BackendControllerImplTest
     {
         try
         {
-            BackendController testingController = makeTestingBackendControllerImpl(samParentDir);
+            BackendController testingController = makeTestingBackendControllerImpl(parentDir);
 
             User newUser = new User();
             newUser.username = null;
@@ -337,7 +336,7 @@ public class BackendControllerImplTest
         //may contain others; if you pass egg but they may contain other things
         try
         {
-            BackendController testingController = makeTestingBackendControllerImpl(samParentDir);
+            BackendController testingController = makeTestingBackendControllerImpl(parentDir);
 
             User newUser = new User();
             newUser.username = "MAH USER";
@@ -374,7 +373,7 @@ public class BackendControllerImplTest
         //may contain others; if you pass egg but they may contain other things
         try
         {
-            BackendController testingController = makeTestingBackendControllerImpl(samParentDir);
+            BackendController testingController = makeTestingBackendControllerImpl(parentDir);
 
             User newUser = new User();
             newUser.username = "MAH USER";
@@ -409,7 +408,7 @@ public class BackendControllerImplTest
     {
         try
         {
-            BackendController testingController = makeTestingBackendControllerImpl(samParentDir);
+            BackendController testingController = makeTestingBackendControllerImpl(parentDir);
 
             User testUser = new User();
             testUser.username = "my new user";
