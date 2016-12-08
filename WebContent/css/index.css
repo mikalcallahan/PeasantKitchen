@@ -147,3 +147,10 @@ ul.menuBar.responsive li a {
     padding-left: 20%;
     text-align: center;
 }
+
+
+/*
+a[data-reveal-id] h3 {
+    color: black;
+}
+*/
