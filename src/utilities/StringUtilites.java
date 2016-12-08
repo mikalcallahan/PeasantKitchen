@@ -2,9 +2,11 @@ package utilities;
 
 import java.util.ArrayList;
 
+
 /**
- * The type String utilites.
+ * A smattering of helpful String-related functions
  */
+
 public class StringUtilites
 {
     /**
@@ -23,7 +25,7 @@ public class StringUtilites
     }
 
     /**
-     * Join string.
+     * Join the given strings together into a single result string.
      *
      * @param strings the strings
      * @return the string
@@ -58,7 +60,8 @@ public class StringUtilites
     }
 
     /**
-     * Clean ingredient string.
+     * Clean ingredient strings. This means that the ingredient string will be converted into a normal
+     * format, which is lowercase with no leading or trailing whitespace.
      *
      * @param ingredient the ingredient
      * @return the string
@@ -72,7 +75,8 @@ public class StringUtilites
     }
 
     /**
-     * Is only whitespace boolean.
+     * Checks to see if the string contains no other characters besides whitespace, as defined by
+     * Character.isWhitespace(currentChar)
      *
      * @param str the str
      * @return the boolean

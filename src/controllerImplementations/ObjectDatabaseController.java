@@ -9,18 +9,12 @@ import framework.Recipes;
 import framework.User;
 import framework.controllers.DatabaseController;
 import utilities.CollectionUtils;
+import utilities.StringUtilites;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
-
-
-/*
- * PERSONAL LOG
- * 
- * That requirements string must be changed into something which is parsable
- */
 
 
 /**
@@ -66,6 +60,8 @@ public class ObjectDatabaseController extends DatabaseController
     @Override
     public Recipes getRecipesContainingIngredients(ArrayList<String> cleanedIngredients)
     {
+
+
         return
                 this.applicationData.filterRecipes(
                         (Recipe recipe) -> {

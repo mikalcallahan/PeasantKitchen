@@ -31,9 +31,6 @@ public class HandleContainingIngredientsMessage extends WebSocketMessageHandler
 
     private void verify(Request request)
     {
-        if (StringUtilites.isVoidString(request.username))
-            throw new NullPointerException("/recipes/contains: requires a username to process your request");
-
         if (request.ingredients == null || request.ingredients.isEmpty())
             throw new NullPointerException("/recipes/contains: requires a list of ingredients to process your request");
 
