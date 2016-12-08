@@ -28,8 +28,6 @@ public class HandleContainingIngredientsMessage extends WebSocketMessageHandler
         Response response = createResponse(recipes);
         Utilities.sendStandardWebSocketResponse(session, response);
         session.close();
-
-//        throw new RuntimeException(Integer.toString(recipes.size()));
     }
 
     private void verify(Request request)
