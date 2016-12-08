@@ -25,7 +25,7 @@ public class ObjectDatabaseController extends DatabaseController
     /**
      * The Application data.
      */
-    protected ApplicationData applicationData = new ApplicationData(new File("/home/stoffel/Documents/School/Software Engineering/TestingOutput/"));
+    protected ApplicationData applicationData;
 
     /**
      * Instantiates a new Object database controller.

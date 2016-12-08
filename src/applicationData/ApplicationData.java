@@ -287,7 +287,7 @@ public class ApplicationData
     {
         Parser<File, Recipes> recipesParser = new RecipesCSVParser();
 
-        System.out.println("this.getRecipesCSV().getAbsolutePath() = " + this.getRecipesCSV().getAbsolutePath());
+        //System.out.println("this.getRecipesCSV().getAbsolutePath() = " + this.getRecipesCSV().getAbsolutePath());
 
         return recipesParser.parse(this.getRecipesCSV());
     }
@@ -312,7 +312,7 @@ public class ApplicationData
      *
      * @return the dabase cs vs folder
      */
-    public File getDabaseCSVsFolder()
+    public File getDatabaseCSVsFolder()
     {
         return new File(this.parentDir, Constants.databaseCSVFolder);
     }
@@ -324,7 +324,7 @@ public class ApplicationData
      */
     public File getRecipesCSV()
     {
-        return new File(this.getDabaseCSVsFolder(), Constants.recipesCSV);
+        return new File(this.getDatabaseCSVsFolder(), Constants.recipesCSV);
     }
 
     @Override
