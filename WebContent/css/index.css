@@ -172,7 +172,6 @@ tr {
     text-align: center;
 }
 
-.radius button {
-    background-color: red;
-    color: red;
+.recipemodal {
+    align-items: center;
 }
