@@ -149,8 +149,14 @@ tr {
     opacity: 0.8;
 }
 
+.ingredientsSubmit {
+    display: block;
+    padding-top: 17.5%;
+}
+
 #ingredientsSubmit {
-    display: inline-table;
+    /*display: inline-table;*/
+    display: block;
     position: absolute;
 }
 
@@ -164,4 +170,9 @@ tr {
 #modalswitch {
     padding-left: 20%;
     text-align: center;
+}
+
+.radius button {
+    background-color: red;
+    color: red;
 }

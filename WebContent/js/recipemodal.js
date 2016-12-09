@@ -1,6 +1,6 @@
 $(document).ready(function() {
-    var recipeTitle;
-    var recipe;
+    var recipeTitle = "Spaggethi";
+    var recipe = "noodles";
     $("#modalswitch").click(function() {
         $("#recipetitle").html(recipeTitle);
         $("#recipedisplay").html(recipe);
@@ -10,3 +10,6 @@ $(document).ready(function() {
 function testShit() {
     alert("workking?");
 }
+
+// recipesPerRow
+// populateRecipeGrid
