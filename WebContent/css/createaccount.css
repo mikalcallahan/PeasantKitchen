@@ -23,7 +23,6 @@ img.PKitchen {
 
 body {
     background-image: url("../images_folder/Food.jpg");
-    /*background-color: darkGrey;*/
     margin: 0;
     padding: 0;
 }
@@ -39,6 +38,7 @@ body {
 /* css the form */
 
 form {
+    color: inherit;
     background-color: white;
     border: 3px solid #f1f1f1;
     margin: 0 auto;
@@ -61,6 +61,7 @@ input[type=text], input[type=password] {
 /* container padding */
 
 .container {
+    color: inherit;
     background-color: white;
     padding: 15px;
 }
@@ -68,4 +69,43 @@ input[type=text], input[type=password] {
 #button {
     padding-left: 20px;
     padding-bottom: 10px;
+}
+
+ul.menuBar {
+    /*padding-top: 10%;*/
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #b3b3b3;
+    color: inherit;
+    width: 100%;
+}
+
+
+/*Float the list items side by side*/
+
+ul.menuBar li {
+    float: left;
+}
+
+
+/* Style the links inside the list items */
+
+ul.menuBar li a {
+    display: inline-block;
+    background-color: inherit;
+    color: red;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+#signoutbutton {
+    display: flex;
+    vertical-align: center;
+    float: right;
+    padding-top: 1%;
 }

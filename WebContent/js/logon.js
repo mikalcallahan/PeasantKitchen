@@ -34,7 +34,7 @@ function websockets(jsonobject) {
     /* if websocket is supported */
     if ("WebSocket" in window) {
         alert("WebSocket is supported by your Browser!"); // hurray its supported!
-        alert(jsonobject); // test to make sure jsonobject is passed
+        alert("The jsonobject to be sent is:\n" + jsonobject); // test to make sure jsonobject is passed
 
 
         // Let us open a web socket

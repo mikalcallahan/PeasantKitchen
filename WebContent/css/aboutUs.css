@@ -10,9 +10,6 @@
     /* background-color: DarkGrey;*/
 }
 
-
-/* Flower list items */
-
 .crew li {
     /* background-color: DarkGrey;*/
     position: relative;
@@ -22,14 +19,13 @@
     float: left;
 }
 
-
-/* Flower list anchor tags */
-
 .crew li a {
     font-size: 20px;
+    background-color: inherit;
     color: white;
     text-align: center;
-    font-family: arial;
+    font-family: arial, sans-serif;
+    ;
     padding-left: 40px;
     text-decoration: none;
     overflow: hidden;
@@ -41,9 +37,6 @@
     margin-left: 50px;
     padding-left: 70px;
 }
-
-
-/* Flower unordered lists */
 
 .crewRows {
     list-style-type: none;
