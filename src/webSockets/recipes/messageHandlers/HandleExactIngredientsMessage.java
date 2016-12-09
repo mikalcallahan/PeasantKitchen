@@ -1,6 +1,7 @@
 package webSockets.recipes.messageHandlers;
 
 import com.google.gson.JsonObject;
+import framework.Recipe;
 import framework.Recipes;
 import framework.WebSocketGlobalEnvironment;
 import framework.WebSocketMessageHandler;
@@ -47,6 +48,15 @@ public class HandleExactIngredientsMessage extends WebSocketMessageHandler
         Response response = new Response();
 
         response.recipes = recipes;
+
+        //generate unique IDs for each recipe
+        int counter = 0;
+
+        for (Recipe recipe : response.recipes)
+        {
+            recipe.recipeID = counter;
+            counter++;
+        }
 
         return response;
     }

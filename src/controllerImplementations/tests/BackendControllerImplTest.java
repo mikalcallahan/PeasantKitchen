@@ -78,36 +78,6 @@ public class BackendControllerImplTest
 
     }
 
-
-    /*
-     *Test for creatingUser method.
-     *Tests to make sure backend can successfully create a user.
-     *given username and password.
-     */
-    @Test
-    public void testCreatingUser()
-    {
-        try
-        {
-            BackendController testingController = makeTestingBackendControllerImpl(parentDir);
-
-            //Creating legitimate username and password and passing it to controller
-            User newUser = new User();
-            newUser.username = "MAH USER";
-            newUser.password = "password";
-
-            User createdUser = testingController.createUser(newUser);
-
-            assertTrue("The initial User object: [\n" + newUser.toString() + "\n] is different than the created User object: [\n" + createdUser.toString() + "]\n", newUser.equals(createdUser));
-
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-
-    }
-
     /**
      *test for creatingUser by creating the same user twice
      *Tests same user creating user.
@@ -208,36 +178,6 @@ public class BackendControllerImplTest
     }
 
 
-    /**
-     *Test for signingInUser method.
-     *Tests signing in user.
-     *Testing to make sure the backend signs in user using given parameters.
-     */
-    @Test
-    public void testSigningInUser()
-    {
-        try
-        {
-            BackendController testingController = makeTestingBackendControllerImpl(parentDir);
-
-            //Creating new user with given username/password and passing it to controller
-            //This should be able to sign in, if not, failure message will show
-            User newUser = new User();
-            newUser.username = "MAH USER";
-            newUser.password = "password";
-
-            User createdUser = testingController.createUser(newUser);
-            User signedInUser = testingController.signUserIn(newUser.username);
-
-            //assertTrue("The initial User object: [\n" + newUser.toString() + "\n] is different than the signedInUser User object: [\n" + createdUser.toString() + "]\n", newUser.equals(signedInUser));
-            assertTrue("Sign in failure", signedInUser.isSignedIn());
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-
-    }
 
     /**
      * Test for signingOutUser method.
