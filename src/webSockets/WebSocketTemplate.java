@@ -9,8 +9,10 @@ import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 
 /**
- * The type Web socket template.
+ * A template web socket. Copy and paste this when creating a new web socket, to create a new web socket
+ * nice and quickly.
  */
+
 @ServerEndpoint("/change/me")
 public class WebSocketTemplate extends PostWebSocket
 {

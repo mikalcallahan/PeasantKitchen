@@ -26,6 +26,12 @@ public class CreateNewUser extends PostWebSocket
         super();
     }
 
+    /**
+     * Add our message handlers
+     *
+     * @return
+     */
+
     @Override
     public boolean initialize()
     {
@@ -92,9 +98,12 @@ public class CreateNewUser extends PostWebSocket
 
             User createdUser = WebSocketGlobalEnvironment.instance().getBackendController().createUser(tempUser);
 
+            //Get our response object
             Response response = createResponse(createdUser);
+
+            //..and send the response to the user
             Utilities.sendStandardWebSocketResponse(session, response);
-            session.close();
+            session.close(); //we don't need the session to be open anymore
         }
 
         private void verify(RequestParameters requestParameters) throws Exception

@@ -2,23 +2,6 @@
 
 #banner {}
 
-body {
-    background-color: darkGrey;
-    color: inherit;
-    /* min-width: 1800px;*/
-    width: 100%;
-}
-
-form {
-    display: table;
-    margin: 0 auto;
-    align-items: center;
-}
-
-td {
-    border: 1px solid black;
-}
-
 ul.menuBar {
     list-style-type: none;
     margin: 0;
@@ -59,25 +42,25 @@ ul.menuBar li a {
 
 
 /*
-ul.menuBar li a:hover {background-color: #555;}
+	ul.menuBar li a:hover {background-color: #555;}
 
-ul.menuBar li.icon {display: none;}
-@media screen and (max-width:680px) {
-  ul.topnav li:not(:first-child) {display: none;}
-  ul.topnav li.icon {
-    float: right;
-    display: inline-block;
-  }
-}
+	ul.menuBar li.icon {display: none;}
+	@media screen and (max-width:680px) {
+	  ul.topnav li:not(:first-child) {display: none;}
+	  ul.topnav li.icon {
+	    float: right;
+	    display: inline-block;
+	  }
+	}
 
-@media screen and (max-width:680px) {
-  ul.menuBar.responsive {position: relative;}
-  ul.menuBar.responsive li.icon {
-    position: absolute;
-    right: 0;
-    top: 0;
-  }
-	*/
+	@media screen and (max-width:680px) {
+	  ul.menuBar.responsive {position: relative;}
+	  ul.menuBar.responsive li.icon {
+	    position: absolute;
+	    right: 0;
+	    top: 0;
+	  }
+		*/
 
 ul.menuBar.responsive li {
     float: none;
@@ -89,33 +72,75 @@ ul.menuBar.responsive li a {
     text-align: left;
 }
 
-#enteringredients {
-    float: left;
+html {
+    /*    background-color: darkGrey;*/
+}
+
+body {
+    /*    background-color: darkGrey;*/
+    color: inherit;
+    /* min-width: 1800px;*/
     width: 100%;
 }
 
-#amtTable {
-    float: left;
-}
-
-#ingrTable {
-    float: left;
+form {
+    display: table;
+    margin: 0 auto;
+    align-items: center;
 }
 
 .ingredientsbox {
+    /*display: table;*/
     width: 95%;
     margin: 0px auto;
-    align-items: center;
+    /*align-items: center;*/
+    /*display: inline-block;*/
+    vertical-align: top;
+}
+
+#enteringredients {
+    display: inline-block;
+    width: 100%;
+}
+
+.filter {
+    display: inline-block;
+    float: right;
+    padding-left: 20%;
+    padding-right: 30%;
+    padding-top: 3.5%;
 }
 
 .myingredients {
     border: black solid;
+    /*display: table;*/
     height: 200px;
     width: 50%;
+    vertical-align: top;
+    display: table;
+    position: fixed;
     /*margin: 0px auto;*/
 }
 
+#ingrTable {
+    /*display: inline;*/
+    /*table-layout: fixed;*/
+    word-wrap: break-word;
+    width: 100%;
+}
+
+td {
+    /*border: 1px solid black;*/
+    word-wrap: break-word;
+    width: 100%;
+}
+
+tr {
+    width: 100%;
+}
+
 #foods {
+    display: inline-block;
     align-items: center;
     width: 300px;
     height: 35px;
@@ -123,7 +148,34 @@ ul.menuBar.responsive li a {
     padding-left: 5px;
     padding-top: 5px;
     padding-bottom: 5px;
-    padding-right: 20px;
+    padding-right: 10px;
     border-radius: 15px;
     opacity: 0.8;
+}
+
+.ingredientsSubmit {
+    display: block;
+    padding-top: 17.5%;
+}
+
+#ingredientsSubmit {
+    /*display: inline-table;*/
+    display: block;
+    position: absolute;
+}
+
+.openmodalbutton {
+    /*align-items: center;*/
+    float: right;
+    padding-right: 3%;
+    width: 80%;
+}
+
+#modalswitch {
+    padding-left: 20%;
+    text-align: center;
+}
+
+.recipemodal {
+    align-items: center;
 }

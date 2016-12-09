@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+
+   <script type="text/javascript">
+         function WebSocketTest()
+         {
+            if ("WebSocket" in window)
+            {
+               alert("WebSocket is supported by your Browser!");
+
+               // Let us open a web socket
+               var ws = new WebSocket("ws://localhost:8080/Peasant_Kitchen/recipes");
+
+               ws.onopen = function()
+               {
+                  // Web Socket is connected, send data using send()
+                  alert("Message is sent...");
+
+                  var ingredients = ["Ground Beef"];
+                  var requestObject = {username: "mr user", ingredients: ingredients};
+                  var evenBetterRequestObject = {id: "contains", payload: requestObject};
+
+                  alert(JSON.stringify(evenBetterRequestObject));
+
+                  ws.send(JSON.stringify(evenBetterRequestObject));
+               };
+
+               ws.onmessage = function (evt)
+               {
+                 //fields: response, error
+
+                 alert(evt.data);
+
+                 var response = JSON.parse(evt.data);
+
+                 var responseObject = response.response;
+                 var error = response.error;
+
+                 if(error === null || error === undefined)
+                 {
+                    //happy days
+                    alert("Happy days")
+                 }
+                 else {
+                   alert(JSON.stringify(error))
+                 }
+
+                  // var response = JSON.parse(evt.data);
+                  // var responseObject = response.response;
+                  //
+                  // alert(JSON.stringify(responseObject));
+               };
+
+               ws.onclose = function()
+               {
+                  // websocket is closed.
+                  alert("Connection is closed...");
+               };
+            }
+
+            else
+            {
+               // The browser doesn't support WebSocket
+               alert("WebSocket NOT supported by your Browser!");
+            }
+         }
+      </script>
+
+</head>
+<body>
+
+<div id="sse">
+   <a href="javascript:WebSocketTest()">Run WebSocket</a>
+</div>
+
+</body>
+</html>

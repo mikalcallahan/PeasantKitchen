@@ -15,9 +15,12 @@ import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Predicate;
 
+
 /**
- * The type Application data.
+ * Stores and provides access to all of the data managed by the ObjectDatabaseController.
  */
+
+
 public class ApplicationData
 {
     /**
@@ -25,15 +28,19 @@ public class ApplicationData
      */
     protected Recipes recipes = new Recipes();
     /**
-     * The Concurrent recipes.
+     * Synchronized access to the recipes list (for thread safety)
      */
     protected List<Recipe> concurrentRecipes = Collections.synchronizedList(recipes);
     /**
-     * The Users.
+     * All users (includes signed in users, and users whom are signed out)
      */
     protected ConcurrentHashMap<String, User> users = new ConcurrentHashMap<String, User>();
 
-    private transient File parentDir;
+    /*
+    This is the relative root of all paths used in this class. This field is intended to be set at server startup time,
+    therefore there is no need to store this path to disk. This explains the transient marker.
+     */
+    private File parentDir;
 
     /**
      * Instantiates a new Application data.
@@ -46,7 +53,7 @@ public class ApplicationData
     }
 
     /**
-     * The entry point of application.
+     * A testing main (used to test code as I write it)
      *
      * @param args the input arguments
      * @throws Exception the exception
@@ -55,6 +62,11 @@ public class ApplicationData
     {
         testLoadingAndSaving();
     }
+
+    /**
+     * Testing method (should not be exposed to clients)
+     * @throws Exception
+     */
 
     private static void testLoadingAndSaving() throws Exception
     {
@@ -94,7 +106,8 @@ public class ApplicationData
     }
 
     /**
-     * Load from disk.
+     * Load the saved application data from disk, or, if there is no saved data on disk or it cannot be found,
+     * load the default application data.
      *
      * @throws Exception the exception
      */
@@ -117,7 +130,7 @@ public class ApplicationData
     }
 
     /**
-     * Save to disk.
+     * Saves the current state of the application data to disk.
      *
      * @throws Exception the exception
      */
@@ -144,7 +157,7 @@ public class ApplicationData
 	 */
 
     /**
-     * Visit recipes.
+     * Implements the visitor design pattern for recipes.
      *
      * @param visitor the visitor
      */
@@ -157,6 +170,13 @@ public class ApplicationData
         }
     }
 
+    /**
+     * Returns a list of recipes that the given predicate function's test method returned true for.
+     * It is similar to a white-list filter.
+     * @param predicate
+     * @return
+     */
+
     public Recipes filterRecipes(Predicate<Recipe> predicate)
     {
         Recipes results = new Recipes();
@@ -164,6 +184,7 @@ public class ApplicationData
         this.visitRecipes(
                 (Recipe recipe) ->
                 {
+
                     if (predicate.test(recipe))
                         results.add(recipe);
                 }
@@ -171,6 +192,12 @@ public class ApplicationData
 
         return results;
     }
+
+    /**
+     * Adds the given recipe.
+     * @param recipe
+     * @return
+     */
 
     public Recipe addRecipe(Recipe recipe)
     {
@@ -181,7 +208,7 @@ public class ApplicationData
     }
 
     /**
-     * Visit users.
+     * Implements the visitor pattern for Users.
      *
      * @param visitor the visitor
      */
@@ -259,6 +286,9 @@ public class ApplicationData
     private Recipes loadDefaultRecipes() throws Exception
     {
         Parser<File, Recipes> recipesParser = new RecipesCSVParser();
+
+        //System.out.println("this.getRecipesCSV().getAbsolutePath() = " + this.getRecipesCSV().getAbsolutePath());
+
         return recipesParser.parse(this.getRecipesCSV());
     }
 
@@ -282,7 +312,7 @@ public class ApplicationData
      *
      * @return the dabase cs vs folder
      */
-    public File getDabaseCSVsFolder()
+    public File getDatabaseCSVsFolder()
     {
         return new File(this.parentDir, Constants.databaseCSVFolder);
     }
@@ -294,7 +324,7 @@ public class ApplicationData
      */
     public File getRecipesCSV()
     {
-        return new File(this.getDabaseCSVsFolder(), Constants.recipesCSV);
+        return new File(this.getDatabaseCSVsFolder(), Constants.recipesCSV);
     }
 
     @Override

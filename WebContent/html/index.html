@@ -52,30 +52,6 @@
 	</ul>
 	<br>
 	<div class="ingredientsbox">
-		<!--Allows users to enter ingredients-->
-
-		<div id='my-ingredients' class="c-bottom" style="">
-			<!--Allows users to enter ingredients-->
-
-			<!-- Dropdown Boxes-->
-			<!--<div>
-				<dl class='filter'>
-					<dt>
-						<span>Time</span>
-				<dd>
-
-						<ul>
-							<li><input type="checkbox" value="5m"/> 5min-10min</li>
-							<li><input type="checkbox" value="10m"/> 10min-15min</li>
-							<li><input type="checkbox" value="15m"/> 15min-20min</li>
-							<li><input type="checkbox" value="25m"/> 25min+</li>
-						</ul>
-
-				</dd>
-			</dl>
-			<button> Filter</button>-->
-		</div>
-
 		<form id="enteringredients">
 			<!--	<select id="numberof" onchange="createTable1()">
                 <option value="0">0</option>
@@ -86,17 +62,46 @@
                 <option value="5">5</option>
             </select> -->
 
+			<!-- Dropdown Boxes-->
 			<input type="text" id="foods" onkeydown="enterButton(event)" placeholder="Add Ingredients" />
-			<input name="generate" id="ingredientsAdd" type="button" value="Add Ingredient!" onclick="createTable()" />
-			<!--<input id="foods" list="ingredients" onkeydown ="enterButton(event)" placeholder ="Add Ingredients"/>-->
-			<!-- <datalist id="ingredients"></datalist>-->
+			<div class="filter">
+				<dl>
+					<dt>
+								<span>Time</span>
+						<dd>
+
+								<ul class="no-bullet">
+									<li><input type="radio" name="time" value="5m"/> 5min-10min</li>
+									<li><input type="radio" name="time" value="10m"/> 10min-15min</li>
+									<li><input type="radio" name="time" value="15m"/> 15min-20min</li>
+									<li><input type="radio" name="time" value="25m"/> 25min+</li>
+								</ul>
+
+						</dd>
+					</dl>
+					<input type="button" value="Filter"/>
+					<input id="cleartable" type="button" value="Clear"/>
+				</div>
+				<input name="generate" id="ingredientsAdd" type="button" value="Insert Ingredient!" onclick="createTable()"/>
+				<div class='myingredients'>
+					<!--Prints users Input-->
+					<table id="ingrTable">
+						<tbody>
+							<tr>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<div class="ingredientsSubmit"><input name="generate" id="ingredientsSubmit" type="button" value="Submit Ingredients!" onclick="submitIngredients()"/>
+				</div>
+
 		</form>
-		<br><br>
-		<br><br>
-		<div class='myingredients'>
 
-			<!--Prints users Input-->
 
+
+			<!--Prints users Input--><!--
 			<table id="amtTable">
 				<tr>
 					<td></td>
@@ -107,33 +112,38 @@
 					<td></td>
 				</tr>
 			</table>
-		</div>
-		<input name="generate" id="ingredientsSubmit" type="button" value="Submit Ingredients!" onclick="submitIngredients()" />
-	</div>
+-->
+
 	</div>
 
 	<!-- Initially, hide this element -->
-	<div id="recipesGrid" style="display:none;"></div>
+
+	<div id="recipesGrid"></div>
 
 	<br><br><br>
-	<p id="tet">This is test data</p>
+	<div class="openmodalbutton">
+		<p id="modalswitch"><a class="radius button" data-open="myModal">Click me for a modal</a></p>
+	</div>
 	<br><br><br>
-	<p id="modalswitch"><a data-open="myModal">Click me for a modal</a></p>
 
-	<div class="small reveal" id="myModal" data-reveal data-animation-in="fade-in" data-animation-out="fade-out">
-		<h2 id="recipetitle">INSERT TITLE</h2>
-		<img id="recipeimg" src="http://i.imgur.com/NSxU6zi.gif" alt="">
-		<p id="recipedisplay">Insert Recipe</p>
-		<button class="close-button" data-close aria-label="Close modal" type="button">
-    		<span aria-hidden="true">&times;</span>
-  		</button>
+	<div class="recipemodal">
+		<div class="small reveal" id="myModal" data-reveal data-animation-in="fade-in" data-animation-out="fade-out">
+			<h2 id="recipetitle">This is the recipe title</h2>
+			<p>This is the recipe picture<br>
+				<img id="recipeimg" src="http://i.imgur.com/NSxU6zi.gif" alt="">
+			</p>
+			<p id="recipedisplay">This is the recipe</p>
+			<button class="close-button" data-close aria-label="Close modal" type="button">
+	    		<span aria-hidden="true">&times;</span>
+	  		</button>
+		</div>
 	</div>
 
 	<script src="../js/vendor/what-input.js"></script>
 	<script src="../js/vendor/foundation.js"></script>
 	<script src="../js/app.js"></script>
-	<script src="js/vendor/jquery.js"></script>
-	<script src="js/foundation.min.js"></script>
+	<!-- <script src="../js/vendor/jquery.js"></script>
+	<script src="../js/foundation.min.js"></script> -->
 	<script>
 		$(document).foundation();
 	</script>

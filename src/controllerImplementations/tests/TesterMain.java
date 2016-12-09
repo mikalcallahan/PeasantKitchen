@@ -11,7 +11,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 /**
- * The type Tester main.
+ * Used for testing random things; this is not a formal test method in any way
  */
 public class TesterMain
 {
@@ -25,7 +25,7 @@ public class TesterMain
     {
         try
         {
-            File parentDir = new File("/home/stoffel/Documents/School/Software Engineering/TestingOutput/");
+            File parentDir = new File("/home/stoffel/Documents/School/Software Engineering/TestingOutput");
             BackendControllerImpl testingController = BackendControllerImpl.makeTestingBackendControllerImpl(parentDir);
 
             User newUser = new User();
@@ -34,21 +34,15 @@ public class TesterMain
 
             User signedInUser;
 
-            ArrayList<String> ingredients = CollectionUtils.arrayList("ground beef");
+            ArrayList<String> ingredients = CollectionUtils.arrayList("Ground Beef");
 
             signedInUser = testingController.createUser(newUser);
             signedInUser = testingController.signUserIn(signedInUser.username);
 
             Recipes recipes = testingController.getRecipesContainingIngredients(ingredients, newUser.username);
-
-            recipes.visit(new Visitor<Recipe>()
-            {
-                @Override
-                public void visit(Recipe item)
-                {
-                    System.out.println(item.toString() + "\n");
-                }
-            });
+            
+            for(Recipe recipe : recipes)
+                System.out.println("recipe.toString() = " + recipe.toString());
 
         }
         catch (Exception e)

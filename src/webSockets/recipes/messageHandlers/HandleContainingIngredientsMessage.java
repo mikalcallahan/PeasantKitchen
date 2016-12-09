@@ -1,6 +1,7 @@
 package webSockets.recipes.messageHandlers;
 
 import com.google.gson.JsonObject;
+import framework.Recipe;
 import framework.Recipes;
 import framework.WebSocketGlobalEnvironment;
 import framework.WebSocketMessageHandler;
@@ -8,6 +9,7 @@ import utilities.StringUtilites;
 import utilities.Utilities;
 
 import javax.websocket.Session;
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -31,9 +33,6 @@ public class HandleContainingIngredientsMessage extends WebSocketMessageHandler
 
     private void verify(Request request)
     {
-        if (StringUtilites.isVoidString(request.username))
-            throw new NullPointerException("/recipes/contains: requires a username to process your request");
-
         if (request.ingredients == null || request.ingredients.isEmpty())
             throw new NullPointerException("/recipes/contains: requires a list of ingredients to process your request");
 
@@ -47,6 +46,15 @@ public class HandleContainingIngredientsMessage extends WebSocketMessageHandler
         Response response = new Response();
 
         response.recipes = recipes;
+
+        //generate unique IDs for each recipe
+        int counter = 0;
+
+        for (Recipe recipe : response.recipes)
+        {
+            recipe.recipeID = counter;
+            counter++;
+        }
 
         return response;
     }
@@ -69,7 +77,7 @@ public class HandleContainingIngredientsMessage extends WebSocketMessageHandler
         /**
          * The Recipes.
          */
-        public Recipes recipes = new Recipes();
+        public ArrayList<Recipe> recipes;
     }
 
 }

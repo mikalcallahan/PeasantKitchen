@@ -18,4 +18,17 @@ public class Recipes extends ArrayList<Recipe>
         for (Recipe recipe : this)
             visitor.visit(recipe);
     }
+
+    @Override
+    public String toString()
+    {
+       StringBuilder str = new StringBuilder();
+
+        for (Recipe recipe : this)
+        {
+            str.append(recipe.toString() + "\n");
+        }
+
+        return str.toString();
+    }
 }
