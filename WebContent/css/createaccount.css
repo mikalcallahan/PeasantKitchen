@@ -1,105 +1,71 @@
-<<<<<<< HEAD
 /*
  *	This is the style shee for create account page
  */
 
-	 /* css the imgcontainer */
-	 .imgcontainer {
-	     text-align: center;
-	     margin: 24px 0 12px 0;
-	 }
 
-	 /* css the logo */
-	 img.PKitchen {
-	     width: 40%;
-	     border-radius: 50%;
-	 }
+/* css the imgcontainer */
 
-	 /* css the body if desired // centers form */
-	body{
-		background-image: url("../images_folder/Food.jpg");
-		/*background-color: darkGrey;*/
-		margin: 0;
-		padding: 0;
-	}
+.imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+}
 
-	/* center the title */
-	#title{
-		text-align: center;
-	}
 
-	/* css the form */
-	form {
-	    border: 3px solid #f1f1f1;
-		 margin: 0 auto;
-		 width: 400px;
-	}
+/* css the logo */
 
-	/* css the text and password forms */
-	input[type=text], input[type=password] {
-	    width: 100%;
-	    padding: 12px 20px;
-	    margin: 8px 0;
-	    display: inline-block;
-	    border: 1px solid #ccc;
-	    box-sizing: border-box;
-	}
+img.PKitchen {
+    width: 40%;
+    border-radius: 50%;
+}
 
-	/* container padding */
-	.container {
-		background-color: white;
-	    padding: 15px;
-	}
-=======
-/*
- *	This is the style shee for create account page
- */
 
-	 /* css the imgcontainer */
-	 .imgcontainer {
-	     text-align: center;
-	     margin: 24px 0 12px 0;
-	 }
+/* css the body if desired // centers form */
 
-	 /* css the logo */
-	 img.PKitchen {
-	     width: 40%;
-	     border-radius: 50%;
-	 }
+body {
+    background-image: url("../images_folder/Food.jpg");
+    /*background-color: darkGrey;*/
+    margin: 0;
+    padding: 0;
+}
 
-	 /* css the body if desired // centers form */
-	body{
-		background-image: url("../images_folder/Food.jpg");
-		/*background-color: darkGrey;*/
-		margin: 0;
-		padding: 0;
-	}
 
-	/* center the title */
-	#title{
-		text-align: center;
-	}
+/* center the title */
 
-	/* css the form */
-	form {
-	    border: 3px solid #f1f1f1;
-		 margin: 0 auto;
-		 width: 400px;
-	}
+#title {
+    text-align: center;
+}
 
-	/* css the text and password forms */
-	input[type=text], input[type=password] {
-	    width: 100%;
-	    padding: 12px 20px;
-	    margin: 8px 0;
-	    display: inline-block;
-	    border: 1px solid #ccc;
-	    box-sizing: border-box;
-	}
 
-	/* container padding */
-	.container {
-		background-color: white;
-	    padding: 15px;
-	}
->>>>>>> af998be20a217fb107e4c13f74eac06dbbacc3cd
+/* css the form */
+
+form {
+    background-color: white;
+    border: 3px solid #f1f1f1;
+    margin: 0 auto;
+    width: 400px;
+}
+
+
+/* css the text and password forms */
+
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+
+/* container padding */
+
+.container {
+    background-color: white;
+    padding: 15px;
+}
+
+#button {
+    padding-left: 20px;
+    padding-bottom: 10px;
+}

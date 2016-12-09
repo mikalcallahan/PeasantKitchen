@@ -1,18 +1,3 @@
-/*
-function check(form)
-{
-
- if(form.uname.value == "username" && form.pws.value == "password")
-  {
-    window.location('index.html')
-  }
- else
- {
-   alert("Error Password or Username")
-  }
-}
-*/
-
 var currentUsername = "";
 
 function tojson() {
@@ -42,7 +27,7 @@ function tojson() {
             websockets(jsonobject); // call websockets() passing jsonobject
         });
     });
-} /* end funciton */
+} /* end function */
 
 /* web socket stuff */
 function websockets(jsonobject) {

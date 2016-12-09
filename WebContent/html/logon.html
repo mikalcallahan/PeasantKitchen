@@ -4,39 +4,41 @@
 <head>
 	<meta charset="utf-8">
 	<title> logon </title>
-  	<link rel="stylesheet" href="../css/logon.css">
+	<link rel="stylesheet" href="../css/logon.css">
 	<script src="../js/logon.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 </head>
 
 <body>
 
-</br></br>
-<form id="logon" onsubmit="return false;">
-  <div class="imgcontainer">
-    <img src="../images_folder/Banner.png" alt="PKitchen" class="pkitchen">
-  </div>
+	<br>
+	<br>
+	<form id="logon" onsubmit="return false;">
+		<div class="imgcontainer">
+			<img src="../images_folder/Banner.png" alt="PKitchen" class="pkitchen">
+		</div>
 
-	<h2> Log-In </h2>
+		<h2> Log-In </h2>
 
-  <div class="container">
-    <label><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="username" required>
+		<div class="container">
+			<label><b>Username</b></label>
+			<input type="text" placeholder="Enter Username" name="username" required>
 
-    <label><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="password" required>
+			<label><b>Password</b></label>
+			<input type="password" placeholder="Enter Password" name="password" required>
 
-    <button type="submit" onclick="tojson()">Login</button>
-    <input type="checkbox" checked="checked"> Remember me
-  </div>
+			<button type="submit" onclick="tojson()">Login</button>
+			<input type="checkbox" checked="checked"> Remember me
+		</div>
 
-  <div class="container" style="background-color:#f1f1f1">
-    <button type="button" class="cancelbtn">Cancel</button>
-    <span class="psw">Forgot <a href="#">password?</a></span>
-  </div>
+		<div class="container" style="background-color:#f1f1f1">
+			<button type="button" class="cancelbtn">Cancel</button>
+			<span class="psw">Forgot <a href="#">password?</a></span>
+		</div>
 
-  <div id="button" class="createacct"> <a href="createaccount.html">Create Account</a></div>
-</form>
+		<div id="button" class="createacct"> <a href="createaccount.html">Create Account</a></div>
+	</form>
 
 </body>
+
 </html>

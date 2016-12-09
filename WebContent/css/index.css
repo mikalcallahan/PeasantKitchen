@@ -72,8 +72,12 @@ ul.menuBar.responsive li a {
     text-align: left;
 }
 
+html {
+    /*    background-color: darkGrey;*/
+}
+
 body {
-    background-color: darkGrey;
+    /*    background-color: darkGrey;*/
     color: inherit;
     /* min-width: 1800px;*/
     width: 100%;

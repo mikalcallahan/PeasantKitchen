@@ -10,24 +10,37 @@
 	<link rel="stylesheet" href="../css/createaccount.css">
 	<!-- link css sheet -->
 	<script src="../js/createaccount.js"></script>
-	<script src="../js/index.js"></script>
+	<!--<script src="../js/index.js"></script>-->
 	<!-- link js script if necessary -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 	<!-- send to localhost:8080/user/create -->
 </head>
 
 <body>
-	<div class="imgcontainer">
-		<!-- div class for imgcontainer -->
-		<img src="../images_folder/Banner.png" alt="PKitchen" class="pkitchen">
-		<!-- source to image -->
+	<div>
+		<!--Menu Bar-->
+		<ul class="menuBar" id="myMenuBar">
+			<li> <a class="active" href="index.html"> Home </a></li>
+			<li> <a href="recipes.html"> Top Recipes </a></li>
+			<li> <a href="aboutUs.html"> About Us </a> </li>
+			<li> <a href="contact.html"> Contact Us </a></li>
+			<li> <a href="logon.html"> login/Register </a></li>
+			<li class="icon">
+				<a href="javascript:void(0)" style="font-size:14px"> </a>
+			</li>
+		</ul>
 	</div>
-
-	<h3 id="title">Create Account </h3>
-	<!--title -->
-
+	<br><br>
 	<form id="createaccount" onsubmit="return false;">
 		<!-- class="createaccount" onsubmit="return false;" method="post"> create form -->
+		<div class="imgcontainer">
+			<!-- div class for imgcontainer -->
+			<img src="../images_folder/Banner.png" alt="PKitchen" class="pkitchen">
+			<!-- source to image -->
+		</div>
+
+		<h3 id="title">Create Account </h3>
+		<!--title -->
 		<div class="container">
 			<!-- create container class for container -->
 			<label><b> First Name </b></label>
@@ -52,6 +65,7 @@
 			<!--<button id="testbutton" type="submit" onclick="tojson()"> Comfirm </button> < submit button -->
 			<button id="testbutton" type="submit" onclick="tojson()"> Comfirm </button>
 		</div>
+		<div id="button" class="login"> <a href="logon.html">Login</a></div>
 	</form>
 
 	<br><br><br>
