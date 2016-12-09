@@ -29,7 +29,13 @@ public class SQLDatabaseController extends DatabaseController
     {
 
     }
-
+    /**
+     * Initiates Database connection.
+     *
+     * @param none
+     * @return dbConnection
+     * @throws ClassNotFoundException
+     */
     private Connection getDBConnection()
     {
 
@@ -244,7 +250,13 @@ public class SQLDatabaseController extends DatabaseController
 
         return ingredientId;
     }
-
+    /**
+     * Gets recipes containing with any ingredient in list.
+     *
+     * @param cleanedIngredients the temp recipe
+     * @return the Recipes
+     * @throws Exception
+     */
     public Recipes getRecipesContainingIngredients(ArrayList<String> cleanedIngredients)
     {
         String ingredient = null;
@@ -269,7 +281,13 @@ public class SQLDatabaseController extends DatabaseController
 
         return recipes;
     }
-
+/**
+     * Gets recipes with only ingredients in list.
+     *
+     * @param cleanedIngredients the temp recipe
+     * @return Recipes
+     * @throws Exception
+     */
     public Recipes getRecipesWithOnlyTheseIngredients(ArrayList<String> cleanedIngredients) throws Exception
     {
         String ingredient = null;
@@ -303,12 +321,10 @@ public class SQLDatabaseController extends DatabaseController
                         }
                     }
                 }
-                //if the above loop is exited without finding a does not contain
-                //then the recipe contains all the ingredients and can be returned as such
+                
                 if (contains == true)
                 {
-                    //System.out.println(tempRec.recipeName + " contains all ingredients");
-                    containsRec = tempRec;
+                  containsRec = tempRec;
                 }
             }
             if (!containsRec.recipeName.equals(""))
@@ -326,7 +342,13 @@ public class SQLDatabaseController extends DatabaseController
 
     }
 
-
+    /**
+     * Gets user info.
+     *
+     * @param username 
+     * @return the user object
+     * @throws SQLException the sql exception
+     */
     public User getUser(String username) throws SQLException
     {
         Connection dbConnection = null;
@@ -377,7 +399,13 @@ public class SQLDatabaseController extends DatabaseController
 
         return user;
     }
-
+    /**
+     * Gets create 
+     *
+     * @param tempUserObject 
+     * @return the user object
+     * @throws SQLException the sql exception
+     */
     public synchronized User createUser(User tempUserObject)
     {
         Connection dbConnection = null;
@@ -407,8 +435,14 @@ public class SQLDatabaseController extends DatabaseController
         }
         return tempUserObject;
     }
-
-    private User deleteUser(User tempUserObject) throws SQLException
+    /**
+     * Gets delete user info.
+     *
+     * @param tempUserObject 
+     * @return the user object
+     * @throws SQLException the sql exception
+     */
+    public User deleteUser(User tempUserObject) throws SQLException
     {
         Connection dbConnection = null;
         PreparedStatement preparedStatement = null;
@@ -494,7 +528,13 @@ public class SQLDatabaseController extends DatabaseController
         return tempUserObject;
 
     }
-
+/**
+     * Updates user signed in field.
+     *
+     * @param username 
+     * @return the user object
+     * @throws SQLException the sql exception
+     */
     public User signInUser(String username) throws SQLException
     {
         Connection dbConnection = null;
@@ -535,7 +575,13 @@ public class SQLDatabaseController extends DatabaseController
         }
         return user;
     }
-
+    /**
+     * Updates user signed out 
+     *
+     * @param username 
+     * @return the user object
+     * @throws SQLException the sql exception
+     */
     public User signOutUser(String username) throws SQLException
     {
         Connection dbConnection = null;
@@ -575,7 +621,13 @@ public class SQLDatabaseController extends DatabaseController
         }
         return user;
     }
-
+    /**
+     * converts string to boolean
+     *
+     * @param string 
+     * @return the boolean
+     * @throws SQLException the sql exception
+     */
     private Boolean convertString(String string)
     {
         return string != "0";
