@@ -15,15 +15,7 @@ function createTable() {
     //alert(ingredientsstr);
 }
 
-$(function() {
-    $("#cleartable").click(function() {
-        $("#ingrTable").empty();
-    });
-});
-
-
 /* add to the table when a quantity is entered */
-/*
 function createTable1() {
     var ingredientsamt = document.getElementById("amtTable");
     var row1 = ingredientsamt.insertRow(0);
@@ -31,7 +23,7 @@ function createTable1() {
     var entry = document.getElementById("numberof").value;
     cell1.innerHTML = entry;
     ingredientsAmount.push(entry);
-}*/
+}
 
 
 function submitIngredients() {
@@ -70,36 +62,38 @@ function websockets(jsonobject) {
         // Let us open a web socket
         var ws = new WebSocket("ws://localhost:8080/PeasantKitchen/recipes");
 
-        ws.onopen = function() {
+        ws.onopen = function () {
             // Web Socket is connected, send data using send()
             alert("Message is sent...");
             ws.send(jsonobject);
         };
 
-        ws.onmessage = function(evt) {
+        ws.onmessage = function (evt) {
             //fields: response, error
             //    alert("Response");
             //        alert(evt.data);
 
-            var response = JSON.parse(evt.data);
+            var webSocketResponse = JSON.parse(evt.data);
 
-            var responseObject = response.response;
-            var error = response.error;
+            //var responseObject = response.response;
+            //var error = response.error;
+            var error = webSocketResponse.error;
 
-            alert(JSON.stringify(response));
+            window.setTimeout(function() {
+                if (error === null || error === undefined || error === "" || error === "\"\"") {
+                    var recipes = JSON.parse(webSocketResponse.response);
 
-            if (error === null || error === undefined || error === "" || error === "\"\"") {
-                alert(JSON.stringify(responseObject));
-                alert(JSON.stringify(responseObject.recipes));
+                    populateCurrentRecipesObject(recipes.recipes);
+                    displayRecipes(recipes.recipes);
+                }
+                else
+                    alert(JSON.stringify(error));
+                }, 1000);
 
-                populateCurrentRecipesObject(responseObject);
-                displayRecipes(responseObject);
-            } else
-                alert(error);
 
         };
 
-        ws.onclose = function() {
+        ws.onclose = function () {
             // websocket is closed.
             //        alert("Connection is closed...");
         };
@@ -116,10 +110,12 @@ function displayRecipes(recipes) {
 
     var recipesGrid = document.getElementById("recipesGrid");
 
-    if (recipesGrid === null || recipesGrid === undefined)
+    if(recipesGrid === null || recipesGrid === undefined)
         alert("Failed to located the recipesGrid div!");
 
     var recipesPerRow = chunk(recipes, 8);
+
+    alert(JSON.stringify(recipesPerRow));
 
     populateRecipeGrid(recipesPerRow, recipesGrid);
 
@@ -129,7 +125,10 @@ function displayRecipes(recipes) {
 
     function chunk(array, chunkSize) {
         var totalChunks = Math.ceil(array.length / chunkSize);
-        var chunks = new Array(totalChunks);
+
+
+        var chunks = [];
+
         var beginningOfChunk = 0;
         var endOfChunk = chunkSize;
         var chunkCount = 0;
@@ -143,7 +142,9 @@ function displayRecipes(recipes) {
         }
 
         if (chunkCount < totalChunks)
-            chunks.push(array.slice(beginningOfChunk, array.length))
+            chunks.push(array.slice(beginningOfChunk, array.length));
+
+        return chunks;
     }
 
     function populateRecipeGrid(recipesPerRow, recipesGrid) {
@@ -160,7 +161,6 @@ function displayRecipes(recipes) {
 
         function attachDiv(className, parentElement) {
             var div = document.createElement("div");
-            //div.className = className;
 
             div.setAttribute("className", className);
 
@@ -169,7 +169,7 @@ function displayRecipes(recipes) {
         }
 
         function attachColumn(recipe, parentElement) {
-            var column = attachDiv("div", "column", parentElement);
+            var column = attachDiv("column", parentElement);
 
             attachPElement(recipe.recipeName, column);
             attachImageElement(recipe.recipeThumbnailFilename, column);
@@ -191,7 +191,12 @@ function displayRecipes(recipes) {
         function attachImageElement(imageLocation, parentElement) {
             var imgElement = document.createElement("img");
 
-            imgElement.setAttribute("src", imageLocation);
+            //http://static.boredpanda.com/blog/wp-content/uploads/2015/09/zen-foxes-roeselien-raimond-3__880.jpg
+            if(imageLocation === null || imageLocation === undefined)
+                imgElement.setAttribute("src", "http://static.boredpanda.com/blog/wp-content/uploads/2015/09/zen-foxes-roeselien-raimond-3__880.jpg");
+            else
+                imgElement.setAttribute("src", imageLocation);
+
             imgElement.setAttribute("alt", "");
             imgElement.setAttribute("className", "thumbnail");
 
@@ -203,6 +208,7 @@ function displayRecipes(recipes) {
 
 function populateCurrentRecipesObject(recipes) {
     //clear the 'old' recipes
+
     window.currentRecipes = {};
     var key;
 
@@ -262,7 +268,8 @@ function signOutWebSocket(jsonobject) {
 
             if (error === null || error === undefined) {
 
-            } else
+            }
+            else
                 alert(error);
 
             return "";
