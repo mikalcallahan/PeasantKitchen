@@ -85,14 +85,8 @@ form {
     align-items: center;
 }
 
-td {
-    /*border: 1px solid black;*/
-    word-wrap: break-word;
-    width: 100%;
-}
-
 .ingredientsbox {
-    display: table;
+    /*display: table;*/
     width: 95%;
     margin: 0px auto;
     /*align-items: center;*/
@@ -119,18 +113,26 @@ td {
     height: 200px;
     width: 50%;
     vertical-align: top;
+    display: table;
+    position: fixed;
     /*margin: 0px auto;*/
 }
 
 #ingrTable {
-    display: inline;
-    table-layout: fixed;
+    /*display: inline;*/
+    /*table-layout: fixed;*/
     word-wrap: break-word;
+    width: 100%;
 }
 
-.ingredeientsinsert {
-    display: inline-block;
-    padding-right: 10px;
+td {
+    /*border: 1px solid black;*/
+    word-wrap: break-word;
+    width: 100%;
+}
+
+tr {
+    width: 100%;
 }
 
 #foods {
@@ -147,11 +149,15 @@ td {
     opacity: 0.8;
 }
 
-#ingredientsAdd {}
+#ingredientsSubmit {
+    display: inline-table;
+    position: absolute;
+}
 
 .openmodalbutton {
-    display: block;
-    align-items: center;
+    /*align-items: center;*/
+    float: right;
+    padding-right: 3%;
     width: 80%;
 }
 
@@ -159,12 +165,3 @@ td {
     padding-left: 20%;
     text-align: center;
 }
-
-
-/*
-a[data-reveal-id] h3 {
-    color: black;
-}
-*/
-
-*/

@@ -15,7 +15,15 @@ function createTable() {
     //alert(ingredientsstr);
 }
 
+$(function() {
+    $("#cleartable").click(function() {
+        $("#ingrTable").empty();
+    });
+});
+
+
 /* add to the table when a quantity is entered */
+/*
 function createTable1() {
     var ingredientsamt = document.getElementById("amtTable");
     var row1 = ingredientsamt.insertRow(0);
@@ -23,7 +31,7 @@ function createTable1() {
     var entry = document.getElementById("numberof").value;
     cell1.innerHTML = entry;
     ingredientsAmount.push(entry);
-}
+}*/
 
 
 function submitIngredients() {
@@ -62,13 +70,13 @@ function websockets(jsonobject) {
         // Let us open a web socket
         var ws = new WebSocket("ws://localhost:8080/PeasantKitchen/recipes");
 
-        ws.onopen = function () {
+        ws.onopen = function() {
             // Web Socket is connected, send data using send()
             alert("Message is sent...");
             ws.send(jsonobject);
         };
 
-        ws.onmessage = function (evt) {
+        ws.onmessage = function(evt) {
             //fields: response, error
             //    alert("Response");
             //        alert(evt.data);
@@ -86,13 +94,12 @@ function websockets(jsonobject) {
 
                 populateCurrentRecipesObject(responseObject);
                 displayRecipes(responseObject);
-            }
-            else
+            } else
                 alert(error);
 
         };
 
-        ws.onclose = function () {
+        ws.onclose = function() {
             // websocket is closed.
             //        alert("Connection is closed...");
         };
@@ -109,7 +116,7 @@ function displayRecipes(recipes) {
 
     var recipesGrid = document.getElementById("recipesGrid");
 
-    if(recipesGrid === null || recipesGrid === undefined)
+    if (recipesGrid === null || recipesGrid === undefined)
         alert("Failed to located the recipesGrid div!");
 
     var recipesPerRow = chunk(recipes, 8);
@@ -255,8 +262,7 @@ function signOutWebSocket(jsonobject) {
 
             if (error === null || error === undefined) {
 
-            }
-            else
+            } else
                 alert(error);
 
             return "";
